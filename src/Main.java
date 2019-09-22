@@ -81,6 +81,10 @@ public class Main {
         return game;
     }
 
+    public static GameScreen returnFrame(){
+        return game_screen;
+    }
+    
     public static Global returnGlobal(){
         return global;
     }

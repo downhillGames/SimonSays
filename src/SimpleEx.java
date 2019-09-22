@@ -16,8 +16,11 @@ public class SimpleEx extends JPanel
         Init();
     }
 	
-	public int buttns_pressd[] = new int [50]; 
+	public static int buttns_pressd[] = new int [50]; 
 	public int button_pressed_index = 0;
+	static JButton done_button;
+	static long time_begin = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+	static long clock_timer = time_begin;
 	
 	static int map_from_obj[] = new int [27]; 
 
@@ -42,54 +45,73 @@ public class SimpleEx extends JPanel
   }
 
   
-  public static void clickRandomBlack(JButton[] inArray)
+  public static void clickRandomBlock(JButton[] inArray)
   {
 	  int randomBlock = ThreadLocalRandom.current().nextInt(1, 8 + 1);
-	  inArray[randomBlock].setBackground(Color.WHITE);
-	  try {
-		TimeUnit.SECONDS.sleep(2);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	  inArray[randomBlock].setBackground(Color.BLUE);
-	  try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  //int randomBlock = ThreadLocalRandom.current().nextInt(1, 8 + 1);
-	  //inArray[randomBlock].setEnabled(true);
-	  //inArray[randomBlock].doClick(1000);
+	  inArray[randomBlock].setEnabled(true);
+	  inArray[randomBlock].doClick();
   }
+  
+  public void hit(JButton[] inArray)
+	{
+		  
+	  		int hits = 0;
+	  			while (hits < 1) {
+			  if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime()) - clock_timer >= 2)
+			  {
+				  //Main.returnFrame().repaint();
+				  int randomBlock = ThreadLocalRandom.current().nextInt(1, 8 + 1);
+				  //inArray[randomBlock].setBackground(Color.WHITE);
+				  inArray[randomBlock].doClick(1000);
+				  clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+				  hits++;
+			  }
+	  		}
+		  
+		  }
   
   
 	public void delay(JButton[] inArray)
 	{
 		  
-		  System.out.println(inArray[0]);
+		int hits = 0;
+		int step = 0;
 		 
-		  
-		 
-		
-		for (int i = 0; i < Main.returnGlobal().level ; i ++){
-			//clickRandomBlack(inArray);
-			}
-		  
-		  
-		  
-		  
-		  
-		  for (int i = 1; i < 9; i++)
-		  {
-			  inArray[i].setEnabled(true); 
+		  while (hits < Main.returnGlobal().level) {
+			 if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime()) - clock_timer >= 5)
+			  {
+				 if (step == 1)
+				 {
+					 inArray[5].setBackground(Color.WHITE);
+					 step = 2;
+					 clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+				 }
+				 else if (step == 2)
+				 {
+					 inArray[5].setBackground(Color.BLUE);
+					 step = 2;
+					 clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+					 hits++;
+				 }
+				 else if (step == 3)
+				 {
+					 clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+					 step = 1;
+				 }
+				 
+				 }
+			  }
 		  }
-		  //inArray[0].setEnabled(true);
-		  //inArray[0].doClick(1000);
-		  //inArray[0].setEnabled(false); 
-	}
-   
+		  
+		 
+
+  public void createDoneButton() { 
+	done_button = new JButton("");
+    done_button .setSize(300, 30);
+    done_button.setLocation(300, 550);
+    done_button.addActionListener(new submitbutton());
+    add(done_button);
+  }
 	//JButton[]
     public void displayGUI()
     {
@@ -100,9 +122,7 @@ public class SimpleEx extends JPanel
         
 
         //JPanel contentPane = new JPanel();
-        JButton done_button = new JButton("");
-        done_button .setSize(300, 30);
-        done_button.setLocation(300, 550);
+   
         
         for (int i = 1; i < 10; i++)
         {
@@ -119,15 +139,37 @@ public class SimpleEx extends JPanel
                
         }
         
-        done_button.addActionListener(new submitbutton());
-        add(done_button);
-        
-
-
+        //createDoneButton();
+      
+        /*
+        for (int i = 0; i < Main.returnGlobal().level; i++)
+        {
         //button.setEnabled(false);
-       // EventQueue.invokeLater(() -> {	
-		delay(outArray);
-        //});
+       EventQueue.invokeLater(() -> {	
+    	   //delay(outArray);
+    	   hit(outArray);
+        });
+    }*/
+        clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+        Thread t= new Thread (new Runnable() {
+        	public void run() {
+        		try 
+        		{	
+        		for (int i = 0; i < Main.returnGlobal().level; i++)
+                {
+        			hit(outArray);
+                }
+        	}
+        	finally
+        	{
+        		createDoneButton();
+        	}
+        	    //Main.returnGame().createDoneButton();
+        	}
+        });
+       t.start();
+       
+       
         //outArray[0] = button;
         //outArray[1] = button2;
         //System.out.println(outArray[0]);

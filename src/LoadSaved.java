@@ -5,8 +5,9 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class LoadSaved extends JPanel {
+	private static final long serialVersionUID = -8923935057048374975L;
 
-    public LoadSaved() {
+	public LoadSaved() {
       
         initUI();
     }

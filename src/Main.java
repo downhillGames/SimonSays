@@ -1,7 +1,7 @@
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 import java.awt.EventQueue;
 import javax.swing.*;
-import java.io.*;
+//import java.io.*;
 
 
 public class Main {
@@ -63,18 +63,16 @@ public class Main {
       map = new Map();
       game = new SimpleEx(map);
       game.button_pressed_index = 0;
+      game.computer_pressed_index = 0;
       for (int i=0; i< 50; i++)
       {
         game.buttns_pressd[i] = 0;
+        game.computer_pressed[i] = 0;
       }
-      
-      EventQueue.invokeLater(() -> {
       game_screen.setVisible(false);
       game_screen.remove(win);
-      game_screen.add(game);
-      game_screen.setVisible(true);
-      game.displayGUI();
-      });
+      game_screen.remove(lost);
+      StartGame();
     }
 
     public static SimpleEx returnGame(){

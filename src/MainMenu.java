@@ -1,11 +1,12 @@
-import java.awt.EventQueue;
-import javax.swing.JFrame;
+//import java.awt.EventQueue;
+//import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
 public class MainMenu extends JPanel {
 
-    static int lives = 6;
+	private static final long serialVersionUID = -7892106385327845406L;
+	static int lives = 6;
     public MainMenu() {
       
         initUI();

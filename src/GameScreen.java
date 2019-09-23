@@ -2,6 +2,7 @@
 //import java.awt.EventQueue;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class GameScreen extends JFrame {
 
     public GameScreen() {
@@ -12,7 +13,7 @@ public class GameScreen extends JFrame {
     private void initUI() {
 
         setTitle("Game");
-        setSize(650, 650);
+        setSize(1200, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

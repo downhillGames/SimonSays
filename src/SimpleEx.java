@@ -1,6 +1,4 @@
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.*;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit;
 
 
+@SuppressWarnings("serial")
 public class SimpleEx extends JPanel
 {	 
   static Map map;            
@@ -16,10 +15,12 @@ public class SimpleEx extends JPanel
         Init();
     }
 	
-	public static int buttns_pressd[] = new int [50]; 
+	public int buttns_pressd[] = new int [50];
+	public int computer_pressed[] = new int [50]; 
 	public int button_pressed_index = 0;
+	public int computer_pressed_index = 0;
 	static JButton done_button;
-	static long time_begin = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+	static long time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
 	static long clock_timer = time_begin;
 	
 	static int map_from_obj[] = new int [27]; 
@@ -28,9 +29,9 @@ public class SimpleEx extends JPanel
   {
     
     boolean flag = false;
-    for (int i = 0; i < (button_pressed_index /2) -1 ; i++)
+    for (int i = 0; i < 50 ; i++)
     {
-      if (buttns_pressd[i] != buttns_pressd[i + Main.returnGlobal().level])
+      if (buttns_pressd[i] != computer_pressed[i])
       {
         flag = true;
       }
@@ -56,14 +57,18 @@ public class SimpleEx extends JPanel
 	{
 		  
 	  		int hits = 0;
-	  			while (hits < 1) {
-			  if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime()) - clock_timer >= 2)
+	  			while (hits <  Main.returnGlobal().level) {
+			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= Main.returnGlobal().speed)
 			  {
-				  //Main.returnFrame().repaint();
+				  Main.returnGlobal().computer_playing = true;
 				  int randomBlock = ThreadLocalRandom.current().nextInt(1, 8 + 1);
 				  //inArray[randomBlock].setBackground(Color.WHITE);
+				  inArray[randomBlock].setEnabled(true);
+				  java.awt.Toolkit.getDefaultToolkit().beep();
 				  inArray[randomBlock].doClick(1000);
-				  clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+				  inArray[randomBlock].setEnabled(false);
+				  clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+				  Main.returnGlobal().computer_playing = false;
 				  hits++;
 			  }
 	  		}
@@ -71,57 +76,40 @@ public class SimpleEx extends JPanel
 		  }
   
   
-	public void delay(JButton[] inArray)
+		  
+
+	
+	public void activateAllButtons(JButton[] inArray)
 	{
-		  
-		int hits = 0;
-		int step = 0;
-		 
-		  while (hits < Main.returnGlobal().level) {
-			 if (TimeUnit.NANOSECONDS.toSeconds(System.nanoTime()) - clock_timer >= 5)
-			  {
-				 if (step == 1)
-				 {
-					 inArray[5].setBackground(Color.WHITE);
-					 step = 2;
-					 clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
-				 }
-				 else if (step == 2)
-				 {
-					 inArray[5].setBackground(Color.BLUE);
-					 step = 2;
-					 clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
-					 hits++;
-				 }
-				 else if (step == 3)
-				 {
-					 clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
-					 step = 1;
-				 }
-				 
-				 }
-			  }
-		  }
-		  
-		 
+		for (int i = 1; i < inArray.length ; i++)
+		{
+			inArray[i].setEnabled(true);
+		}
+	}
 
   public void createDoneButton() { 
-	done_button = new JButton("");
-    done_button .setSize(300, 30);
-    done_button.setLocation(300, 550);
-    done_button.addActionListener(new submitbutton());
-    add(done_button);
+	  int hit = 0;
+		while (hit <  1) {
+		  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= 1000)
+		  {
+  		done_button = new JButton("Submit");
+  	    done_button.setSize(100, 30);
+  	    done_button.setLocation(550, 625);
+  	    done_button.addActionListener(new submitbutton());
+  	    add(done_button);
+  	    repaint();
+		  	hit++;
+		  }
+		  
+		}
   }
-	//JButton[]
+
     public void displayGUI()
     {
-      //this.setOpaque(true);
-      //this.setBackground(Color.WHITE);
-      //this.setLayout(null);
+
     	JButton outArray[] = new JButton[10];
         
 
-        //JPanel contentPane = new JPanel();
    
         
         for (int i = 1; i < 10; i++)
@@ -133,51 +121,31 @@ public class SimpleEx extends JPanel
                outArray[i] = button;
                
                button.addActionListener(new gameButton(map_from_obj[(i *3) - 3]));
-               
+               button.setEnabled(false);
                add(button);
                
                
         }
         
-        //createDoneButton();
-      
-        /*
-        for (int i = 0; i < Main.returnGlobal().level; i++)
-        {
-        //button.setEnabled(false);
-       EventQueue.invokeLater(() -> {	
-    	   //delay(outArray);
-    	   hit(outArray);
-        });
-    }*/
-        clock_timer = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime());
+        clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
         Thread t= new Thread (new Runnable() {
         	public void run() {
         		try 
         		{	
-        		for (int i = 0; i < Main.returnGlobal().level; i++)
-                {
-        			hit(outArray);
-                }
-        	}
+        		hit(outArray);
+  
+        	 }
         	finally
         	{
+        		System.out.println("hit");
         		createDoneButton();
+        		activateAllButtons(outArray);
         	}
-        	    //Main.returnGame().createDoneButton();
+        		
         	}
         });
        t.start();
-       
-       
-        //outArray[0] = button;
-        //outArray[1] = button2;
-        //System.out.println(outArray[0]);
-        
-	//return outArray;
-	
-	
-
+      
      
     }
 
@@ -185,12 +153,9 @@ public class SimpleEx extends JPanel
     {
        
         Map newmap = map;
-				newmap.createMap(); 
-				map_from_obj = newmap.getMap_array();
-        //outArry = displayGUI();
-        //System.out.println(outArry[0]);
-        //Systen(outArry[0]);
-        //delay(outArry);
+		newmap.createMap(); 
+		map_from_obj = newmap.getMap_array();
+
     }
     
     // getters and setters

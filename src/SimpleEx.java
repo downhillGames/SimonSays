@@ -20,8 +20,8 @@ public class SimpleEx extends JPanel
 	public int button_pressed_index = 0;
 	public int computer_pressed_index = 0;
 	static JButton done_button;
-	static long time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
-	static long clock_timer = time_begin;
+	long time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+	long clock_timer = time_begin;
 	
 	static int map_from_obj[] = new int [27]; 
 

@@ -3,6 +3,8 @@
 
 public class Global {
 
+	public String name; 
+	public boolean newGame = true;
     public double gametime = 0;
     public int level = 2;
     public boolean computer_playing = false;

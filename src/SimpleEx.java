@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+
 import javax.swing.*;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,6 +27,7 @@ public class SimpleEx extends JPanel
 	
 	static int map_from_obj[] = new int [27]; 
 
+	
   public void checkArray()
   {
     

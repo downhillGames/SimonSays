@@ -1,6 +1,13 @@
 //import java.util.concurrent.TimeUnit;
 import java.awt.EventQueue;
-import java.text.DecimalFormat;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 //import java.io.*;
@@ -15,9 +22,56 @@ public class Main {
   static Global global = new Global();
   static SimpleEx game = new SimpleEx(map);
   static WinScreen win = new WinScreen();
+  static NewSaveScreen newSave = new NewSaveScreen();
   static LostScreen lost = new LostScreen();
   static JButton outArry[] = new JButton[9];
   static int lives = 17;
+  //static Object saves_obj;
+  static JSONArray jsonArray;
+  
+  public static void createSavesObj() {
+	  JSONParser jsonParser = new JSONParser();
+		
+	  try {
+		Object saves_obj = jsonParser.parse(new FileReader("saves.json"));
+		jsonArray = (JSONArray)saves_obj;
+	} catch (IOException | ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  
+	  
+  }
+  
+  
+  @SuppressWarnings("unchecked")
+public static void  appendToSaves(String username, int high_level, int total_time, String stuff) {
+	  
+	  JSONObject newplayer = new JSONObject();
+	  newplayer.put( "user_name", username );
+	  newplayer.put( "highlevel", high_level );
+  }
+	
+  public static void checkForSaveFile()
+  {
+	  File saves = new File("saves.json");
+	  
+	  if ( !saves.exists())
+	  {
+		  System.out.println("save doesnt exist");
+		  try {
+			saves.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  }
+	  else
+	  {
+		  System.out.println("save exists!!");
+	  }
+  }
+  
   public static void main(String[] args) {
 
        EventQueue.invokeLater(() -> {
@@ -30,18 +84,20 @@ public class Main {
             //menu.main();
             //menu.setVisible(true);
             game_screen.add(menu);
+            checkForSaveFile();
             game_screen.setVisible(true);
             
             
         });
     }
 
+ 
   
     public static void StartGame(){
     	
     	EventQueue.invokeLater(() -> {
     		  game_screen.setVisible(false);
-              game_screen.remove(menu);
+              game_screen.remove(newSave);
       
               game_screen.add(game);
               game_screen.setVisible(true);
@@ -74,6 +130,7 @@ public class Main {
       game_screen.setVisible(false);
       game_screen.remove(win);
       game_screen.remove(lost);
+      game_screen.remove(game);
       StartGame();
     }
 
@@ -89,6 +146,19 @@ public class Main {
         return global;
     }
 
+    public static NewSaveScreen returnNewSaveScreen(){
+        return newSave;
+    }
+    public static void PlayNewSaveMenu()
+    {
+    EventQueue.invokeLater(() -> {
+	      game_screen.setVisible(false); 
+	      game_screen.remove(menu);
+	      game_screen.add(newSave);
+	      game_screen.setVisible(true);
+    	});
+    }
+    
     public static void PlayLose()
     {
       System.out.println("Player lost");

@@ -22,6 +22,7 @@ public class Main {
   static Global global = new Global();
   static SimpleEx game = new SimpleEx(map);
   static WinScreen win = new WinScreen();
+  static PauseScreen pause = new PauseScreen();
   static NewSaveScreen newSave = new NewSaveScreen();
   static LostScreen lost = new LostScreen();
   static JButton outArry[] = new JButton[9];
@@ -130,7 +131,7 @@ public static void  appendToSaves(String username, int high_level, int total_tim
       game_screen.setVisible(false);
       game_screen.remove(win);
       game_screen.remove(lost);
-      game_screen.remove(game);
+      game_screen.remove(pause);
       StartGame();
     }
 
@@ -158,6 +159,16 @@ public static void  appendToSaves(String username, int high_level, int total_tim
 	      game_screen.setVisible(true);
     	});
     }
+   
+    
+    public static void PlayPause()
+    {
+      game_screen.setVisible(false); 
+      game_screen.remove(game);
+      game_screen.add(pause);
+      game_screen.setVisible(true);
+    }
+
     
     public static void PlayLose()
     {

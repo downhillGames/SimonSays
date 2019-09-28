@@ -25,15 +25,26 @@ public class GameScreen extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         
-        /*
+       
         addWindowStateListener(new WindowStateListener() {
-            if(this.getState()==1){//this means minimized
-                System.out.println("min");
-             }else if(this.getState()==0){//this means maximized/normal state
-            	 System.out.println("norm");
-             };
+            
+			@Override
+			public void windowStateChanged(WindowEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getNewState() ==1){//this means minimized
+	                System.out.println("min");
+	                if (Main.returnGame().getParent() != null)
+	                {
+	                	System.out.println(Main.returnGame().getParent());
+		                Main.PlayPause();
+	                }
+	             }else if(e.getNewState()==0){//this means maximized/normal state
+	            	 System.out.println("norm");
+	            	// notify();
+	            	 //Main.readyGame();
+	             }
+			} });
         
-        */
         
     }
     

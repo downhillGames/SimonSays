@@ -3,7 +3,9 @@ import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
@@ -36,6 +38,7 @@ public class Main {
 	  try {
 		Object saves_obj = jsonParser.parse(new FileReader("saves.json"));
 		jsonArray = (JSONArray)saves_obj;
+		System.out.println(jsonArray);
 	} catch (IOException | ParseException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -44,13 +47,55 @@ public class Main {
 	  
   }
   
-  
+  public static int loadGame(String name)
+  {
+	  int foundUser = -1;
+	 
+	  for (int i = 0; i < jsonArray.size(); i++)
+	  {
+		  if (((HashMap) jsonArray.get(i)).containsValue("Ty"))
+		  {
+			  foundUser = i;
+			  returnGlobal().loadGamePosition = i;
+		  }
+	  }
+	  
+	  return foundUser;
+  }
+
   @SuppressWarnings("unchecked")
-public static void  appendToSaves(String username, int high_level, int total_time, String stuff) {
+public static void  appendToSaves() {
 	  
 	  JSONObject newplayer = new JSONObject();
-	  newplayer.put( "user_name", username );
-	  newplayer.put( "highlevel", high_level );
+	  newplayer.put( "user_name", returnGlobal().name );
+	  newplayer.put( "birthdate", returnGlobal().birthdate );
+	  newplayer.put( "city", returnGlobal().city );
+	  newplayer.put( "state", returnGlobal().state );
+	  newplayer.put( "zip_code", returnGlobal().zip_code );
+	  newplayer.put( "country", returnGlobal().country);
+	  newplayer.put( "highlevel", returnGlobal().high_level );
+	  newplayer.put( "diagnosis", returnGlobal().diagnosis );
+	  newplayer.put( "total_gametime", returnGlobal().total_gametime );
+	  jsonArray.add(newplayer);
+	  
+	  //newplayer.replace("birthdate", returnGlobal().birthdate , "I THINK IT WORKED");
+	  
+	  System.out.println(loadGame("Ty"));
+	  
+
+	FileWriter save_file;
+	try {
+		save_file = new FileWriter("saves.json");
+		save_file.write(jsonArray.toJSONString());
+		save_file.flush();
+		save_file.close();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  
+	  
+	  
   }
 	
   public static void checkForSaveFile()
@@ -62,6 +107,7 @@ public static void  appendToSaves(String username, int high_level, int total_tim
 		  System.out.println("save doesnt exist");
 		  try {
 			saves.createNewFile();
+			jsonArray = new JSONArray();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,25 +116,24 @@ public static void  appendToSaves(String username, int high_level, int total_tim
 	  else
 	  {
 		  System.out.println("save exists!!");
+		  if (saves.length() != 0)
+		  {
+			  createSavesObj();
+		  }
+		  else
+		  {
+			  jsonArray = new JSONArray();
+		
+		  }
 	  }
   }
   
   public static void main(String[] args) {
 
        EventQueue.invokeLater(() -> {
-            //var game = new Game();
-             
-            //final var global = new Global();
-            //menu = new MainMenu();
-           // win = new WinScreen();
-            //var menu = new MainMenu();  
-            //menu.main();
-            //menu.setVisible(true);
             game_screen.add(menu);
             checkForSaveFile();
             game_screen.setVisible(true);
-            
-            
         });
     }
 
@@ -117,6 +162,36 @@ public static void  appendToSaves(String username, int high_level, int total_tim
     
     }
 
+    public static void returnToMenu()
+    {
+    	 game_screen.setVisible(false);
+         game_screen.remove(lost);
+         game_screen.remove(game);
+         readyGameNoStart();
+         //game_screen.revalidate();
+         main(null);
+         //game_screen.add(menu);
+         //checkForSaveFile();
+         //game_screen.setVisible(true);
+    }
+    
+    
+    public static void readyGameNoStart()
+    {
+      map = new Map();
+      game = new SimpleEx(map);
+      game.button_pressed_index = 0;
+      game.computer_pressed_index = 0;
+      for (int i=0; i< 50; i++)
+      {
+        game.buttns_pressd[i] = 0;
+        game.computer_pressed[i] = 0;
+      }
+      game_screen.remove(win);
+      game_screen.remove(lost);
+      game_screen.remove(pause);
+    }
+    
     public static void readyGame()
     {
       map = new Map();
@@ -170,13 +245,34 @@ public static void  appendToSaves(String username, int high_level, int total_tim
     }
 
     
-    public static void PlayLose()
+    @SuppressWarnings("unchecked")
+	public static void PlayLose()
     {
       System.out.println("Player lost");
       game_screen.setVisible(false); 
       game_screen.remove(game);
       game_screen.add(lost);
       game_screen.setVisible(true);
+      returnGlobal().total_gametime +=  returnGlobal().gametime;
+      if (returnGlobal().newGame)
+      {
+    	  returnGlobal().high_level = returnGlobal().level;
+    	  if (returnGlobal().high_level < 5)
+    	  {
+    		  returnGlobal().diagnosis = "Likely AD";
+    	  }
+    	  else
+    	  {
+    		  returnGlobal().diagnosis = "Likely not AD"; 
+    	  }
+    	  appendToSaves();
+    	  
+      }
+      else
+      {
+    	((HashMap) jsonArray.get(0)).replace("total_gametime", (returnGlobal().total_gametime - returnGlobal().gametime) , returnGlobal().total_gametime);
+		 
+      }
     }
 
     public static void PlayWin(){

@@ -47,16 +47,16 @@ public class NewSaveScreen extends JPanel implements ActionListener {
     }
 
     private void initUI() {
-    	Border gf = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
-    	Border border = BorderFactory.createMatteBorder(0, 0, 10, 0, Main.returnFrame().getBackground());
+    	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
+    	//Border border = BorderFactory.createMatteBorder(0, 0, 10, 0, Main.returnFrame().getBackground());
     	
-    	nameField = createInputArea("Name: ", 110, gf, nameField);
-    	birthdateField = createInputArea("Birth Date: ", 110, gf, birthdateField);
-    	adressField = createInputArea("Street Address: ", 105, gf, adressField);
-    	cityField =createInputArea("City: ", 110, gf, cityField);
-    	stateField = createInputArea("State: ", 110, gf, stateField);
-    	zipField = createInputArea("Zip Code: ", 110 , gf, zipField);
-    	countryField = createInputArea("Country: ", 110 , gf, countryField);
+    	nameField = createInputArea("Name: ", 110, border, nameField);
+    	birthdateField = createInputArea("Birth Date: ", 110, border, birthdateField);
+    	adressField = createInputArea("Street Address: ", 105, border, adressField);
+    	cityField =createInputArea("City: ", 110, border, cityField);
+    	stateField = createInputArea("State: ", 110, border, stateField);
+    	zipField = createInputArea("Zip Code: ", 110 , border, zipField);
+    	countryField = createInputArea("Country: ", 110 , border, countryField);
         
     	
 
@@ -82,6 +82,30 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		if (nameField.getText().equals("") )
 		{
 			printError("You did not enter a name!");
+		}
+		else if (birthdateField.getText().equals("") )
+		{
+			printError("You did not enter a birth date!");
+		}
+		else if (adressField.getText().equals("") )
+		{
+			printError("You did not enter an address!");
+		}
+		else if (cityField.getText().equals("") )
+		{
+			printError("You did not enter a city!");
+		}
+		else if (stateField.getText().equals("") )
+		{
+			printError("You did not enter a state!");
+		}
+		else if (zipField.getText().equals("") )
+		{
+			printError("You did not enter a zip code!");
+		}
+		else if (countryField.getText().equals("") )
+		{
+			printError("You did not enter a country!");
 		}
 		else
 		{

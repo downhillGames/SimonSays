@@ -14,11 +14,14 @@ public class MainMenu extends JPanel {
 
     private void initUI() {
       
-        JButton playButton = new JButton("Play Game");
+        JButton playButton = new JButton("New Game");
         add(playButton);
+        JButton loadButton = new JButton("Load Game");
+        add(loadButton);
         JButton quitButton = new JButton("Quit");
         add(quitButton);
         playButton.addActionListener(new button());
+        loadButton.addActionListener(new button());
         quitButton.addActionListener(new button2());
     }
     

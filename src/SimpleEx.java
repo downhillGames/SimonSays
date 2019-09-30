@@ -17,8 +17,9 @@ public class SimpleEx extends JPanel
         Init();
     }
 	
-	public int buttns_pressd[] = new int [50];
-	public int computer_pressed[] = new int [50]; 
+	public int buttns_pressd[] = new int [10];
+	public int buttns_pressd_reversed[] = new int [10];
+	public int computer_pressed[] = new int [10]; 
 	public int button_pressed_index = 0;
 	public int computer_pressed_index = 0;
 	static JButton done_button;
@@ -27,36 +28,44 @@ public class SimpleEx extends JPanel
 	
 	static int map_from_obj[] = new int [27]; 
 
-	public void checkArrayReverse()
+	public void reverseArray()
 	  {
-	    
-	    boolean flag = false;
-	    for (int i = 0; i < 50 ; i++)
-	    {
-	      if (buttns_pressd[i] != computer_pressed[49 - i])
-	      {
-	        flag = true;
-	      }
-	    }
-	    if (flag == false)
-	    {
-	        Main.PlayWin();
-	    }
-	    else{
-	        Main.PlayLose();
-	    }
+		int temp_index = 0;
+		for (int i = 0 ;  i < button_pressed_index ; i++)
+		{
+			buttns_pressd_reversed[i] = buttns_pressd[(button_pressed_index -  1) - i];
+		}
+		
+		for (int i = 0 ;  i < 10 ; i++)
+		{
+			System.out.println(buttns_pressd_reversed[i]);
+		}
+		
+		
 	  }	
+		
 	
   public void checkArray()
   {
     
     boolean flag = false;
-    for (int i = 0; i < 50 ; i++)
+    for (int i = 0; i < 10 ; i++)
     {
-      if (buttns_pressd[i] != computer_pressed[i])
-      {
-        flag = true;
-      }
+    	if (Main.returnGlobal().reverse_game)
+    	{
+    		 if (buttns_pressd_reversed[i] != computer_pressed[i])
+    	      {
+    	        flag = true;
+    	      }
+    	}
+    	else
+    	{
+    		  if (buttns_pressd[i] != computer_pressed[i])
+    	      {
+    	        flag = true;
+    	      }
+    	}
+    	
     }
     if (flag == false)
     {
@@ -77,10 +86,18 @@ public class SimpleEx extends JPanel
   
   public void hit(JButton[] inArray)
 	{
-		  
+	  		int buffer = 0;
+		  	if  (Main.returnGlobal().first_hit)
+		  	{
+		  		buffer = 500;
+		  	}
+		  	else
+		  	{
+		  		buffer = 0;
+		  	}
 	  		int hits = 0;
-	  			while (hits <  Main.returnGlobal().level) {
-			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= Main.returnGlobal().speed)
+	  		while (hits <  Main.returnGlobal().level) {
+			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= (Main.returnGlobal().speed + buffer))
 			  {
 				  Main.returnGlobal().computer_playing = true;
 				  int randomBlock = ThreadLocalRandom.current().nextInt(1, 8 + 1);
@@ -91,6 +108,7 @@ public class SimpleEx extends JPanel
 				  inArray[randomBlock].setEnabled(false);
 				  clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
 				  Main.returnGlobal().computer_playing = false;
+				  Main.returnGlobal().first_hit = false;
 				  hits++;
 			  }
 	  		}

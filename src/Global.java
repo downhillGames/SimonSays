@@ -21,6 +21,7 @@ public class Global {
     public int high_level = 2;
     public boolean reverse_game = false;
     public boolean computer_playing = false;
+    public boolean first_hit = true;
     public int times_won = 0;
     public int speed = 2000;
     public void Init() {

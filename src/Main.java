@@ -160,7 +160,7 @@ public static void  appendToSaves() {
               game_screen.add(game);
               game_screen.setVisible(true);
 
-              game.displayGUI();
+             
               //game.displayGUI();
               
     		
@@ -168,7 +168,7 @@ public static void  appendToSaves() {
     	
     	EventQueue.invokeLater(() -> {
     		//game.delay(outArry);
-  		
+    		 game.displayGUI();
   	});
     	
     
@@ -191,35 +191,26 @@ public static void  appendToSaves() {
     
     public static void readyGameNoStart()
     {
-      map = new Map();
-      game = new SimpleEx(map);
-      game.button_pressed_index = 0;
-      game.computer_pressed_index = 0;
-      for (int i=0; i< 50; i++)
-      {
-        game.buttns_pressd[i] = 0;
-        game.computer_pressed[i] = 0;
-      }
-      game_screen.remove(win);
-      game_screen.remove(lost);
-      game_screen.remove(pause);
+        map = new Map();
+        game = new SimpleEx(map);
+        game.button_pressed_index = 0;
+        game.computer_pressed_index = 0;
+        for (int i=0; i< 10; i++)
+        {
+          game.buttns_pressd[i] = 0;
+          game.computer_pressed[i] = 0;
+          game.buttns_pressd_reversed[i] = 0;
+        }
+        game_screen.setVisible(false);
+        game_screen.remove(win);
+        game_screen.remove(lost);
+        game_screen.remove(pause);
+        Main.returnGlobal().first_hit = true;
     }
     
     public static void readyGame()
     {
-      map = new Map();
-      game = new SimpleEx(map);
-      game.button_pressed_index = 0;
-      game.computer_pressed_index = 0;
-      for (int i=0; i< 50; i++)
-      {
-        game.buttns_pressd[i] = 0;
-        game.computer_pressed[i] = 0;
-      }
-      game_screen.setVisible(false);
-      game_screen.remove(win);
-      game_screen.remove(lost);
-      game_screen.remove(pause);
+      readyGameNoStart();
       StartGame();
     }
 

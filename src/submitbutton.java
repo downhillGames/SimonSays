@@ -11,7 +11,15 @@ public class submitbutton implements ActionListener {
         	Main.returnGlobal().gametime += round_length;	
         	System.out.println("Round Time Formatted: " + convertTime(round_length));
         	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().gametime));
-        	Main.returnGame().checkArray();
+        	if (Main.returnGlobal().reverse_game )
+        	{
+        		Main.returnGame().checkArrayReverse();
+        	}
+        	else
+        	{
+        		Main.returnGame().checkArray();	
+        	}
+        	
         }
         
         

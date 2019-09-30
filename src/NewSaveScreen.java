@@ -18,7 +18,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 	
 	
 	
-	
+	JButton reversePlayButton = new JButton("Play Game - Reverse");
 	public static JTextField nameField;
 	public static JTextField birthdateField;
 	
@@ -61,12 +61,15 @@ public class NewSaveScreen extends JPanel implements ActionListener {
     	
 
     	
-    	JButton playButton = new JButton("Play Game");
+    	JButton playButton = new JButton("Play Game - Forward");
+    	//JButton reversePlayButton = new JButton("Play Game - Reverse");
     	///playButton.setBorder(border);
     	playButton.setLocation(550, 750);
         playButton.addActionListener(this);
+        reversePlayButton.addActionListener(this);
         add(playButton, BorderLayout.CENTER);
-       
+        add(reversePlayButton, BorderLayout.CENTER);
+        
         errorText = new JTextArea(1, 5);
         errorText.setEditable(false);
         errorText.setText("");
@@ -78,6 +81,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
        
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//System.out.println(e.getSource());
 		
 		if (nameField.getText().equals("") )
 		{
@@ -111,7 +115,21 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		{
 			errorText.setText("");
 			Main.returnGlobal().name = nameField.getText();
-			//System.out.print(player_name);
+			Main.returnGlobal().birthdate = birthdateField.getText();
+			Main.returnGlobal().address = adressField.getText();
+			Main.returnGlobal().city = cityField.getText();
+			Main.returnGlobal().state = stateField.getText();
+			Main.returnGlobal().zip_code = zipField.getText();
+			Main.returnGlobal().country = countryField.getText();
+			
+			if ( e.getSource() == reversePlayButton)
+			{
+				Main.returnGlobal().reverse_game = true;
+			}
+			else
+			{
+				Main.returnGlobal().reverse_game = false;
+			}
 			Main.StartGame();
 		}
 		

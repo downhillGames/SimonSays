@@ -53,10 +53,21 @@ public class Main {
 	 
 	  for (int i = 0; i < jsonArray.size(); i++)
 	  {
-		  if (((HashMap) jsonArray.get(i)).containsValue("Ty"))
+		  if (((HashMap) jsonArray.get(i)).containsValue(name))
 		  {
 			  foundUser = i;
 			  returnGlobal().loadGamePosition = i;
+			  returnGlobal().newGame = false;
+			  returnGlobal().name = (String) ((HashMap) jsonArray.get(i)).get("user_name");
+			  returnGlobal().birthdate = (String) ((HashMap) jsonArray.get(i)).get("birthdate");
+			  returnGlobal().address = (String) ((HashMap) jsonArray.get(i)).get("address");
+			  returnGlobal().city = (String) ((HashMap) jsonArray.get(i)).get("city");
+			  returnGlobal().state = (String) ((HashMap) jsonArray.get(i)).get("state");
+			  returnGlobal().zip_code = (String) ((HashMap) jsonArray.get(i)).get("zip_code");
+			  returnGlobal().country = (String) ((HashMap) jsonArray.get(i)).get("country");
+			  returnGlobal().diagnosis = (String) ((HashMap) jsonArray.get(i)).get("diagnosis");
+			  returnGlobal().high_level = (int) ((HashMap) jsonArray.get(i)).get("highlevel");
+			  returnGlobal().total_gametime = (double) ((HashMap) jsonArray.get(i)).get("total_gametime");
 		  }
 	  }
 	  
@@ -69,6 +80,7 @@ public static void  appendToSaves() {
 	  JSONObject newplayer = new JSONObject();
 	  newplayer.put( "user_name", returnGlobal().name );
 	  newplayer.put( "birthdate", returnGlobal().birthdate );
+	  newplayer.put( "address", returnGlobal().address );
 	  newplayer.put( "city", returnGlobal().city );
 	  newplayer.put( "state", returnGlobal().state );
 	  newplayer.put( "zip_code", returnGlobal().zip_code );
@@ -77,7 +89,7 @@ public static void  appendToSaves() {
 	  newplayer.put( "diagnosis", returnGlobal().diagnosis );
 	  newplayer.put( "total_gametime", returnGlobal().total_gametime );
 	  jsonArray.add(newplayer);
-	  
+	  newplayer.get("user_name");
 	  //newplayer.replace("birthdate", returnGlobal().birthdate , "I THINK IT WORKED");
 	  
 	  System.out.println(loadGame("Ty"));
@@ -164,6 +176,7 @@ public static void  appendToSaves() {
 
     public static void returnToMenu()
     {
+    	 returnGlobal().newGame = true;
     	 game_screen.setVisible(false);
          game_screen.remove(lost);
          game_screen.remove(game);

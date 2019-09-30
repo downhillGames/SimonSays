@@ -27,6 +27,25 @@ public class SimpleEx extends JPanel
 	
 	static int map_from_obj[] = new int [27]; 
 
+	public void checkArrayReverse()
+	  {
+	    
+	    boolean flag = false;
+	    for (int i = 0; i < 50 ; i++)
+	    {
+	      if (buttns_pressd[i] != computer_pressed[49 - i])
+	      {
+	        flag = true;
+	      }
+	    }
+	    if (flag == false)
+	    {
+	        Main.PlayWin();
+	    }
+	    else{
+	        Main.PlayLose();
+	    }
+	  }	
 	
   public void checkArray()
   {

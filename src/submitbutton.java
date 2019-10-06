@@ -9,6 +9,7 @@ public class submitbutton implements ActionListener {
               //System.out.println("menue");
         	double round_length = (TimeUnit.NANOSECONDS.toMillis(System.nanoTime())  - Main.returnGame().time_begin) / 1000.0;
         	Main.returnGlobal().gametime += round_length;	
+        	Main.returnGlobal().roundtime = round_length;	
         	System.out.println("Round Time Formatted: " + convertTime(round_length));
         	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().gametime));
         	

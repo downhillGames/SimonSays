@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
-public class NewSaveScreen extends JPanel implements ActionListener {
+public class LoadSaveScreen extends JPanel implements ActionListener {
 	
 	
 	
@@ -34,7 +34,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = -7892106385327845406L;
 	static int lives = 6;
-    public NewSaveScreen() {
+    public LoadSaveScreen() {
       
         initUI();
     }
@@ -48,10 +48,12 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 
     private void initUI() {
     	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
-    	//Border border = BorderFactory.createMatteBorder(0, 0, 10, 0, Main.returnFrame().getBackground());
+    	Border border2 = BorderFactory.createMatteBorder(0, 100, 0, 0, Main.returnFrame().getBackground());
+    	Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 900, Main.returnFrame().getBackground());
     	
     	nameField = createInputArea("Name: ", 110, border, nameField);
-    	birthdateField = createInputArea("Birth Date: ", 110, border, birthdateField);
+    	JTextArea text = createTextArea("Need to update anything? Leave field blank if not");
+    	text.setBorder(border3);
     	adressField = createInputArea("Street Address: ", 105, border, adressField);
     	cityField =createInputArea("City: ", 110, border, cityField);
     	stateField = createInputArea("State: ", 110, border, stateField);
@@ -62,18 +64,20 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 
     	
     	JButton playButton = new JButton("Play Game - Forward");
-    	JButton loadButton = new JButton("Load Game");
+    	JButton newButton = new JButton("New Game");
     	JButton quitButton = new JButton("Quit Game");
     	//JButton reversePlayButton = new JButton("Play Game - Reverse");
     	///playButton.setBorder(border);
     	playButton.setLocation(550, 750);
         playButton.addActionListener(this);
         reversePlayButton.addActionListener(this);
-        loadButton.addActionListener(new loadGameBtn());
+        
+        newButton.addActionListener(new button());
         quitButton.addActionListener(new button2());
+        
         add(playButton, BorderLayout.CENTER);
         add(reversePlayButton, BorderLayout.CENTER);
-        add(loadButton, BorderLayout.CENTER);
+        add(newButton, BorderLayout.CENTER);
         add(quitButton, BorderLayout.CENTER);
         
         errorText = new JTextArea(1, 5);
@@ -93,44 +97,36 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		{
 			printError("You did not enter a name!");
 		}
-		else if (Main.loadGame(nameField.getText()) != -1)
+		
+		else if ( Main.loadGame(nameField.getText()) == -1)
 		{
-			printError("Please enter a different name, this save file exists already, or load save");
-		}
-		else if (birthdateField.getText().equals("") )
-		{
-			printError("You did not enter a birth date!");
-		}
-		else if (adressField.getText().equals("") )
-		{
-			printError("You did not enter an address!");
-		}
-		else if (cityField.getText().equals("") )
-		{
-			printError("You did not enter a city!");
-		}
-		else if (stateField.getText().equals("") )
-		{
-			printError("You did not enter a state!");
-		}
-		else if (zipField.getText().equals("") )
-		{
-			printError("You did not enter a zip code!");
-		}
-		else if (countryField.getText().equals("") )
-		{
-			printError("You did not enter a country!");
+			printError("That save file does not exist!");
 		}
 		else
 		{
+			
+			if (!adressField.getText().equals("") )
+			{
+				Main.returnGlobal().address = adressField.getText();
+			}
+			if (!cityField.getText().equals("") )
+			{
+				Main.returnGlobal().city = cityField.getText();
+			}
+			if (!stateField.getText().equals("") )
+			{
+				Main.returnGlobal().state = stateField.getText();
+			}
+			if (!zipField.getText().equals("") )
+			{
+				Main.returnGlobal().zip_code = zipField.getText();
+			}
+			if (!countryField.getText().equals("") )
+			{
+				Main.returnGlobal().country = countryField.getText();
+			}
+			
 			errorText.setText("");
-			Main.returnGlobal().name = nameField.getText();
-			Main.returnGlobal().birthdate = birthdateField.getText();
-			Main.returnGlobal().address = adressField.getText();
-			Main.returnGlobal().city = cityField.getText();
-			Main.returnGlobal().state = stateField.getText();
-			Main.returnGlobal().zip_code = zipField.getText();
-			Main.returnGlobal().country = countryField.getText();
 			
 			if ( e.getSource() == reversePlayButton)
 			{

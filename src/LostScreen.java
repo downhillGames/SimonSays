@@ -3,6 +3,9 @@
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+
+import java.text.DecimalFormat;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
@@ -12,7 +15,9 @@ public class LostScreen extends JPanel {
 
 	public LostScreen() {
 		createTextArea("You Lost");
-        
+		createTextArea("Score: " + (Main.returnGlobal().level - 1)) ;
+    	createTextArea("Play Time: " + convertTime(Main.returnGlobal().gametime) );
+    	createTextArea("Round Time: " + convertTime(Main.returnGlobal().roundtime) );
         JButton menuButton = new JButton("Main Menu");
         add(menuButton);
         menuButton.addActionListener(new LostSaveButton());
@@ -36,4 +41,16 @@ public class LostScreen extends JPanel {
 		   	return textArea;
 	   }
    
+	 public static String convertTime(double time_in)
+     {
+  	 	int minutes = 0;
+      	while (time_in > 60)
+      	{
+      		minutes += 1;
+      		time_in -= 60;
+      	}
+      	String second_formatted = new DecimalFormat("##").format(time_in);
+  	   String outString = minutes + ":" + second_formatted;
+  	   return outString;
+     }
 }

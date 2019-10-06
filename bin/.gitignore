@@ -1,4 +1,11 @@
-/GameScreen$1.class
-/NewSaveScreen.class
-/PauseButton.class
-/PauseScreen.class
+/Game.class
+/GameScreen.class
+/Global.class
+/LoadSaved.class
+/LostSaveButton.class
+/LostScreen.class
+/Main.class
+/MainMenu.class
+/Map.class
+/LoadSaveScreen.class
+/loadGameBtn.class

@@ -26,6 +26,7 @@ public class Main {
   static WinScreen win = new WinScreen();
   static PauseScreen pause = new PauseScreen();
   static NewSaveScreen newSave = new NewSaveScreen();
+  static LoadSaveScreen loadSave = new LoadSaveScreen();
   static LostScreen lost = new LostScreen();
   static JButton outArry[] = new JButton[9];
   static int lives = 17;
@@ -66,7 +67,8 @@ public class Main {
 			  returnGlobal().zip_code = (String) ((HashMap) jsonArray.get(i)).get("zip_code");
 			  returnGlobal().country = (String) ((HashMap) jsonArray.get(i)).get("country");
 			  returnGlobal().diagnosis = (String) ((HashMap) jsonArray.get(i)).get("diagnosis");
-			  returnGlobal().high_level = (int) ((HashMap) jsonArray.get(i)).get("highlevel");
+			  //returnGlobal().high_level = (int) ((HashMap) jsonArray.get(i)).get("highlevel");
+			  returnGlobal().high_level = (double) ((HashMap) jsonArray.get(i)).get("highlevel");
 			  returnGlobal().total_gametime = (double) ((HashMap) jsonArray.get(i)).get("total_gametime");
 		  }
 	  }
@@ -74,7 +76,37 @@ public class Main {
 	  return foundUser;
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  
+public static void  replaceSave(int index) {
+	  
+	  //SONObject newplayer = new JSONObject();
+	  ((HashMap) jsonArray.get(index)).replace("address",  ((HashMap) jsonArray.get(index)).get("address") , returnGlobal().address);
+	  ((HashMap) jsonArray.get(index)).replace("city", ((HashMap) jsonArray.get(index)).get("city") , returnGlobal().city);
+	  ((HashMap) jsonArray.get(index)).replace("state", ((HashMap) jsonArray.get(index)).get("state")  , returnGlobal().state);
+	  ((HashMap) jsonArray.get(index)).replace("zip_code", ((HashMap) jsonArray.get(index)).get("zip_code"), returnGlobal().zip_code);
+	  ((HashMap) jsonArray.get(index)).replace("country", ((HashMap) jsonArray.get(index)).get("country"), returnGlobal().country);
+	  ((HashMap) jsonArray.get(index)).replace("highlevel", ((HashMap) jsonArray.get(index)).get("high_level") , returnGlobal().high_level);
+	  ((HashMap) jsonArray.get(index)).replace("diagnosis", ((HashMap) jsonArray.get(index)).get("diagnosis"), returnGlobal().diagnosis);
+	  ((HashMap) jsonArray.get(index)).replace("total_gametime", ((HashMap) jsonArray.get(index)).get("total_gametime") , returnGlobal().total_gametime);
+
+	FileWriter save_file;
+	try {
+		save_file = new FileWriter("saves.json");
+		save_file.write(jsonArray.toJSONString());
+		save_file.flush();
+		save_file.close();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  
+	  
+	  
+  }
+  
+  
+@SuppressWarnings("unchecked")
 public static void  appendToSaves() {
 	  
 	  JSONObject newplayer = new JSONObject();
@@ -91,8 +123,6 @@ public static void  appendToSaves() {
 	  jsonArray.add(newplayer);
 	  newplayer.get("user_name");
 	  //newplayer.replace("birthdate", returnGlobal().birthdate , "I THINK IT WORKED");
-	  
-	  System.out.println(loadGame("Ty"));
 	  
 
 	FileWriter save_file;
@@ -156,7 +186,7 @@ public static void  appendToSaves() {
     	EventQueue.invokeLater(() -> {
     		  game_screen.setVisible(false);
               game_screen.remove(newSave);
-      
+              game_screen.remove(loadSave);
               game_screen.add(game);
               game_screen.setVisible(true);
 
@@ -234,11 +264,23 @@ public static void  appendToSaves() {
     EventQueue.invokeLater(() -> {
 	      game_screen.setVisible(false); 
 	      game_screen.remove(menu);
+	      game_screen.remove(loadSave);
 	      game_screen.add(newSave);
 	      game_screen.setVisible(true);
     	});
     }
    
+    
+    public static void PlayLoadSaveMenu()
+    {
+    EventQueue.invokeLater(() -> {
+	      game_screen.setVisible(false); 
+	      game_screen.remove(menu);
+	      game_screen.remove(newSave);
+	      game_screen.add(loadSave);
+	      game_screen.setVisible(true);
+    	});
+    }
     
     public static void PlayPause()
     {
@@ -255,6 +297,7 @@ public static void  appendToSaves() {
       System.out.println("Player lost");
       game_screen.setVisible(false); 
       game_screen.remove(game);
+      lost = new LostScreen();
       game_screen.add(lost);
       game_screen.setVisible(true);
       returnGlobal().total_gametime +=  returnGlobal().gametime;
@@ -274,8 +317,19 @@ public static void  appendToSaves() {
       }
       else
       {
-    	((HashMap) jsonArray.get(0)).replace("total_gametime", (returnGlobal().total_gametime - returnGlobal().gametime) , returnGlobal().total_gametime);
-		 
+    	if (returnGlobal().level >  returnGlobal().high_level)
+    	{
+    		returnGlobal().high_level = returnGlobal().level;
+    	}
+    	 if (returnGlobal().high_level < 5)
+    	 {
+    		  returnGlobal().diagnosis = "Likely AD";
+    	}
+    	 else
+    	  {
+    		  returnGlobal().diagnosis = "Likely not AD"; 
+    	  }
+    	 replaceSave(returnGlobal().loadGamePosition);
       }
     }
 
@@ -283,6 +337,7 @@ public static void  appendToSaves() {
       System.out.println("Player won");
       game_screen.setVisible(false); 
       game_screen.remove(game);
+      win = new WinScreen();
       game_screen.add(win);
       game_screen.setVisible(true);
         

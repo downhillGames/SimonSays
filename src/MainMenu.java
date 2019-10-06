@@ -21,7 +21,7 @@ public class MainMenu extends JPanel {
         JButton quitButton = new JButton("Quit");
         add(quitButton);
         playButton.addActionListener(new button());
-        loadButton.addActionListener(new button());
+        loadButton.addActionListener(new loadGameBtn());
         quitButton.addActionListener(new button2());
     }
     

@@ -17,8 +17,10 @@ public class Global {
 	public int loadGamePosition = -1;
 	public boolean newGame = true;
     public double gametime = 0;
+    public double roundtime = 0;
     public int level = 2;
-    public int high_level = 2;
+    //public int high_level = 2;
+    public double high_level = 2;
     public boolean reverse_game = false;
     public boolean computer_playing = false;
     public boolean first_hit = true;

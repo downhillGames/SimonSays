@@ -23,11 +23,14 @@ public class Main {
   static Map map = new Map();
   static Global global = new Global();
   static SimpleEx game = new SimpleEx(map);
-  static WinScreen win = new WinScreen();
+  //static WinScreen win = new WinScreen();
+  static WinScreen win;
   static PauseScreen pause = new PauseScreen();
   static NewSaveScreen newSave = new NewSaveScreen();
   static LoadSaveScreen loadSave = new LoadSaveScreen();
   static LostScreen lost = new LostScreen();
+  //static LostScreenContinue lostContinue = new LostScreenContinue();
+  static LostScreenContinue lostContinue;
   static JButton outArry[] = new JButton[9];
   static int lives = 17;
   //static Object saves_obj;
@@ -48,6 +51,7 @@ public class Main {
 	  
   }
   
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public static int loadGame(String name)
   {
 	  int foundUser = -1;
@@ -207,10 +211,12 @@ public static void  appendToSaves() {
     public static void returnToMenu()
     {
     	 returnGlobal().newGame = true;
+    	 returnGlobal().health = 1;
     	 game_screen.setVisible(false);
          game_screen.remove(lost);
          game_screen.remove(game);
          readyGameNoStart();
+         menu = new MainMenu();
          //game_screen.revalidate();
          main(null);
          //game_screen.add(menu);
@@ -232,8 +238,18 @@ public static void  appendToSaves() {
           game.buttns_pressd_reversed[i] = 0;
         }
         game_screen.setVisible(false);
-        game_screen.remove(win);
         game_screen.remove(lost);
+        
+        if (win != null)
+        {
+        	game_screen.remove(win);
+        }
+        
+        if (lostContinue != null)
+        {
+        	game_screen.remove(lostContinue);
+        }
+        
         game_screen.remove(pause);
         Main.returnGlobal().first_hit = true;
     }
@@ -292,6 +308,14 @@ public static void  appendToSaves() {
 
     
     @SuppressWarnings("unchecked")
+    public static void PlayLoseContinue()
+    {
+    	game_screen.setVisible(false); 
+        game_screen.remove(game);
+        lostContinue = new LostScreenContinue();
+        game_screen.add(lostContinue);
+        game_screen.setVisible(true);
+    }
 	public static void PlayLose()
     {
       System.out.println("Player lost");

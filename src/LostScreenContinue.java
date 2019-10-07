@@ -1,48 +1,44 @@
-//import java.awt.EventQueue;
-//import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.Border;
-
 import java.text.DecimalFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
-public class WinScreen extends JPanel {
+public class LostScreenContinue  extends JPanel   {
+	private static final long serialVersionUID = 9222746381719025010L;
 
-   
-    public WinScreen() {
-    	
-    	createTextArea("You Won!");
-    	createTextArea("Score: " + (Main.returnGlobal().level - 1)) ;
+	public LostScreenContinue() {
+		createTextArea("You lost that round, but you still have one more chance!");
+		createTextArea("Score: " + (Main.returnGlobal().level - 1)) ;
     	createTextArea("Play Time: " + convertTime(Main.returnGlobal().gametime) );
     	createTextArea("Round Time: " + convertTime(Main.returnGlobal().roundtime) );
-    	
-    	if (Main.returnGlobal().classic_mode)
+		if (Main.returnGlobal().classic_mode)
     	{
     		timerPlay();
     	}
     	else
     	{
-    		
-            JButton continueButton = new JButton("Continue");
-            add(continueButton);
-            continueButton.addActionListener(new WinButton());
+			
+	        JButton continueButton = new JButton("Continue");
+	        add(continueButton);
+	        continueButton.addActionListener(new ContinueButton());
+	        JButton quitButton = new JButton("Quit");
+	        add(quitButton);
+	        quitButton.addActionListener(new button2());
     	}
-    	
     }
 
-    public void  timerPlay()
+	public void  timerPlay()
     {
+		
     	Thread t= new Thread (new Runnable() {
         	public void run() {
         		
         		try {
 					Thread.sleep(3000);
-					Main.returnGlobal().times_won  +=1;
-		        	Main.returnGlobal().level +=1;	
 		        	Main.readyGame();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -53,7 +49,7 @@ public class WinScreen extends JPanel {
         });
        t.start();
     }
-    
+	
 	 public JTextArea createTextArea(String text)
 	   {
 		   	//JTextArea textArea = new JTextArea(1, text.length());
@@ -67,7 +63,7 @@ public class WinScreen extends JPanel {
 		   	add(textArea);
 		   	return textArea;
 	   }
-	 
+   
 	 public static String convertTime(double time_in)
      {
   	 	int minutes = 0;
@@ -81,5 +77,4 @@ public class WinScreen extends JPanel {
   	   return outString;
      }
 
-   
 }

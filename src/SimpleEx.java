@@ -72,7 +72,16 @@ public class SimpleEx extends JPanel
         Main.PlayWin();
     }
     else{
-        Main.PlayLose();
+    	if (Main.returnGlobal().health == 1)
+    	{
+    		Main.PlayLoseContinue();
+    		Main.returnGlobal().health -= 1;
+    	}
+    	else
+    	{
+    		Main.PlayLose();
+    	}
+       
     }
   }
 

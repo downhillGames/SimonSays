@@ -11,6 +11,7 @@ public class Global {
 	public String city;
 	public String state;
 	public String zip_code;
+	public  boolean classic_mode = true;
 	public String country;
 	public String diagnosis;
 	public String name; 
@@ -25,7 +26,8 @@ public class Global {
     public boolean computer_playing = false;
     public boolean first_hit = true;
     public int times_won = 0;
-    public int speed = 2000;
+    public int speed = 000;
+    public int health = 1;
     public void Init() {
 
         //initUI();

@@ -1,11 +1,4 @@
-/Game.class
-/GameScreen.class
-/Global.class
-/LoadSaved.class
-/LostSaveButton.class
-/LostScreen.class
-/Main.class
-/MainMenu.class
-/Map.class
-/LoadSaveScreen.class
-/loadGameBtn.class
+/LostScreenContinue.class
+/ContinueButton.class
+/WinScreen$1.class
+/LostScreenContinue$1.class

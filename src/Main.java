@@ -6,12 +6,32 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-
+import javax.xml.bind.DatatypeConverter;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
+
+//all these are for encryption
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.FileOutputStream;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+import java.util.Base64;
+import java.util.AbstractMap;
 //import java.io.*;
 
 
@@ -36,6 +56,92 @@ public class Main {
   //static Object saves_obj;
   static JSONArray jsonArray;
   
+  
+  public static String getEncodedKey ()
+  {
+    String encodedKey = new String ();
+    try
+    {
+      KeyGenerator keyGen = KeyGenerator.getInstance ("DES");
+      SecretKey key = keyGen.generateKey ();
+
+      encodedKey = Base64.getEncoder ().encodeToString (key.getEncoded ());
+
+    }
+    catch (NoSuchAlgorithmException e)
+    {
+      e.printStackTrace ();
+    }
+    return encodedKey;
+  }
+
+  public static String encryptString (String stringToEncrypt,
+				      String encodedKey)
+  {
+    byte[]encryptedStringInBytes = null;
+    String encryptedString = new String ();
+    try
+    {
+
+
+      Cipher cipher = Cipher.getInstance ("DES/ECB/PKCS5Padding");
+      //out.write(pvt.getEncoded());
+
+
+      byte[]decodedKey = Base64.getDecoder ().decode (encodedKey);
+      SecretKey key =
+	new SecretKeySpec (decodedKey, 0, decodedKey.length, "DES");
+      byte[]stringInBytes = stringToEncrypt.getBytes ();
+      cipher.init (Cipher.ENCRYPT_MODE, key);
+      encryptedStringInBytes = cipher.doFinal (stringInBytes);
+
+      encryptedString =
+	DatatypeConverter.printBase64Binary (encryptedStringInBytes);
+
+    }
+    catch (NoSuchAlgorithmException | BadPaddingException |
+	   InvalidKeyException | IllegalBlockSizeException |
+	   NoSuchPaddingException e)
+    {
+      e.printStackTrace ();
+    }
+
+    return encryptedString;
+  }
+
+  public static String decryptString (String encryptedString,
+				      String encodedKey)
+  {
+    String decrypted = null;
+    byte[]decryptedStringInBytes = null;
+    try
+    {
+
+      decryptedStringInBytes =
+	DatatypeConverter.parseBase64Binary (encryptedString);
+      byte[]decodedKey = Base64.getDecoder ().decode (encodedKey);
+      SecretKey originalKey =
+	new SecretKeySpec (decodedKey, 0, decodedKey.length, "DES");
+
+      Cipher cipher = Cipher.getInstance ("DES/ECB/PKCS5Padding");
+      cipher.init (Cipher.DECRYPT_MODE, originalKey);
+      byte[]decryptedString = cipher.doFinal (decryptedStringInBytes);
+      decrypted = new String (decryptedString);
+
+
+    }
+    catch (NoSuchAlgorithmException | BadPaddingException |
+	   InvalidKeyException | IllegalBlockSizeException |
+	   NoSuchPaddingException e)
+    {
+      e.printStackTrace ();
+    }
+
+    return decrypted;
+  }
+
+  
+  
   public static void createSavesObj() {
 	  JSONParser jsonParser = new JSONParser();
 		
@@ -51,6 +157,49 @@ public class Main {
 	  
   }
   
+  
+  public static AbstractMap.SimpleEntry<double[], String[]> getHighScores() 
+  { 
+	  String[] top_player_names;
+	  double[] top_player_scores;
+	  int[] top_player_index;
+	  if (jsonArray.size() >= 5)
+	  {
+		  top_player_names = new String[5] ;
+		  top_player_scores = new double[5];
+		  top_player_index = new int[5];
+	  }
+	  else
+	  {
+		 top_player_names = new String[jsonArray.size()] ;
+		 top_player_scores = new double[jsonArray.size()];
+		 top_player_index = new int[jsonArray.size()];
+		   
+	  }
+	  
+	  
+	  int score_index = 0;
+	  int array_index = 0;
+	  while (score_index <  top_player_scores.length - 1)
+	  {
+		  String key =  (String) ((HashMap) jsonArray.get(array_index)).get("key");
+		  String high_level_string = new String();
+		  high_level_string =decryptString((String ) ((HashMap) jsonArray.get(array_index)).get("high_level"), key);
+		  double high_level = Double.valueOf(high_level_string);
+		  if (high_level >  top_player_scores[score_index])
+		  {
+			  top_player_scores[score_index] = high_level;
+			  top_player_names[score_index] = decryptString((String ) ((HashMap) jsonArray.get(array_index)).get("user_name"), key);;
+		  }
+		  
+	  }
+	  
+	  return new AbstractMap.SimpleEntry<double[], String[]>(top_player_scores, top_player_names); 
+      
+      
+  } 
+
+  
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public static int loadGame(String name)
   {
@@ -58,22 +207,34 @@ public class Main {
 	 
 	  for (int i = 0; i < jsonArray.size(); i++)
 	  {
-		  if (((HashMap) jsonArray.get(i)).containsValue(name))
+		  String key = (String) ((HashMap) jsonArray.get(i)).get("key");
+		  
+		  
+		  if (((HashMap) jsonArray.get(i)).containsValue(encryptString(name , key)))
 		  {
+			  String high_level_string = new String();
+			  String gametime_string = new String();	  
+			  
 			  foundUser = i;
 			  returnGlobal().loadGamePosition = i;
 			  returnGlobal().newGame = false;
-			  returnGlobal().name = (String) ((HashMap) jsonArray.get(i)).get("user_name");
-			  returnGlobal().birthdate = (String) ((HashMap) jsonArray.get(i)).get("birthdate");
-			  returnGlobal().address = (String) ((HashMap) jsonArray.get(i)).get("address");
-			  returnGlobal().city = (String) ((HashMap) jsonArray.get(i)).get("city");
-			  returnGlobal().state = (String) ((HashMap) jsonArray.get(i)).get("state");
-			  returnGlobal().zip_code = (String) ((HashMap) jsonArray.get(i)).get("zip_code");
-			  returnGlobal().country = (String) ((HashMap) jsonArray.get(i)).get("country");
-			  returnGlobal().diagnosis = (String) ((HashMap) jsonArray.get(i)).get("diagnosis");
+			  //String key = new String();
+			  //key = (String) ((HashMap) jsonArray.get(i)).get("key");
+			  returnGlobal().name = decryptString((String ) ((HashMap) jsonArray.get(i)).get("user_name"), key);
+			  System.out.println(returnGlobal().name);
+			  returnGlobal().birthdate = decryptString((String ) ((HashMap) jsonArray.get(i)).get("birthdate"), key);
+			  returnGlobal().address = decryptString((String ) ((HashMap) jsonArray.get(i)).get("address"), key);
+			  returnGlobal().city = decryptString((String) ((HashMap) jsonArray.get(i)).get("city"), key);
+			  returnGlobal().state = decryptString((String) ((HashMap) jsonArray.get(i)).get("state"), key);
+			  returnGlobal().zip_code = decryptString((String) ((HashMap) jsonArray.get(i)).get("zip_code"), key);
+			  returnGlobal().country = decryptString((String) ((HashMap) jsonArray.get(i)).get("country"), key);
+			  returnGlobal().diagnosis = decryptString((String) ((HashMap) jsonArray.get(i)).get("diagnosis"), key);
 			  //returnGlobal().high_level = (int) ((HashMap) jsonArray.get(i)).get("highlevel");
-			  returnGlobal().high_level = (double) ((HashMap) jsonArray.get(i)).get("highlevel");
-			  returnGlobal().total_gametime = (double) ((HashMap) jsonArray.get(i)).get("total_gametime");
+			  high_level_string = decryptString((String) ((HashMap) jsonArray.get(i)).get("highlevel") , key);
+			  gametime_string = decryptString((String) ((HashMap) jsonArray.get(i)).get("total_gametime"), key);
+		  
+			 returnGlobal().total_gametime =  Double.valueOf(gametime_string);
+			 returnGlobal().high_level = Double.valueOf(high_level_string);
 		  }
 	  }
 	  
@@ -85,14 +246,15 @@ public class Main {
 public static void  replaceSave(int index) {
 	  
 	  //SONObject newplayer = new JSONObject();
-	  ((HashMap) jsonArray.get(index)).replace("address",  ((HashMap) jsonArray.get(index)).get("address") , returnGlobal().address);
-	  ((HashMap) jsonArray.get(index)).replace("city", ((HashMap) jsonArray.get(index)).get("city") , returnGlobal().city);
-	  ((HashMap) jsonArray.get(index)).replace("state", ((HashMap) jsonArray.get(index)).get("state")  , returnGlobal().state);
-	  ((HashMap) jsonArray.get(index)).replace("zip_code", ((HashMap) jsonArray.get(index)).get("zip_code"), returnGlobal().zip_code);
-	  ((HashMap) jsonArray.get(index)).replace("country", ((HashMap) jsonArray.get(index)).get("country"), returnGlobal().country);
-	  ((HashMap) jsonArray.get(index)).replace("highlevel", ((HashMap) jsonArray.get(index)).get("high_level") , returnGlobal().high_level);
-	  ((HashMap) jsonArray.get(index)).replace("diagnosis", ((HashMap) jsonArray.get(index)).get("diagnosis"), returnGlobal().diagnosis);
-	  ((HashMap) jsonArray.get(index)).replace("total_gametime", ((HashMap) jsonArray.get(index)).get("total_gametime") , returnGlobal().total_gametime);
+	  String key = getEncodedKey();
+	  ((HashMap) jsonArray.get(index)).replace("address",  ((HashMap) jsonArray.get(index)).get("address") , encryptString(returnGlobal().address, key));
+	  ((HashMap) jsonArray.get(index)).replace("city", ((HashMap) jsonArray.get(index)).get("city") , encryptString(returnGlobal().city, key));
+	  ((HashMap) jsonArray.get(index)).replace("state", ((HashMap) jsonArray.get(index)).get("state")  , encryptString(returnGlobal().state, key));
+	  ((HashMap) jsonArray.get(index)).replace("zip_code", ((HashMap) jsonArray.get(index)).get("zip_code"), encryptString(returnGlobal().zip_code, key));
+	  ((HashMap) jsonArray.get(index)).replace("country", ((HashMap) jsonArray.get(index)).get("country"), encryptString(returnGlobal().country, key));
+	  ((HashMap) jsonArray.get(index)).replace("highlevel", ((HashMap) jsonArray.get(index)).get("high_level") , encryptString(String.valueOf(returnGlobal().high_level), key));
+	  ((HashMap) jsonArray.get(index)).replace("diagnosis", ((HashMap) jsonArray.get(index)).get("diagnosis"), encryptString(returnGlobal().diagnosis, key));
+	  ((HashMap) jsonArray.get(index)).replace("total_gametime", ((HashMap) jsonArray.get(index)).get("total_gametime") , encryptString(String.valueOf(returnGlobal().total_gametime) , key));
 
 	FileWriter save_file;
 	try {
@@ -114,18 +276,23 @@ public static void  replaceSave(int index) {
 public static void  appendToSaves() {
 	  
 	  JSONObject newplayer = new JSONObject();
-	  newplayer.put( "user_name", returnGlobal().name );
-	  newplayer.put( "birthdate", returnGlobal().birthdate );
-	  newplayer.put( "address", returnGlobal().address );
-	  newplayer.put( "city", returnGlobal().city );
-	  newplayer.put( "state", returnGlobal().state );
-	  newplayer.put( "zip_code", returnGlobal().zip_code );
-	  newplayer.put( "country", returnGlobal().country);
-	  newplayer.put( "highlevel", returnGlobal().high_level );
-	  newplayer.put( "diagnosis", returnGlobal().diagnosis );
-	  newplayer.put( "total_gametime", returnGlobal().total_gametime );
+	  String key = getEncodedKey();
+	  String high_score_string = String.valueOf(returnGlobal().high_level);
+	  String gametime_string = String.valueOf(returnGlobal().total_gametime);
+	  
+	  newplayer.put( "key", key );
+	  newplayer.put( "user_name", encryptString(returnGlobal().name, key));
+	  newplayer.put( "birthdate", encryptString(returnGlobal().birthdate, key ));
+	  newplayer.put( "address", encryptString(returnGlobal().address, key ));
+	  newplayer.put( "city", encryptString(returnGlobal().city, key ));
+	  newplayer.put( "state", encryptString(returnGlobal().state, key ));
+	  newplayer.put( "zip_code", encryptString(returnGlobal().zip_code, key));
+	  newplayer.put( "country", encryptString(returnGlobal().country, key ));
+	  newplayer.put( "highlevel", encryptString(high_score_string , key ));
+	  newplayer.put( "diagnosis", encryptString(returnGlobal().diagnosis, key ));
+	  newplayer.put( "total_gametime", encryptString(gametime_string, key));
 	  jsonArray.add(newplayer);
-	  newplayer.get("user_name");
+	 // newplayer.get("user_name");
 	  //newplayer.replace("birthdate", returnGlobal().birthdate , "I THINK IT WORKED");
 	  
 
@@ -179,6 +346,7 @@ public static void  appendToSaves() {
        EventQueue.invokeLater(() -> {
             game_screen.add(menu);
             checkForSaveFile();
+            System.out.println(getHighScores().getKey() + " " + getHighScores().getValue() );
             game_screen.setVisible(true);
         });
     }

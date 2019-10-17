@@ -158,8 +158,8 @@ public class Main {
   }
   
   
-  public static AbstractMap.SimpleEntry<double[], String[]> getHighScores() 
-  { 
+	 public static AbstractMap.SimpleEntry<String[], double[]> getHighScores() 
+{ 
 	  String[] top_player_names;
 	  double[] top_player_scores;
 	  int[] top_player_index;
@@ -177,27 +177,58 @@ public class Main {
 		   
 	  }
 	  
-	  
-	  int score_index = 0;
-	  int array_index = 0;
-	  while (score_index <  top_player_scores.length - 1)
+	  for (int i = 0; i < top_player_scores.length - 1; i++)
 	  {
-		  String key =  (String) ((HashMap) jsonArray.get(array_index)).get("key");
-		  String high_level_string = new String();
-		  high_level_string =decryptString((String ) ((HashMap) jsonArray.get(array_index)).get("high_level"), key);
-		  double high_level = Double.valueOf(high_level_string);
-		  if (high_level >  top_player_scores[score_index])
-		  {
-			  top_player_scores[score_index] = high_level;
-			  top_player_names[score_index] = decryptString((String ) ((HashMap) jsonArray.get(array_index)).get("user_name"), key);;
-		  }
 		  
 	  }
 	  
-	  return new AbstractMap.SimpleEntry<double[], String[]>(top_player_scores, top_player_names); 
-      
-      
-  } 
+	  int score_index = 0;
+	  int array_index = 0;
+	  while (score_index <  top_player_scores.length)
+	  {
+		  String key =  (String) ((HashMap) jsonArray.get(array_index)).get("key");
+		  String high_level_string = new String();
+		  high_level_string = decryptString((String ) ((HashMap) jsonArray.get(array_index)).get("highlevel"), key);
+		  double high_level = Double.valueOf(high_level_string);
+		  
+		  
+		 for (int i = 0; i < score_index; i++)
+		 {
+			 if (array_index == top_player_index[i])
+			 {
+				 high_level = 0;
+			 }
+		 }
+		  
+		  
+		  if (high_level >  top_player_scores[score_index])
+		  {
+			  top_player_scores[score_index] = high_level;
+			  top_player_index[score_index] = array_index;
+			  top_player_names[score_index] = decryptString((String ) ((HashMap) jsonArray.get(array_index)).get("user_name"), key);
+		  }
+		  
+		  
+		  //printDoubleArray(top_player_scores);
+		 // printIntegerArray(top_player_index);
+		  
+		  if (array_index == jsonArray.size() - 1)
+		  {
+		      score_index++;
+			  array_index = 0;
+			  //high_level  = 0;
+		  }
+		  else
+		  {
+			  //printDoubleArray(top_player_scores);
+			  //printStringArray(top_player_names);
+		      array_index++; 
+		  }
+	  }
+	  
+	  return new AbstractMap.SimpleEntry<String[], double[]>(top_player_names, top_player_scores); 
+
+}
 
   
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -346,12 +377,34 @@ public static void  appendToSaves() {
        EventQueue.invokeLater(() -> {
             game_screen.add(menu);
             checkForSaveFile();
-            System.out.println(getHighScores().getKey() + " " + getHighScores().getValue() );
+           // System.out.print(getHighScores().getValue() +  " "  + getHighScores().getValue() );
+            printDoubleArray(getHighScores().getValue());
+            printStringArray(getHighScores().getKey());
+           // System.out.println(getHighScores().getKey() + " " + getHighScores().getValue() );
             game_screen.setVisible(true);
         });
     }
 
+  
+  
+  public static <T> void printDoubleArray(double[] ds){
+      for (double element: ds){
+          System.out.println(element);
+      }
+  }
  
+  public static <T> void printStringArray(String[] ds){
+      for (String element: ds){
+          System.out.println(element);
+      }
+  }
+  
+  public static <T> void printIntegerArray(int[] top_player_index){
+      for (Integer element: top_player_index){
+          System.out.println(element);
+      }
+  }
+  
   
     public static void StartGame(){
     	

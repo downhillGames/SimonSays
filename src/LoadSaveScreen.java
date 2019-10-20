@@ -17,28 +17,24 @@ import javax.swing.JButton;
 public class LoadSaveScreen extends JPanel implements ActionListener {
 	
 	
-	
+	//initialize needed variables 
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
-	public static JTextField nameField;
-	public static JTextField birthdateField;
-	
-	public static JTextField adressField;
-	public static JTextField cityField;
-	public static JTextField stateField;
-	
-	public static JTextField zipField;
-	public static JTextField countryField;
-	
-	public static JTextArea errorText;
-	
-	
+	private static JTextField nameField;
+	private static JTextField adressField;
+	private static JTextField cityField;
+	private static JTextField stateField;
+	private static JTextField zipField;
+	private static JTextField countryField;
+	private static JTextArea errorText;
 	private static final long serialVersionUID = -7892106385327845406L;
-	static int lives = 6;
-    public LoadSaveScreen() {
+    
+	 /*Constructor -  invokes initUI() */
+	public LoadSaveScreen() {
       
         initUI();
     }
     
+    /*Prints error if load game is unsuccessful */
     public void printError(String text)
     {
     	
@@ -46,7 +42,9 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 	 	revalidate();
     }
 
-    private void initUI() {
+    /*Initializes all the needed load Game fields for the UI*/
+    @SuppressWarnings("unused")
+	private void initUI() {
     	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     	Border border2 = BorderFactory.createMatteBorder(0, 100, 0, 0, Main.returnFrame().getBackground());
     	Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 900, Main.returnFrame().getBackground());
@@ -72,8 +70,8 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
         playButton.addActionListener(this);
         reversePlayButton.addActionListener(this);
         
-        newButton.addActionListener(new button());
-        quitButton.addActionListener(new button2());
+        newButton.addActionListener(new NewSaveBtn());
+        quitButton.addActionListener(new QuitBtn());
         
         add(playButton, BorderLayout.CENTER);
         add(reversePlayButton, BorderLayout.CENTER);
@@ -89,10 +87,10 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
         Main.returnFrame().repaint();
     }
        
-	@Override
+	
+	/*Upon click, starts game if load is successful - or shows error also updates any needed fields*/
+    @Override
 	public void actionPerformed(ActionEvent e) {
-		//System.out.println(e.getSource());
-		
 		if (nameField.getText().equals("") )
 		{
 			printError("You did not enter a name!");
@@ -107,42 +105,41 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 			
 			if (!adressField.getText().equals("") )
 			{
-				Main.returnGlobal().address = adressField.getText();
+				Main.returnGlobal().setAddress(adressField.getText());
 			}
 			if (!cityField.getText().equals("") )
 			{
-				Main.returnGlobal().city = cityField.getText();
+				Main.returnGlobal().setCity(cityField.getText());
 			}
 			if (!stateField.getText().equals("") )
 			{
-				Main.returnGlobal().state = stateField.getText();
+				Main.returnGlobal().setState(stateField.getText());
 			}
 			if (!zipField.getText().equals("") )
 			{
-				Main.returnGlobal().zip_code = zipField.getText();
+				Main.returnGlobal().setZip_code(zipField.getText());
 			}
 			if (!countryField.getText().equals("") )
 			{
-				Main.returnGlobal().country = countryField.getText();
+				Main.returnGlobal().setCountry(countryField.getText());
 			}
 			
 			errorText.setText("");
 			
 			if ( e.getSource() == reversePlayButton)
 			{
-				Main.returnGlobal().reverse_game = true;
+				Main.returnGlobal().setReverse_game(true);
 			}
 			else
 			{
-				Main.returnGlobal().reverse_game = false;
+				Main.returnGlobal().setReverse_game(false);
 			}
 			Main.StartGame();
 		}
 		
-        //textField.selectAll();
-		
 	}
 
+	/*Creates JTextField with input text, length, border*/
 	public JTextField createInputArea (String text, int length, Border border, JTextField field ) {
 		createTextArea(text);
     	field = new JTextField(length);
@@ -152,9 +149,9 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
     	return field;
 	}
 	
+	/*Creates JTextArea with input text*/
    public JTextArea createTextArea(String text)
    {
-	   	//JTextArea textArea = new JTextArea(1, text.length());
 		JTextArea textArea = new JTextArea(1, 5);
 	   	textArea.setEditable(false);
 	   	textArea.append(text);

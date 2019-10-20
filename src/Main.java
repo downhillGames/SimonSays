@@ -1,7 +1,5 @@
-//import java.util.concurrent.TimeUnit;
 import java.awt.EventQueue;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,18 +8,10 @@ import javax.xml.bind.DatatypeConverter;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import javax.swing.*;
-
 //all these are for encryption
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.FileOutputStream;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -29,35 +19,31 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.crypto.spec.IvParameterSpec;
 import java.util.Base64;
 import java.util.AbstractMap;
-//import java.io.*;
 
 
 public class Main {
-  //private static JFrame menu;
-  //static WinScreen win;
+	//initialize variables
   static GameScreen game_screen = new GameScreen();
   static MainMenu menu = new MainMenu();
   static Map map = new Map();
   static Global global = new Global();
-  static SimpleEx game = new SimpleEx(map);
-  //static WinScreen win = new WinScreen();
+  static Game game = new Game(map);
   static WinScreen win;
   static PauseScreen pause = new PauseScreen();
   static NewSaveScreen newSave = new NewSaveScreen();
   static LoadSaveScreen loadSave = new LoadSaveScreen();
+  static HighScoreMenu highScoreMenu;
+  static HelpMenu helpMenu = new HelpMenu();
   static LostScreen lost = new LostScreen();
-  //static LostScreenContinue lostContinue = new LostScreenContinue();
   static LostScreenContinue lostContinue;
   static JButton outArry[] = new JButton[9];
   static int lives = 17;
-  //static Object saves_obj;
   static JSONArray jsonArray;
   
-  
-  public static String getEncodedKey ()
+  	/*Returns a new encoded DES key for encryption*/
+  	public static String getEncodedKey ()
   {
     String encodedKey = new String ();
     try
@@ -75,28 +61,23 @@ public class Main {
     return encodedKey;
   }
 
-  public static String encryptString (String stringToEncrypt,
-				      String encodedKey)
+  	/*Returns a new string encrypted with DES algorithm from input string to encrypt and encoded key*/
+  	public static String encryptString (String stringToEncrypt, String encodedKey)
   {
     byte[]encryptedStringInBytes = null;
     String encryptedString = new String ();
     try
     {
-
-
       Cipher cipher = Cipher.getInstance ("DES/ECB/PKCS5Padding");
-      //out.write(pvt.getEncoded());
-
+     
 
       byte[]decodedKey = Base64.getDecoder ().decode (encodedKey);
-      SecretKey key =
-	new SecretKeySpec (decodedKey, 0, decodedKey.length, "DES");
+      SecretKey key = new SecretKeySpec (decodedKey, 0, decodedKey.length, "DES");
       byte[]stringInBytes = stringToEncrypt.getBytes ();
       cipher.init (Cipher.ENCRYPT_MODE, key);
       encryptedStringInBytes = cipher.doFinal (stringInBytes);
 
-      encryptedString =
-	DatatypeConverter.printBase64Binary (encryptedStringInBytes);
+      encryptedString = DatatypeConverter.printBase64Binary (encryptedStringInBytes);
 
     }
     catch (NoSuchAlgorithmException | BadPaddingException |
@@ -109,19 +90,17 @@ public class Main {
     return encryptedString;
   }
 
-  public static String decryptString (String encryptedString,
-				      String encodedKey)
+  	/*Returns a new string decrypted with DES algorithm from input string to decrypt and encoded key*/
+  	public static String decryptString (String encryptedString, String encodedKey)
   {
     String decrypted = null;
     byte[]decryptedStringInBytes = null;
     try
     {
 
-      decryptedStringInBytes =
-	DatatypeConverter.parseBase64Binary (encryptedString);
+      decryptedStringInBytes = DatatypeConverter.parseBase64Binary (encryptedString);
       byte[]decodedKey = Base64.getDecoder ().decode (encodedKey);
-      SecretKey originalKey =
-	new SecretKeySpec (decodedKey, 0, decodedKey.length, "DES");
+      SecretKey originalKey = new SecretKeySpec (decodedKey, 0, decodedKey.length, "DES");
 
       Cipher cipher = Cipher.getInstance ("DES/ECB/PKCS5Padding");
       cipher.init (Cipher.DECRYPT_MODE, originalKey);
@@ -140,9 +119,8 @@ public class Main {
     return decrypted;
   }
 
-  
-  
-  public static void createSavesObj() {
+  	/*Creates JSON Array that stores all saves from file*/
+  	public static void createSavesObj() {
 	  JSONParser jsonParser = new JSONParser();
 		
 	  try {
@@ -156,9 +134,10 @@ public class Main {
 	  
 	  
   }
-  
-  
-	 public static AbstractMap.SimpleEntry<String[], double[]> getHighScores() 
+
+	/*Returns the top 5 (if 5 exist or else just top scores in order) scores and their user names in two separate arrays (double array scores, string array user names)*/
+  	@SuppressWarnings("rawtypes")
+	public static AbstractMap.SimpleEntry<String[], double[]> getHighScores() 
 { 
 	  String[] top_player_names;
 	  double[] top_player_scores;
@@ -177,10 +156,12 @@ public class Main {
 		   
 	  }
 	  
-	  for (int i = 0; i < top_player_scores.length - 1; i++)
-	  {
-		  
-	  }
+	  
+	  top_player_names = new String[jsonArray.size()] ;
+	  top_player_scores = new double[jsonArray.size()];
+	  top_player_index = new int[jsonArray.size()];
+	  
+
 	  
 	  int score_index = 0;
 	  int array_index = 0;
@@ -229,10 +210,30 @@ public class Main {
 	  return new AbstractMap.SimpleEntry<String[], double[]>(top_player_names, top_player_scores); 
 
 }
-
+ 
+	/*Returns the index in the JSON Array if input user name exists, returns -1 if user is not found*/
+	 @SuppressWarnings({ "rawtypes" })
+	public static int lookUpUser(String name)
+	  {
+		  int foundUser = -1;
+		 
+		  for (int i = 0; i < jsonArray.size(); i++)
+		  {
+			  String key = (String) ((HashMap) jsonArray.get(i)).get("key");
+			  
+			  
+			  if (((HashMap) jsonArray.get(i)).containsValue(encryptString(name , key)))
+			  {
+				  foundUser = i;
+			  }
+		  }
+		  
+		  return foundUser;
+	  }
   
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public static int loadGame(String name)
+	 /*Loads variables into global if user is found from input user name , returns the index in the JSON Array if input user name exists, returns -1 if user is not found*/
+  @SuppressWarnings({ "rawtypes" })
+  	public static int loadGame(String name)
   {
 	  int foundUser = -1;
 	 
@@ -247,46 +248,47 @@ public class Main {
 			  String gametime_string = new String();	  
 			  
 			  foundUser = i;
-			  returnGlobal().loadGamePosition = i;
-			  returnGlobal().newGame = false;
+			  returnGlobal().setLoadGamePosition(i);
+			  returnGlobal().setNewGame(false);
 			  //String key = new String();
 			  //key = (String) ((HashMap) jsonArray.get(i)).get("key");
-			  returnGlobal().name = decryptString((String ) ((HashMap) jsonArray.get(i)).get("user_name"), key);
-			  System.out.println(returnGlobal().name);
-			  returnGlobal().birthdate = decryptString((String ) ((HashMap) jsonArray.get(i)).get("birthdate"), key);
-			  returnGlobal().address = decryptString((String ) ((HashMap) jsonArray.get(i)).get("address"), key);
-			  returnGlobal().city = decryptString((String) ((HashMap) jsonArray.get(i)).get("city"), key);
-			  returnGlobal().state = decryptString((String) ((HashMap) jsonArray.get(i)).get("state"), key);
-			  returnGlobal().zip_code = decryptString((String) ((HashMap) jsonArray.get(i)).get("zip_code"), key);
-			  returnGlobal().country = decryptString((String) ((HashMap) jsonArray.get(i)).get("country"), key);
-			  returnGlobal().diagnosis = decryptString((String) ((HashMap) jsonArray.get(i)).get("diagnosis"), key);
+			  returnGlobal().setName(decryptString((String ) ((HashMap) jsonArray.get(i)).get("user_name"), key));
+			  System.out.println(returnGlobal().getName());
+			  returnGlobal().setBirthdate(decryptString((String ) ((HashMap) jsonArray.get(i)).get("birthdate"), key));
+			  returnGlobal().setAddress(decryptString((String ) ((HashMap) jsonArray.get(i)).get("address"), key));
+			  returnGlobal().setCity(decryptString((String) ((HashMap) jsonArray.get(i)).get("city"), key));
+			  returnGlobal().setState(decryptString((String) ((HashMap) jsonArray.get(i)).get("state"), key));
+			  returnGlobal().setZip_code(decryptString((String) ((HashMap) jsonArray.get(i)).get("zip_code"), key));
+			  returnGlobal().setCountry(decryptString((String) ((HashMap) jsonArray.get(i)).get("country"), key));
+			  returnGlobal().setDiagnosis(decryptString((String) ((HashMap) jsonArray.get(i)).get("diagnosis"), key));
 			  //returnGlobal().high_level = (int) ((HashMap) jsonArray.get(i)).get("highlevel");
 			  high_level_string = decryptString((String) ((HashMap) jsonArray.get(i)).get("highlevel") , key);
 			  gametime_string = decryptString((String) ((HashMap) jsonArray.get(i)).get("total_gametime"), key);
-		  
-			 returnGlobal().total_gametime =  Double.valueOf(gametime_string);
-			 returnGlobal().high_level = Double.valueOf(high_level_string);
+			  decryptInteractionArray((JSONArray) ((HashMap) jsonArray.get(i)).get("interaction_array") , key);
+			 returnGlobal().setTotal_gametime(Double.valueOf(gametime_string));
+			 returnGlobal().setHigh_level(Double.valueOf(high_level_string));
 		  }
 	  }
 	  
 	  return foundUser;
   }
 
+  	/*Replaces updated variables from a loaded game in JSON Array and the writes to the save file*/
   @SuppressWarnings({ "unchecked", "rawtypes" })
   
-public static void  replaceSave(int index) {
-	  
-	  //SONObject newplayer = new JSONObject();
+  	public static void  replaceSave(int index) {
 	  String key = getEncodedKey();
-	  ((HashMap) jsonArray.get(index)).replace("address",  ((HashMap) jsonArray.get(index)).get("address") , encryptString(returnGlobal().address, key));
-	  ((HashMap) jsonArray.get(index)).replace("city", ((HashMap) jsonArray.get(index)).get("city") , encryptString(returnGlobal().city, key));
-	  ((HashMap) jsonArray.get(index)).replace("state", ((HashMap) jsonArray.get(index)).get("state")  , encryptString(returnGlobal().state, key));
-	  ((HashMap) jsonArray.get(index)).replace("zip_code", ((HashMap) jsonArray.get(index)).get("zip_code"), encryptString(returnGlobal().zip_code, key));
-	  ((HashMap) jsonArray.get(index)).replace("country", ((HashMap) jsonArray.get(index)).get("country"), encryptString(returnGlobal().country, key));
-	  ((HashMap) jsonArray.get(index)).replace("highlevel", ((HashMap) jsonArray.get(index)).get("high_level") , encryptString(String.valueOf(returnGlobal().high_level), key));
-	  ((HashMap) jsonArray.get(index)).replace("diagnosis", ((HashMap) jsonArray.get(index)).get("diagnosis"), encryptString(returnGlobal().diagnosis, key));
-	  ((HashMap) jsonArray.get(index)).replace("total_gametime", ((HashMap) jsonArray.get(index)).get("total_gametime") , encryptString(String.valueOf(returnGlobal().total_gametime) , key));
-
+	  ((HashMap) jsonArray.get(index)).replace("rq91hbhzaj",  ((HashMap) jsonArray.get(index)).get("address") , encryptString(returnGlobal().getAddress(), key));
+	  ((HashMap) jsonArray.get(index)).replace("xcnwhuqdbc", ((HashMap) jsonArray.get(index)).get("city") , encryptString(returnGlobal().getCity(), key));
+	  ((HashMap) jsonArray.get(index)).replace("dbvzwgsddi", ((HashMap) jsonArray.get(index)).get("state")  , encryptString(returnGlobal().getState(), key));
+	  ((HashMap) jsonArray.get(index)).replace("g3eqbkq1m6", ((HashMap) jsonArray.get(index)).get("zip_code"), encryptString(returnGlobal().getZip_code(), key));
+	  ((HashMap) jsonArray.get(index)).replace("tfdsbsv9qo", ((HashMap) jsonArray.get(index)).get("country"), encryptString(returnGlobal().getCountry(), key));
+	  ((HashMap) jsonArray.get(index)).replace("pplk7r7pbp", ((HashMap) jsonArray.get(index)).get("high_level") , encryptString(String.valueOf(returnGlobal().getHigh_level()), key));
+	  ((HashMap) jsonArray.get(index)).replace("tmjztkxe5m", ((HashMap) jsonArray.get(index)).get("diagnosis"), encryptString(returnGlobal().getDiagnosis(), key));
+	  ((HashMap) jsonArray.get(index)).replace("tzsmrnsoy7", ((HashMap) jsonArray.get(index)).get("total_gametime") , encryptString(String.valueOf(returnGlobal().getTotal_gametime()) , key));
+	  
+	  JSONArray encryptedInteractions = encryptInteractionArray( key);
+	  ((HashMap) jsonArray.get(index)).replace("o6vja8lio1", ((HashMap) jsonArray.get(index)).get("interaction_array") , encryptedInteractions);
 	FileWriter save_file;
 	try {
 		save_file = new FileWriter("saves.json");
@@ -302,30 +304,30 @@ public static void  replaceSave(int index) {
 	  
   }
   
-  
+  	/*Appends a new JSON Object to the JSON Array and writes to the save file (for new saves)*/
 @SuppressWarnings("unchecked")
-public static void  appendToSaves() {
+	public static void  appendToSaves() {
 	  
 	  JSONObject newplayer = new JSONObject();
-	  String key = getEncodedKey();
-	  String high_score_string = String.valueOf(returnGlobal().high_level);
-	  String gametime_string = String.valueOf(returnGlobal().total_gametime);
 	  
-	  newplayer.put( "key", key );
-	  newplayer.put( "user_name", encryptString(returnGlobal().name, key));
-	  newplayer.put( "birthdate", encryptString(returnGlobal().birthdate, key ));
-	  newplayer.put( "address", encryptString(returnGlobal().address, key ));
-	  newplayer.put( "city", encryptString(returnGlobal().city, key ));
-	  newplayer.put( "state", encryptString(returnGlobal().state, key ));
-	  newplayer.put( "zip_code", encryptString(returnGlobal().zip_code, key));
-	  newplayer.put( "country", encryptString(returnGlobal().country, key ));
-	  newplayer.put( "highlevel", encryptString(high_score_string , key ));
-	  newplayer.put( "diagnosis", encryptString(returnGlobal().diagnosis, key ));
-	  newplayer.put( "total_gametime", encryptString(gametime_string, key));
+	  String zxbvwoved7 = getEncodedKey();//obfuscated -  key 
+	  String high_score_string = String.valueOf(returnGlobal().getHigh_level());
+	  String gametime_string = String.valueOf(returnGlobal().getTotal_gametime());
+	  
+	  newplayer.put( "zxbvwoved7", zxbvwoved7 );
+	  newplayer.put( "rjc8qhtv1w", encryptString(returnGlobal().getName(), zxbvwoved7));
+	  newplayer.put( "acfiqoa2lu", encryptString(returnGlobal().getBirthdate(), zxbvwoved7 ));
+	  newplayer.put( "rq91hbhzaj", encryptString(returnGlobal().getAddress(), zxbvwoved7));
+	  newplayer.put( "xcnwhuqdbc", encryptString(returnGlobal().getCity(), zxbvwoved7 ));
+	  newplayer.put( "dbvzwgsddi", encryptString(returnGlobal().getState(), zxbvwoved7 ));
+	  newplayer.put( "g3eqbkq1m6", encryptString(returnGlobal().getZip_code(), zxbvwoved7));
+	  newplayer.put( "tfdsbsv9qo", encryptString(returnGlobal().getCountry(), zxbvwoved7 ));
+	  newplayer.put( "pplk7r7pbp", encryptString(high_score_string , zxbvwoved7 ));
+	  newplayer.put( "tmjztkxe5m", encryptString(returnGlobal().getDiagnosis(), zxbvwoved7 ));
+	  newplayer.put( "tzsmrnsoy7", encryptString(gametime_string, zxbvwoved7));
+	  JSONArray encryptedInteractions = encryptInteractionArray( zxbvwoved7);
+	  newplayer.put( "o6vja8lio1", encryptedInteractions);
 	  jsonArray.add(newplayer);
-	 // newplayer.get("user_name");
-	  //newplayer.replace("birthdate", returnGlobal().birthdate , "I THINK IT WORKED");
-	  
 
 	FileWriter save_file;
 	try {
@@ -342,7 +344,33 @@ public static void  appendToSaves() {
 	  
   }
 	
-  public static void checkForSaveFile()
+	/*Creates a new JSON Array of the interactions array encrypted for saving purposes*/
+	@SuppressWarnings("unchecked")
+	public static JSONArray encryptInteractionArray(String key){
+		JSONArray outArray = new JSONArray();
+		for (int i = 0; i < returnGlobal().getInteractionArray().size() ; i ++)
+		{
+			outArray.add(encryptString(String.valueOf(returnGlobal().getInteractionArray().get(i)), key)) ;
+			
+		}
+		return outArray;
+	}
+
+	/*Returns a new JSON Array of the given encrypted JSON Array Interactions Array*/
+	@SuppressWarnings("unchecked")
+	public static void decryptInteractionArray(JSONArray inArray , String key){
+		returnGlobal().getInteractionArray().clear();
+		
+		for (int i = 0; i < inArray.size() ; i ++)
+		{
+			String temp =  decryptString((String )inArray.get(i), key) ;
+			returnGlobal().getInteractionArray().add(Double.valueOf(temp)); 
+		}
+	 System.out.println(returnGlobal().getInteractionArray());
+	}
+	
+	/*Checks to see if saves file exists, creates one if it doesn't*/
+	public static void checkForSaveFile()
   {
 	  File saves = new File("saves.json");
 	  
@@ -372,40 +400,7 @@ public static void  appendToSaves() {
 	  }
   }
   
-  public static void main(String[] args) {
-
-       EventQueue.invokeLater(() -> {
-            game_screen.add(menu);
-            checkForSaveFile();
-           // System.out.print(getHighScores().getValue() +  " "  + getHighScores().getValue() );
-            printDoubleArray(getHighScores().getValue());
-            printStringArray(getHighScores().getKey());
-           // System.out.println(getHighScores().getKey() + " " + getHighScores().getValue() );
-            game_screen.setVisible(true);
-        });
-    }
-
-  
-  
-  public static <T> void printDoubleArray(double[] ds){
-      for (double element: ds){
-          System.out.println(element);
-      }
-  }
- 
-  public static <T> void printStringArray(String[] ds){
-      for (String element: ds){
-          System.out.println(element);
-      }
-  }
-  
-  public static <T> void printIntegerArray(int[] top_player_index){
-      for (Integer element: top_player_index){
-          System.out.println(element);
-      }
-  }
-  
-  
+	/*Starts the main game from either new save or load save menus*/
     public static void StartGame(){
     	
     	EventQueue.invokeLater(() -> {
@@ -414,50 +409,62 @@ public static void  appendToSaves() {
               game_screen.remove(loadSave);
               game_screen.add(game);
               game_screen.setVisible(true);
-
-             
-              //game.displayGUI();
-              
-    		
     	});
     	
+    	// invoke game's main loop after map is created
     	EventQueue.invokeLater(() -> {
-    		//game.delay(outArry);
     		 game.displayGUI();
   	});
     	
     
     }
 
+    /*Returns to the main menu (reinvokes main), resets variables*/
     public static void returnToMenu()
     {
-    	 returnGlobal().newGame = true;
-    	 returnGlobal().health = 1;
+    	 returnGlobal().setNewGame(true);
+    	 returnGlobal().setHealth(1);
+    	 returnGlobal().setLevel(1);
+    	 returnGlobal().setSpeed(1000);
+    	 returnGlobal().getInteractionArray().clear();
     	 game_screen.setVisible(false);
          game_screen.remove(lost);
+         game_screen.remove(highScoreMenu);
          game_screen.remove(game);
+         game_screen.remove(helpMenu);
          readyGameNoStart();
          menu = new MainMenu();
-         //game_screen.revalidate();
          main(null);
-         //game_screen.add(menu);
-         //checkForSaveFile();
-         //game_screen.setVisible(true);
     }
     
-    
+    /*Readies the game for a new round, but does not start it*/
     public static void readyGameNoStart()
     {
         map = new Map();
-        game = new SimpleEx(map);
-        game.button_pressed_index = 0;
-        game.computer_pressed_index = 0;
-        for (int i=0; i< 10; i++)
+        game = new Game(map);
+        game.setButton_pressed_index(0);
+        game.setComputer_pressed_index(0);
+        
+        
+        if (returnGlobal().getLevel() > 9)
         {
-          game.buttns_pressd[i] = 0;
-          game.computer_pressed[i] = 0;
-          game.buttns_pressd_reversed[i] = 0;
+        	for (int i=0; i< 50; i++)
+            {
+              game.getButtns_pressd()[i] = 0;
+              game.getComputer_pressed()[i] = 0;
+              game.getButtns_pressd_reversed()[i] = 0;
+            }
         }
+        else
+        {
+        	for (int i=0; i< 10; i++)
+            {
+              game.getButtns_pressd()[i] = 0;
+              game.getComputer_pressed()[i] = 0;
+              game.getButtns_pressd_reversed()[i] = 0;
+            }	
+        }
+        
         game_screen.setVisible(false);
         game_screen.remove(lost);
         
@@ -472,30 +479,32 @@ public static void  appendToSaves() {
         }
         
         game_screen.remove(pause);
-        Main.returnGlobal().first_hit = true;
+        Main.returnGlobal().setFirst_hit(true);
     }
     
+    /*Readies the game for a new round, and invokes startGame() */
     public static void readyGame()
     {
       readyGameNoStart();
       StartGame();
     }
 
-    public static SimpleEx returnGame(){
+    /*Returns the main game instance*/
+    public static Game returnGame(){
         return game;
     }
 
+    /*Returns the game screen instance (the window itself)*/
     public static GameScreen returnFrame(){
         return game_screen;
     }
     
+    /*Returns the global instance*/
     public static Global returnGlobal(){
         return global;
     }
 
-    public static NewSaveScreen returnNewSaveScreen(){
-        return newSave;
-    }
+    /*Goes to the new player screen (removing any other screen & adding new save to JFrame)*/
     public static void PlayNewSaveMenu()
     {
     EventQueue.invokeLater(() -> {
@@ -507,7 +516,7 @@ public static void  appendToSaves() {
     	});
     }
    
-    
+    /*Goes to the load player screen (removing any other screen & adding load save to JFrame)*/
     public static void PlayLoadSaveMenu()
     {
     EventQueue.invokeLater(() -> {
@@ -519,6 +528,7 @@ public static void  appendToSaves() {
     	});
     }
     
+    /*Goes to the pause screen (removing game & adding pause screen to JFrame)*/
     public static void PlayPause()
     {
       game_screen.setVisible(false); 
@@ -527,8 +537,15 @@ public static void  appendToSaves() {
       game_screen.setVisible(true);
     }
 
+    public static void PlayHighScoreMenu()
+    {
+    	game_screen.setVisible(false); 
+	      game_screen.remove(menu);
+	      game_screen.add(highScoreMenu);
+	      game_screen.setVisible(true);
+    }
     
-    @SuppressWarnings("unchecked")
+    /*Goes to the lose continue screen (removing game & adding lose continue screen to JFrame)*/
     public static void PlayLoseContinue()
     {
     	game_screen.setVisible(false); 
@@ -537,7 +554,9 @@ public static void  appendToSaves() {
         game_screen.add(lostContinue);
         game_screen.setVisible(true);
     }
-	public static void PlayLose()
+	
+    /*Goes to the lose screen (removing game & adding lose screen to JFrame)*/
+    public static void PlayLose()
     {
       System.out.println("Player lost");
       game_screen.setVisible(false); 
@@ -545,39 +564,40 @@ public static void  appendToSaves() {
       lost = new LostScreen();
       game_screen.add(lost);
       game_screen.setVisible(true);
-      returnGlobal().total_gametime +=  returnGlobal().gametime;
-      if (returnGlobal().newGame)
+      returnGlobal().setTotal_gametime(returnGlobal().getTotal_gametime() + returnGlobal().getGametime());
+      if (returnGlobal().isNewGame())
       {
-    	  returnGlobal().high_level = returnGlobal().level;
-    	  if (returnGlobal().high_level < 5)
+    	  returnGlobal().setHigh_level(returnGlobal().getLevel());
+    	  if (returnGlobal().getHigh_level() < 5)
     	  {
-    		  returnGlobal().diagnosis = "Likely AD";
+    		  returnGlobal().setDiagnosis("Likely AD");
     	  }
     	  else
     	  {
-    		  returnGlobal().diagnosis = "Likely not AD"; 
+    		  returnGlobal().setDiagnosis("Likely not AD"); 
     	  }
     	  appendToSaves();
     	  
       }
       else
       {
-    	if (returnGlobal().level >  returnGlobal().high_level)
+    	if (returnGlobal().getLevel() >  returnGlobal().getHigh_level())
     	{
-    		returnGlobal().high_level = returnGlobal().level;
+    		returnGlobal().setHigh_level(returnGlobal().getLevel());
     	}
-    	 if (returnGlobal().high_level < 5)
+    	 if (returnGlobal().getHigh_level() < 5)
     	 {
-    		  returnGlobal().diagnosis = "Likely AD";
+    		  returnGlobal().setDiagnosis("Likely AD");
     	}
     	 else
     	  {
-    		  returnGlobal().diagnosis = "Likely not AD"; 
+    		  returnGlobal().setDiagnosis("Likely not AD"); 
     	  }
-    	 replaceSave(returnGlobal().loadGamePosition);
+    	 replaceSave(returnGlobal().getLoadGamePosition());
       }
     }
 
+    /*Goes to the win screen (removing game & adding win screen to JFrame)*/
     public static void PlayWin(){
       System.out.println("Player won");
       game_screen.setVisible(false); 
@@ -588,6 +608,26 @@ public static void  appendToSaves() {
         
     }
 
-   
+    /*Goes to the help menu (removing main menu & adding help menu to JFrame)*/
+	public static void PlayHelpMenu() {
+		 game_screen.setVisible(false); 
+	      game_screen.remove(menu);
+	      game_screen.add(helpMenu);
+	      game_screen.setVisible(true);
+		
+	}
+
+	/*Main method of program*/
+	public static void main(String[] args) {
+
+	       EventQueue.invokeLater(() -> {
+	            game_screen.add(menu);
+	            checkForSaveFile();
+	           // System.out.print(getHighScores().getValue() +  " "  + getHighScores().getValue() );
+	            highScoreMenu = new HighScoreMenu();
+	           // System.out.println(getHighScores().getKey() + " " + getHighScores().getValue() );
+	            game_screen.setVisible(true);
+	        });
+	    }
 
 }

@@ -1,19 +1,18 @@
-//import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 public class submitbutton implements ActionListener {
         
+		/*Gets round time and adds it to the total game time*/
         public void actionPerformed(ActionEvent e) {
-              //System.out.println("menue");
         	double round_length = (TimeUnit.NANOSECONDS.toMillis(System.nanoTime())  - Main.returnGame().time_begin) / 1000.0;
-        	Main.returnGlobal().gametime += round_length;	
-        	Main.returnGlobal().roundtime = round_length;	
+        	Main.returnGlobal().setGametime(Main.returnGlobal().getGametime() + round_length);	
+        	Main.returnGlobal().setRoundtime(round_length);	
         	System.out.println("Round Time Formatted: " + convertTime(round_length));
-        	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().gametime));
+        	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().getGametime()));
         	
-        	if (Main.global.reverse_game)
+        	if (Main.global.isReverse_game())
         	{
         		Main.returnGame().reverseArray();
         	}
@@ -23,7 +22,7 @@ public class submitbutton implements ActionListener {
         	
         }
         
-        
+        /*Converts a double time in seconds to a cleaner MM:SS format*/
         public static String convertTime(double time_in)
         {
      	 	int minutes = 0;

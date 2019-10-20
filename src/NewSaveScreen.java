@@ -1,13 +1,8 @@
-//import java.awt.EventQueue;
-//import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,30 +10,25 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 public class NewSaveScreen extends JPanel implements ActionListener {
-	
-	
-	
+	//Initialize variables
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
-	public static JTextField nameField;
-	public static JTextField birthdateField;
-	
-	public static JTextField adressField;
-	public static JTextField cityField;
-	public static JTextField stateField;
-	
-	public static JTextField zipField;
-	public static JTextField countryField;
-	
-	public static JTextArea errorText;
-	
-	
+	private static JTextField nameField;
+	private static JTextField birthdateField;
+	private static JTextField adressField;
+	private static JTextField cityField;
+	private static JTextField stateField;
+	private static JTextField zipField;
+	private static JTextField countryField;
+	private static JTextArea errorText;
 	private static final long serialVersionUID = -7892106385327845406L;
-	static int lives = 6;
-    public NewSaveScreen() {
+    
+	/*Constructor, invokes initUI*/
+	public NewSaveScreen() {
       
         initUI();
     }
     
+	/*Prints error if any fields are not set when button pressed*/
     public void printError(String text)
     {
     	
@@ -46,6 +36,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 	 	revalidate();
     }
 
+    /*Initializes and adds UI needed for all fields that are asked in new save*/
     private void initUI() {
     	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     	//Border border = BorderFactory.createMatteBorder(0, 0, 10, 0, Main.returnFrame().getBackground());
@@ -70,7 +61,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
         playButton.addActionListener(this);
         reversePlayButton.addActionListener(this);
         loadButton.addActionListener(new loadGameBtn());
-        quitButton.addActionListener(new button2());
+        quitButton.addActionListener(new QuitBtn());
         add(playButton, BorderLayout.CENTER);
         add(reversePlayButton, BorderLayout.CENTER);
         add(loadButton, BorderLayout.CENTER);
@@ -85,6 +76,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
         Main.returnFrame().repaint();
     }
        
+    /*Starts game if all fields are set, prints error if not*/
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//System.out.println(e.getSource());
@@ -124,29 +116,28 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		else
 		{
 			errorText.setText("");
-			Main.returnGlobal().name = nameField.getText();
-			Main.returnGlobal().birthdate = birthdateField.getText();
-			Main.returnGlobal().address = adressField.getText();
-			Main.returnGlobal().city = cityField.getText();
-			Main.returnGlobal().state = stateField.getText();
-			Main.returnGlobal().zip_code = zipField.getText();
-			Main.returnGlobal().country = countryField.getText();
+			Main.returnGlobal().setName(nameField.getText());
+			Main.returnGlobal().setBirthdate(birthdateField.getText());
+			Main.returnGlobal().setAddress(adressField.getText());
+			Main.returnGlobal().setCity(cityField.getText());
+			Main.returnGlobal().setState(stateField.getText());
+			Main.returnGlobal().setZip_code(zipField.getText());
+			Main.returnGlobal().setCountry(countryField.getText());
 			
 			if ( e.getSource() == reversePlayButton)
 			{
-				Main.returnGlobal().reverse_game = true;
+				Main.returnGlobal().setReverse_game(true);
 			}
 			else
 			{
-				Main.returnGlobal().reverse_game = false;
+				Main.returnGlobal().setReverse_game(false);
 			}
 			Main.StartGame();
 		}
-		
-        //textField.selectAll();
-		
+
 	}
 
+	/*Creates JTextFile from input text, length, border*/
 	public JTextField createInputArea (String text, int length, Border border, JTextField field ) {
 		createTextArea(text);
     	field = new JTextField(length);
@@ -156,9 +147,9 @@ public class NewSaveScreen extends JPanel implements ActionListener {
     	return field;
 	}
 	
+	/*Creates JText area from input text*/
    public JTextArea createTextArea(String text)
    {
-	   	//JTextArea textArea = new JTextArea(1, text.length());
 		JTextArea textArea = new JTextArea(1, 5);
 	   	textArea.setEditable(false);
 	   	textArea.append(text);

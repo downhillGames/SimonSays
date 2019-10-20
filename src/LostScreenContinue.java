@@ -8,18 +8,26 @@ import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class LostScreenContinue  extends JPanel   {
-	private static final long serialVersionUID = 9222746381719025010L;
 
+	@SuppressWarnings("unchecked")
+	/*Shows losing screen (1 life left)*/
 	public LostScreenContinue() {
 		createTextArea("You lost that round, but you still have one more chance!");
-		createTextArea("Score: " + (Main.returnGlobal().level - 1)) ;
-    	createTextArea("Play Time: " + convertTime(Main.returnGlobal().gametime) );
-    	createTextArea("Round Time: " + convertTime(Main.returnGlobal().roundtime) );
-		if (Main.returnGlobal().classic_mode)
+		createTextArea("Score: " + (Main.returnGlobal().getTimes_won() )) ;
+    	createTextArea("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
+    	createTextArea("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
+    	
+    	Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getRoundtime());
+		Main.returnGlobal().getInteractionArray().add(-1);
+		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getGametime());
+		Main.returnGlobal().getInteractionArray().add(-1);
+    	
+		//different game modes
+		if (Main.returnGlobal().getMode() == 1)
     	{
     		timerPlay();
     	}
-    	else
+    	else if (Main.returnGlobal().getMode() == 2)
     	{
 			
 	        JButton continueButton = new JButton("Continue");
@@ -27,10 +35,21 @@ public class LostScreenContinue  extends JPanel   {
 	        continueButton.addActionListener(new ContinueButton());
 	        JButton quitButton = new JButton("Quit");
 	        add(quitButton);
-	        quitButton.addActionListener(new button2());
+	        quitButton.addActionListener(new QuitBtn());
+    	}
+    	else if (Main.returnGlobal().getMode() == 3)
+    	{
+			
+	        JButton continueButton = new JButton("Continue");
+	        add(continueButton);
+	        continueButton.addActionListener(new ContinueButton());
+	        JButton quitButton = new JButton("Quit");
+	        add(quitButton);
+	        quitButton.addActionListener(new QuitBtn());
     	}
     }
 
+	/* Goes to game in three seconds (classic mode)*/
 	public void  timerPlay()
     {
 		
@@ -50,9 +69,9 @@ public class LostScreenContinue  extends JPanel   {
        t.start();
     }
 	
+	/*creates JTextArea with input text*/
 	 public JTextArea createTextArea(String text)
 	   {
-		   	//JTextArea textArea = new JTextArea(1, text.length());
 		 	Border border = BorderFactory.createMatteBorder(0, 600, 20, 600, Main.returnFrame().getBackground());
 		 	
 			JTextArea textArea = new JTextArea(1, 5);
@@ -64,6 +83,7 @@ public class LostScreenContinue  extends JPanel   {
 		   	return textArea;
 	   }
    
+	 /*Converts a double time in seconds to a cleaner MM:SS format*/
 	 public static String convertTime(double time_in)
      {
   	 	int minutes = 0;

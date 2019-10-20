@@ -12,19 +12,27 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class WinScreen extends JPanel {
 
-   
-    public WinScreen() {
+	 /*Constructor - Initializes & adds UI elements*/
+    @SuppressWarnings("unchecked")
+	public WinScreen() {
     	
     	createTextArea("You Won!");
-    	createTextArea("Score: " + (Main.returnGlobal().level - 1)) ;
-    	createTextArea("Play Time: " + convertTime(Main.returnGlobal().gametime) );
-    	createTextArea("Round Time: " + convertTime(Main.returnGlobal().roundtime) );
+    	Main.returnGlobal().setTimes_won(Main.returnGlobal().getTimes_won() + 1);
+    	createTextArea("Score: " + (Main.returnGlobal().getTimes_won())) ;
+    	createTextArea("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
+    	createTextArea("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
     	
-    	if (Main.returnGlobal().classic_mode)
+    	Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getRoundtime());
+		Main.returnGlobal().getInteractionArray().add(-1);
+		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getGametime());
+		Main.returnGlobal().getInteractionArray().add(-1);
+		System.out.println(Main.returnGlobal().getInteractionArray());
+    	
+    	if (Main.returnGlobal().getMode() == 1)
     	{
     		timerPlay();
     	}
-    	else
+    	else if (Main.returnGlobal().getMode() == 2 || Main.returnGlobal().getMode() == 3)
     	{
     		
             JButton continueButton = new JButton("Continue");
@@ -34,6 +42,7 @@ public class WinScreen extends JPanel {
     	
     }
 
+    /* Goes to game in three seconds (classic mode)*/
     public void  timerPlay()
     {
     	Thread t= new Thread (new Runnable() {
@@ -41,8 +50,7 @@ public class WinScreen extends JPanel {
         		
         		try {
 					Thread.sleep(3000);
-					Main.returnGlobal().times_won  +=1;
-		        	Main.returnGlobal().level +=1;	
+		        	Main.returnGlobal().setLevel(Main.returnGlobal().getLevel() + 1);	
 		        	Main.readyGame();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -54,9 +62,9 @@ public class WinScreen extends JPanel {
        t.start();
     }
     
-	 public JTextArea createTextArea(String text)
+    /*Creates a JText Area with input text*/
+	public JTextArea createTextArea(String text)
 	   {
-		   	//JTextArea textArea = new JTextArea(1, text.length());
 		 	Border border = BorderFactory.createMatteBorder(0, 600, 20, 600, Main.returnFrame().getBackground());
 		 	
 			JTextArea textArea = new JTextArea(1, 5);
@@ -68,6 +76,7 @@ public class WinScreen extends JPanel {
 		   	return textArea;
 	   }
 	 
+	 /*Converts a double time in seconds to a cleaner MM:SS format*/
 	 public static String convertTime(double time_in)
      {
   	 	int minutes = 0;

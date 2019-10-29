@@ -2,6 +2,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import org.json.simple.JSONArray;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +41,7 @@ public class HighScoreMenu extends JPanel implements ActionListener {
     	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     	Border border2 = BorderFactory.createMatteBorder(0, 100, 0, 0, Main.returnFrame().getBackground());
     	Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 900, Main.returnFrame().getBackground());
-    	Border border4 = BorderFactory.createMatteBorder(0, 600, 20, 600, Main.returnFrame().getBackground());
+    	Border border4 = BorderFactory.createMatteBorder(0, 600, 5, 600, Main.returnFrame().getBackground());
     	
 
         
@@ -51,7 +54,7 @@ public class HighScoreMenu extends JPanel implements ActionListener {
     	{
     		for (int i = 0; i < highScoreNames.length ; i++)
         	{
-        		createTextArea(border4 , "Username: " + highScoreNames[i] + " Score: " + ((int) highScores[i]));
+        		createTextArea(border4 , "Username: " + highScoreNames[i] + "..................Score: " + ((int) highScores[i]));
         	}
     		nameField = createInputArea("Look up high score, enter name: ", 90, border, nameField);
     	}
@@ -93,14 +96,25 @@ public class HighScoreMenu extends JPanel implements ActionListener {
 		}
 		else
 		{   
+			Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
+			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
 			int i = Main.lookUpUser(nameField.getText());
-			String key = (String) ((HashMap) Main.jsonArray.get(i)).get("key");
-			String name = Main.decryptString((String ) ((HashMap) Main.jsonArray.get(i)).get("user_name"), key);
-			String highlevel = Main.decryptString((String) ((HashMap) Main.jsonArray.get(i)).get("highlevel") , key);
+			String key = (String) ((HashMap) Main.jsonArray.get(i)).get("zxbvwoved7");
+			String name = Main.decryptString((String ) ((HashMap) Main.jsonArray.get(i)).get("rjc8qhtv1w"), key);
+			String highlevel = Main.decryptString((String) ((HashMap) Main.jsonArray.get(i)).get("pplk7r7pbp") , key);
 			double highlevel_double = Double.valueOf(highlevel);
 			int highlevel_int = ((int) highlevel_double);
-			print("Username: " + name + " Score: " +  highlevel_int);
+			print("Username: " + name + " High score: " +  highlevel_int);
 			
+			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.jsonArray.get(i)).get("gjw2201t44") , key);
+			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
+			//createTextArea(border , "No High Scores Exist on file!");
+			//createTextArea(border , "No High Scores Exist on file!");
+			
+			for (int j = 0; j < levelArr.size() ; j++)
+			{
+				createTextArea(border , "Attempt " + (j+1) + " - Score: " + levelArr.get(j) );
+			}
 		}
 		
         //textField.selectAll();
@@ -131,5 +145,19 @@ public class HighScoreMenu extends JPanel implements ActionListener {
 		   	add(textArea);
 		   	return textArea;
 	   }
+	 
+	 
+	 /**/
+		@SuppressWarnings("unchecked")
+		public static JSONArray decryptArray(JSONArray inArray , String key){
+			
+			JSONArray outArray = new JSONArray();
+			for (int i = 0; i < inArray.size() ; i ++)
+			{
+				String temp =  Main.decryptString((String )inArray.get(i), key) ;
+				outArray.add(Double.valueOf(temp)); 
+			}
+			return outArray;
+		}
 	
 }

@@ -5,6 +5,11 @@ public class Global {
 
 	// Global variables for the current player 
 	
+	private int simIndex;
+	
+	private boolean firstSim = true;
+ 
+	
 	//obfuscated - Total_gametime
 	private double tzsmrnsoy7 = 0;
 	
@@ -37,6 +42,9 @@ public class Global {
 	
 	//obfuscated - interactionArray 
 	private JSONArray o6vja8lio1 = new JSONArray(); 
+	
+	//obfuscated - scores array
+	private JSONArray gjw2201t44 = new JSONArray(); 
 	
 	//obfuscated - high_level
 	private double pplk7r7pbp = 0;
@@ -285,4 +293,37 @@ public class Global {
 	public void setHealth(int health) {
 		this.health = health;
 	}
+
+
+	public JSONArray getScoresArray() {
+		return gjw2201t44;
+	}
+
+
+	public void setScoresArray(JSONArray scoresArray) {
+		this.gjw2201t44 = scoresArray;
+	}
+
+
+	public int getSimIndex() {
+		return simIndex;
+	}
+
+
+	public void setSimIndex(int simIndex) {
+		this.simIndex = simIndex;
+	}
+
+
+	public boolean isFirstSim() {
+		return firstSim;
+	}
+
+
+	public void setFirstSim(boolean firstSim) {
+		this.firstSim = firstSim;
+	}
+
+
+	 
 }

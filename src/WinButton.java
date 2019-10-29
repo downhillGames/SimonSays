@@ -25,6 +25,16 @@ public class WinButton implements ActionListener {
         	{
         		Main.returnGlobal().setLevel(Main.returnGlobal().getLevel() + 1);	
         	}
-        	Main.readyGame();
+        	
+        	if (Main.returnGlobal().getMode() == 4)
+    		{
+        		Main.newSim();
+        		Main.readySim();
+    		}
+        	else
+        	{
+        		Main.readyGame();
+        	}
+        	
         }
 }

@@ -21,10 +21,15 @@ public class LostScreen extends JPanel {
     	createTextArea("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
     	createTextArea("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
     	
-    	Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getRoundtime());
-		Main.returnGlobal().getInteractionArray().add(-1);
-		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getGametime());
-		Main.returnGlobal().getInteractionArray().add(-1);
+    	
+		
+		if (Main.returnGlobal().getMode() == 1 ||  Main.returnGlobal().getMode() == 2 || Main.returnGlobal().getMode() == 3)
+		{
+			Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getRoundtime());
+			Main.returnGlobal().getInteractionArray().add(-1);
+			Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getGametime());
+			Main.returnGlobal().getInteractionArray().add(-1);
+		}
 		
         JButton menuButton = new JButton("Main Menu");
         add(menuButton);

@@ -17,13 +17,18 @@ public class LostScreenContinue  extends JPanel   {
     	createTextArea("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
     	createTextArea("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
     	
-    	Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getRoundtime());
-		Main.returnGlobal().getInteractionArray().add(-1);
-		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getGametime());
-		Main.returnGlobal().getInteractionArray().add(-1);
+    	if (Main.returnGlobal().getMode() != 4)
+    	{
+    		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getRoundtime());
+    		Main.returnGlobal().getInteractionArray().add(-1);
+    		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getGametime());
+    		Main.returnGlobal().getInteractionArray().add(-1);
+    	}
+    	
+    	
     	
 		//different game modes
-		if (Main.returnGlobal().getMode() == 1)
+		if (Main.returnGlobal().getMode() == 1 || Main.returnGlobal().getMode() ==  4)
     	{
     		timerPlay();
     	}
@@ -58,7 +63,18 @@ public class LostScreenContinue  extends JPanel   {
         		
         		try {
 					Thread.sleep(3000);
-		        	Main.readyGame();
+					if (Main.returnGlobal().getMode() == 4)
+					{
+						Main.newSim();
+						Main.readySim();
+					}
+					else
+					{
+						Main.readyGame();
+					}
+					
+					
+		        	
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -22,7 +22,7 @@ public class Map {
 	numberOfBlocks += 1;
 	
 	//we need 9 block =]
-	while (numberOfBlocks < 9) {
+	while (numberOfBlocks < 10) {
 		
 		
 		

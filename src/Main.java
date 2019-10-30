@@ -21,6 +21,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -137,7 +138,38 @@ public class Main {
 	  
   }
 
-	/*Returns the top 5 (if 5 exist or else just top scores in order) scores and their user names in two separate arrays (double array scores, string array user names)*/
+	
+  	
+  	
+  	public static boolean isSameString(String str1,String str2)
+  	{
+  		boolean isSameString = true;
+  		
+  		if (str1.compareTo(str2) != 0 )
+  		{
+  			isSameString = false ;
+  		}
+  		if (str1.length() == str2.length())
+  		{
+  			for (int i = 0; i < str1.length() - 1; i++  )
+  	  		{
+  	  			if (str1.charAt(i) != str2.charAt(i))
+  	  			{
+  	  				isSameString = false ;
+  	  			
+  	  			}
+  	  		}
+  		}
+  		else
+  		{
+  			isSameString = false ;
+  		}
+  		
+  		
+  		return isSameString;
+  	}
+  	
+  	/*Returns the top 5 (if 5 exist or else just top scores in order) scores and their user names in two separate arrays (double array scores, string array user names)*/
   	@SuppressWarnings("rawtypes")
 	public static AbstractMap.SimpleEntry<String[], double[]> getHighScores() 
 { 
@@ -217,9 +249,15 @@ public class Main {
 		  {
 			 String key = (String) ((HashMap) jsonArray.get(i)).get("zxbvwoved7");
 			  
+			  System.out.println(decryptString((String) ((HashMap) jsonArray.get(i)).get("rjc8qhtv1w"), key)); 
+			  System.out.println((String) ((HashMap) jsonArray.get(i)).get("rjc8qhtv1w")); 
+			  System.out.println(encryptString(name , key)); 
+			  //if (((HashMap) jsonArray.get(i)).containsValue(encryptString(name , key)))
 			  
-			  if (((HashMap) jsonArray.get(i)).containsValue(encryptString(name , key)))
+			  if (isSameString(decryptString((String) ((HashMap) jsonArray.get(i)).get("rjc8qhtv1w"), key) , name))	 
 			  {
+				  System.out.println(decryptString((String) ((HashMap) jsonArray.get(i)).get("rjc8qhtv1w"), key) + " NAME" ); 
+				  System.out.println(name + " NAME2" ); 
 				  foundUser = i;
 			  }
 		  }
@@ -236,9 +274,10 @@ public class Main {
 	  for (int i = 0; i < jsonArray.size(); i++)
 	  {
 		  String key = (String) ((HashMap) jsonArray.get(i)).get("zxbvwoved7");
+		   
 		  
-		  
-		  if (((HashMap) jsonArray.get(i)).containsValue(encryptString(name , key)))
+		  //if (((HashMap) jsonArray.get(i)).containsValue(encryptString(name , key)))
+		  if (isSameString(decryptString((String) ((HashMap) jsonArray.get(i)).get("rjc8qhtv1w"), key) , name))	  
 		  {
 			  String high_level_string = new String();
 			  String gametime_string = new String();	  
@@ -460,6 +499,17 @@ public class Main {
     
     }
 
+    public static int returnAge(String bdate)
+    {
+    	int age = 0;
+    	
+    	String yearString = bdate.substring(6);
+    	int yearInt = Integer.valueOf(yearString);
+    	age = 2019 - yearInt; 
+    	
+    	return age;
+    }
+    
     /*Returns to the main menu (reinvokes main), resets variables*/
     public static void returnToMenu()
     {
@@ -627,6 +677,7 @@ public class Main {
 	      game_screen.setVisible(false); 
 	      game_screen.remove(menu);
 	      game_screen.remove(loadSave);
+	      newSave = new NewSaveScreen();
 	      game_screen.add(newSave);
 	      game_screen.setVisible(true);
     	});
@@ -639,6 +690,7 @@ public class Main {
 	      game_screen.setVisible(false); 
 	      game_screen.remove(menu);
 	      game_screen.remove(newSave);
+	      loadSave = new LoadSaveScreen();
 	      game_screen.add(loadSave);
 	      game_screen.setVisible(true);
     	});
@@ -660,7 +712,8 @@ public class Main {
     public static void PlayHighScoreMenu()
     {
     	game_screen.setVisible(false); 
-	      game_screen.remove(menu);
+	      game_screen.remove(menu); 
+	      highScoreMenu = new HighScoreMenu();
 	      game_screen.add(highScoreMenu);
 	      game_screen.setVisible(true);
     }
@@ -669,6 +722,7 @@ public class Main {
     {
     	game_screen.setVisible(false); 
 	      game_screen.remove(menu);
+	      simMenu = new simulationMenu();
 	      game_screen.add(simMenu);
 	      game_screen.setVisible(true);
     }

@@ -110,6 +110,12 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 		{
 			printError("That save file does not exist!");
 		}
+		
+		   else if (!zipField.getText().equals("") && !zipField.getText().matches("\\d{5}"))
+			{
+			  printError("Please enter zip in XXXXX Format"); 
+			}	
+			
 		else
 		{
 			
@@ -125,10 +131,14 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 			{
 				Main.returnGlobal().setState(stateField.getText());
 			}
-			if (!zipField.getText().equals("") )
+			
+			 if (!zipField.getText().equals("") )
 			{
-				Main.returnGlobal().setZip_code(zipField.getText());
-			}
+				 
+					Main.returnGlobal().setZip_code(zipField.getText());
+				  
+			}	
+			 
 			if (!countryField.getText().equals("") )
 			{
 				Main.returnGlobal().setCountry(countryField.getText());

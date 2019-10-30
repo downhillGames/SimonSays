@@ -96,6 +96,15 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		{
 			printError("You did not enter a birth date!");
 		}
+		else if (!birthdateField.getText().matches("\\d{2}\\-\\d{2}\\-\\d{4}")  )
+		{
+			printError("Please enter birtdate in MM-DD-YYYY Format");
+		}
+		
+		else if (Main.returnAge(birthdateField.getText()) < 5 ||  Main.returnAge(birthdateField.getText()) > 125 )
+		{
+			printError("Please enter a correct birth year ");
+		}
 		else if (adressField.getText().equals("") )
 		{
 			printError("You did not enter an address!");
@@ -111,6 +120,10 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		else if (zipField.getText().equals("") )
 		{
 			printError("You did not enter a zip code!");
+		}
+		else if (!zipField.getText().matches("\\d{5}")  )
+		{
+			printError("Please enter zip in XXXXX Format");
 		}
 		else if (countryField.getText().equals("") )
 		{

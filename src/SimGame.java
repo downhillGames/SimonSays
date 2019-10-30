@@ -189,7 +189,7 @@ public class SimGame extends JPanel
  			  }
  	  		}
  	  		int hits = 0;
- 	  	 buffer = 500;
+ 	  	 buffer = 1000;
  	  		while (hits < 1) {
  	  			if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer  >= (Main.returnGlobal().getSpeed() + buffer  ))
  	 			  {

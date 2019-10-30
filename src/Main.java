@@ -26,9 +26,9 @@ import java.util.AbstractMap;
 public class Main {
 	//initialize variables
   static GameScreen game_screen = new GameScreen();
-  static MainMenu menu = new MainMenu();
-  static Map map = new Map();
   static Global global = new Global();
+  static MainMenu menu = new MainMenu();
+  static Map map = new Map(); 
   static Game game = new Game(map);
   static SimGame simGame;
   static WinScreen win;
@@ -466,10 +466,20 @@ public class Main {
     	 returnGlobal().setNewGame(true);
     	 returnGlobal().setHealth(1);
     	 returnGlobal().setLevel(0);
+    	 returnGlobal().setTimes_won(0);
     	 returnGlobal().setSpeed(1000);
     	 returnGlobal().getInteractionArray().clear();
     	 game_screen.setVisible(false);
          game_screen.remove(lost);
+         game_screen.remove(newSave);
+         game_screen.remove(loadSave);
+         
+         if (Main.returnGlobal().getMode() == 4)
+         {
+        	 Main.returnGlobal().setMode(1);;
+         }
+         
+         
          game_screen.remove(highScoreMenu);
          game_screen.remove(game);
          game_screen.remove(helpMenu);
@@ -477,6 +487,7 @@ public class Main {
          readyGameNoStart();
          menu = new MainMenu();
          main(null);
+         nullSim();
     }
     
     /*Readies the sim for a new round, but does not start it*/
@@ -603,6 +614,10 @@ public class Main {
     
     public static void newSim(){
         simGame = new SimGame();
+    }
+    
+    public static void nullSim(){
+        simGame = null;
     }
 
     /*Goes to the new player screen (removing any other screen & adding new save to JFrame)*/

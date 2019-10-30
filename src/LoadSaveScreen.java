@@ -62,6 +62,7 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 
     	
     	JButton playButton = new JButton("Play Game - Forward");
+    	JButton menuButton = new JButton("Back to Main Menu");
     	JButton newButton = new JButton("New Game");
     	JButton quitButton = new JButton("Quit Game");
     	//JButton reversePlayButton = new JButton("Play Game - Reverse");
@@ -70,12 +71,14 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
         playButton.addActionListener(this);
         reversePlayButton.addActionListener(this);
         
+        menuButton.addActionListener(new menuButton());
         newButton.addActionListener(new NewSaveBtn());
         quitButton.addActionListener(new QuitBtn());
         
         add(playButton, BorderLayout.CENTER);
         add(reversePlayButton, BorderLayout.CENTER);
         add(newButton, BorderLayout.CENTER);
+        add(menuButton, BorderLayout.CENTER);
         add(quitButton, BorderLayout.CENTER);
         
         errorText = new JTextArea(1, 5);
@@ -95,6 +98,13 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 		{
 			printError("You did not enter a name!");
 		}
+		
+		else if ( nameField.getText().equals("DEV_MODE") )
+		{
+			printError("You have enabled dev mode ");
+			Main.returnGlobal().setDev_mode(true);
+		}
+		
 		
 		else if ( Main.loadGame(nameField.getText()) == -1)
 		{

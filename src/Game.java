@@ -83,6 +83,12 @@ public class Game extends JPanel
     	}
     	
     }
+    
+    for (int i = 0; i < getButtns_pressd().length ; i++)
+    {
+		Main.returnGlobal().getInteractionArray().add(getComputer_pressed()[i]);
+    }
+    Main.returnGlobal().getInteractionArray().add(-1);
  
     if  (Main.returnGlobal().isReverse_game())
     {
@@ -105,11 +111,7 @@ public class Game extends JPanel
     
     
     Main.returnGlobal().getInteractionArray().add(-1);
-    for (int i = 0; i < getButtns_pressd().length ; i++)
-    {
-		Main.returnGlobal().getInteractionArray().add(getComputer_pressed()[i]);
-    }
-    Main.returnGlobal().getInteractionArray().add(-1);
+   
     
     
     if (flag == false)

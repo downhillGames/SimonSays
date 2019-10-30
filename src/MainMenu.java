@@ -31,8 +31,14 @@ public class MainMenu extends JPanel  implements ActionListener {
         JButton helpButton = new JButton("Help Menu");
         add(helpButton);
         
-        JButton simButton = new JButton("Simulation");
-        add(simButton);
+        
+        
+        if (Main.returnGlobal().isDev_mode())
+    	{
+        	JButton simButton = new JButton("Simulation");
+            add(simButton);
+    		simButton.addActionListener(new SimulationButton());
+    	}
         
         
         JButton highScoreButton = new JButton("High Scores");
@@ -43,7 +49,7 @@ public class MainMenu extends JPanel  implements ActionListener {
         
         
         playButton.addActionListener(new NewSaveBtn());
-        simButton.addActionListener(new SimulationButton());
+        
         loadButton.addActionListener(new loadGameBtn());
         quitButton.addActionListener(new QuitBtn());
         helpButton.addActionListener(new helpButton());

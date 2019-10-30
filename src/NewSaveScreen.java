@@ -54,6 +54,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
     	
     	JButton playButton = new JButton("Play Game - Forward");
     	JButton loadButton = new JButton("Load Game");
+    	JButton menuButton = new JButton("Back to Menu");
     	JButton quitButton = new JButton("Quit Game");
     	//JButton reversePlayButton = new JButton("Play Game - Reverse");
     	///playButton.setBorder(border);
@@ -61,10 +62,12 @@ public class NewSaveScreen extends JPanel implements ActionListener {
         playButton.addActionListener(this);
         reversePlayButton.addActionListener(this);
         loadButton.addActionListener(new loadGameBtn());
+        menuButton.addActionListener(new menuButton());
         quitButton.addActionListener(new QuitBtn());
         add(playButton, BorderLayout.CENTER);
         add(reversePlayButton, BorderLayout.CENTER);
         add(loadButton, BorderLayout.CENTER);
+        add(menuButton, BorderLayout.CENTER);
         add(quitButton, BorderLayout.CENTER);
         
         errorText = new JTextArea(1, 5);

@@ -162,7 +162,7 @@ public class SimGame extends JPanel
  			int buffer = 0;
  		  	if  (Main.returnGlobal().isFirst_hit())
  		  	{
- 		  		buffer = 2000;
+ 		  		buffer = 3500;
  		  	}
  		  	else
  		  	{
@@ -227,7 +227,9 @@ public class SimGame extends JPanel
 			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer  >= (Main.returnGlobal().getSpeed() + buffer  ))
 			  {
 				  Main.returnGlobal().setComputer_playing(true);
+				  System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex()) + " WHERE WE ARE IN INTERACTIONS ARRAY - IY");
 				  int randomBlock = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex()));
+				  
 				  //inArray[randomBlock].setBackground(Color.WHITE);
 				  Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 1);
 				  inArray[randomBlock].setEnabled(true);
@@ -312,8 +314,23 @@ public class SimGame extends JPanel
         	finally
         	{
         		createDoneButton();
-        		int counter = 10 -  Main.returnGlobal().getTimes_won();
-        		Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + counter);
+        		/*
+        		if (Main.returnGlobal().isReverse_game())
+            	{
+        		
+            	}
+        		else
+        		{
+        			int counter = 10 -  Main.returnGlobal().getTimes_won();
+            		 Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + counter);
+            	}*/
+        	 
+        		while( (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) == 0)
+  				{
+  					Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 1);
+  				}
+    			Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 1);
+        	
         		System.out.println( Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex()));
         		
         		simHit(outArray);

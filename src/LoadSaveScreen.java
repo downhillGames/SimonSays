@@ -1,20 +1,16 @@
-//import java.awt.EventQueue;
-//import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
-public class LoadSaveScreen extends JPanel implements ActionListener {
+public class LoadSaveScreen extends Menu implements ActionListener {
 	
 	
 	//initialize needed variables 
@@ -106,7 +102,7 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 		}
 		
 		
-		else if ( Main.loadGame(nameField.getText()) == -1)
+		else if ( Main.returnGameSave().loadGame(nameField.getText()) == -1)
 		{
 			printError("That save file does not exist!");
 		}
@@ -159,25 +155,8 @@ public class LoadSaveScreen extends JPanel implements ActionListener {
 		
 	}
 
-	/*Creates JTextField with input text, length, border*/
-	public JTextField createInputArea (String text, int length, Border border, JTextField field ) {
-		createTextArea(text);
-    	field = new JTextField(length);
-    	field.setBorder(border);
-    	
-    	add(field);
-    	return field;
-	}
+
 	
-	/*Creates JTextArea with input text*/
-   public JTextArea createTextArea(String text)
-   {
-		JTextArea textArea = new JTextArea(1, 5);
-	   	textArea.setEditable(false);
-	   	textArea.append(text);
-	   	textArea.setBackground(Main.returnFrame().getBackground()); 
-	 	add(textArea);
-	   	return textArea;
-   }
+
 	
 }

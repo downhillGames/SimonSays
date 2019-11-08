@@ -1,4 +1,3 @@
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -13,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class simulationMenu extends JPanel implements ActionListener {
+public class simulationMenu extends Menu implements ActionListener {
 	
 	// initialize variables
 	private static JTextField nameField;
@@ -50,7 +49,7 @@ public class simulationMenu extends JPanel implements ActionListener {
 
         
 
-    	nameField = createInputArea("Loop up name: ", 90, border, nameField);
+    	nameField = createInputArea("Look up name to sim: ", 90, border, nameField);
     	
     	
     	
@@ -71,8 +70,8 @@ public class simulationMenu extends JPanel implements ActionListener {
     }
        
 	
-	/*Prints High score if name is looked up*/
-    @SuppressWarnings("rawtypes")
+	/*looks up user for simulation game*/
+    @SuppressWarnings({ "rawtypes", "static-access" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -83,7 +82,7 @@ public class simulationMenu extends JPanel implements ActionListener {
     			print("You did not enter a name!");
     		}
     		
-    		else if ( Main.lookUpUser(nameField.getText()) == -1)
+    		else if ( Main.returnGameSave().lookUpUser(nameField.getText()) == -1)
     		{
     			print("That save file does not exist!");
     		}
@@ -91,16 +90,16 @@ public class simulationMenu extends JPanel implements ActionListener {
     		{   
     			Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
-    			int i = Main.lookUpUser(nameField.getText());
-    			Main.loadGame(nameField.getText());
-    			String key = (String) ((HashMap) Main.jsonArray.get(i)).get("zxbvwoved7");
-    			String name = Main.decryptString((String ) ((HashMap) Main.jsonArray.get(i)).get("rjc8qhtv1w"), key);
-    			String highlevel = Main.decryptString((String) ((HashMap) Main.jsonArray.get(i)).get("pplk7r7pbp") , key);
+    			int i = Main.returnGameSave().lookUpUser(nameField.getText());
+    			Main.returnGameSave().loadGame(nameField.getText());
+    			String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
+    			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
+    			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("pplk7r7pbp") , key);
     			double highlevel_double = Double.valueOf(highlevel);
     			int highlevel_int = ((int) highlevel_double);
     			print("Username: " + name + " High score: " +  highlevel_int);
     			
-    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.jsonArray.get(i)).get("gjw2201t44") , key);
+    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
     			amountOfGames = levelArr.size();
     			gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);
@@ -119,7 +118,7 @@ public class simulationMenu extends JPanel implements ActionListener {
     			print("You did not enter a number!");
     		}
     		
-    		else if ( Integer.valueOf(gameField.getText()) > amountOfGames)
+    		else if ( Integer.valueOf(gameField.getText()) > amountOfGames || Integer.valueOf(gameField.getText()) < 0)
     		{
     			print("That amount of games does not exist");
     		}
@@ -149,13 +148,13 @@ public class simulationMenu extends JPanel implements ActionListener {
 		
 		
 		
-		
-        //textField.selectAll();
+
 		
 	}
 
     
     @SuppressWarnings("unchecked")
+    /*returns a JSON Array with all of the indexes of '-3' in interactions array, signifying a new game*/
 	public JSONArray getStartingIndexes(JSONArray InArray)
     {
 		JSONArray startIndexes = new JSONArray();
@@ -183,7 +182,7 @@ public class simulationMenu extends JPanel implements ActionListener {
     	return field;
 	}
 	
-	
+	/*returns if T if a string is a numeric F if not by returning F if exception is thrown / caught*/
 	public static boolean isNumeric(String strNum) {
 	    try {
 	        double d = Double.parseDouble(strNum);
@@ -209,7 +208,7 @@ public class simulationMenu extends JPanel implements ActionListener {
 	   }
 	 
 	 
-	 /**/
+	 /*returns a decrypted JSON array from given encrypted JSON array*/
 		@SuppressWarnings("unchecked")
 		public static JSONArray decryptArray(JSONArray inArray , String key){
 			

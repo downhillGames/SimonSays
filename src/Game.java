@@ -162,7 +162,7 @@ public class Game extends JPanel
 		  		buffer = 0;
 		  	}
 	  		int hits = 0;
-	  		while (hits <  Main.returnGlobal().getLevel() + 1 ) {
+	  		while (hits <  Main.returnGlobal().getLevel() ) {
 			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer  >= (Main.returnGlobal().getSpeed() + buffer  ))
 			  {
 				  Main.returnGlobal().setComputer_playing(true);

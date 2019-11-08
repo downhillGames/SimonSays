@@ -1,4 +1,3 @@
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -9,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
-public class NewSaveScreen extends JPanel implements ActionListener {
+public class NewSaveScreen extends Menu implements ActionListener {
 	//Initialize variables
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
 	private static JTextField nameField;
@@ -36,6 +35,25 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 	 	revalidate();
     }
 
+    
+    
+    public static int returnMonth(String bdate)
+    {
+    	String monthString = bdate.substring(0, 2);
+    	
+    	int month = Integer.valueOf(monthString);
+    	
+    	return month;
+    }
+    
+    public static int returnDay(String bdate)
+    {
+    	String dayString = bdate.substring(3, 5);
+    	int day = Integer.valueOf(dayString);
+    	System.out.println(day + " DAY");
+    	return day;
+    }
+    
     /*Initializes and adds UI needed for all fields that are asked in new save*/
     private void initUI() {
     	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
@@ -88,7 +106,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		{
 			printError("You did not enter a name!");
 		}
-		else if (Main.loadGame(nameField.getText()) != -1)
+		else if (Main.returnGameSave().loadGame(nameField.getText()) != -1)
 		{
 			printError("Please enter a different name, this save file exists already, or load save");
 		}
@@ -105,6 +123,17 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 		{
 			printError("Please enter a correct birth year ");
 		}
+		
+		else if (returnMonth(birthdateField.getText()) < 0 ||  returnMonth(birthdateField.getText()) > 12 )
+		{
+			printError("Please enter a correct month");
+		}
+		
+		else if (returnDay(birthdateField.getText()) < 0 ||  returnDay(birthdateField.getText()) > 31 )
+		{
+			printError("Please enter a correct date");
+		}
+		
 		else if (adressField.getText().equals("") )
 		{
 			printError("You did not enter an address!");
@@ -153,25 +182,7 @@ public class NewSaveScreen extends JPanel implements ActionListener {
 
 	}
 
-	/*Creates JTextFile from input text, length, border*/
-	public JTextField createInputArea (String text, int length, Border border, JTextField field ) {
-		createTextArea(text);
-    	field = new JTextField(length);
-    	field.setBorder(border);
-    	
-    	add(field);
-    	return field;
-	}
+
 	
-	/*Creates JText area from input text*/
-   public JTextArea createTextArea(String text)
-   {
-		JTextArea textArea = new JTextArea(1, 5);
-	   	textArea.setEditable(false);
-	   	textArea.append(text);
-	   	textArea.setBackground(Main.returnFrame().getBackground()); 
-	 	add(textArea);
-	   	return textArea;
-   }
 	
 }

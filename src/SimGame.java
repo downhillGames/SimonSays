@@ -39,6 +39,7 @@ public class SimGame extends JPanel
 			
 	    }
 
+	/*reads in needed info from interaction array including map and if game is reversed*/ 
 	public static int[] getInteractionMap()
 	{
 		int[] map = new int[27];
@@ -153,9 +154,9 @@ public class SimGame extends JPanel
 	  inArray[randomBlock].doClick();
   }
   
-  /*Clicks the amount of blocks needed in each round (computer player's "turn")*/
+
   
-  
+  /*Simulates players button presses of that round (computer player's "turn") */
   public void simHit(JButton[] inArray)
  	{
  	  		@SuppressWarnings("unused")
@@ -209,6 +210,7 @@ public class SimGame extends JPanel
  		  
  		  }
   
+ /*Clicks the amount of blocks needed in each round (computer player's "turn")*/
   public void hit(JButton[] inArray)
 	{
 	  		@SuppressWarnings("unused")
@@ -222,7 +224,9 @@ public class SimGame extends JPanel
 		  		buffer = 0;
 		  	}
 	  		int hits = 0;
-	  		while (hits <  Main.returnGlobal().getTimes_won() + 1 ) {
+	  		while ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) != 0 &&
+ 	  				(int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) != -1) {
+	  		//while (hits <  Main.returnGlobal().getTimes_won() + 2 ) {
 	  			
 			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer  >= (Main.returnGlobal().getSpeed() + buffer  ))
 			  {
@@ -314,16 +318,7 @@ public class SimGame extends JPanel
         	finally
         	{
         		createDoneButton();
-        		/*
-        		if (Main.returnGlobal().isReverse_game())
-            	{
         		
-            	}
-        		else
-        		{
-        			int counter = 10 -  Main.returnGlobal().getTimes_won();
-            		 Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + counter);
-            	}*/
         	 
         		while( (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) == 0)
   				{
@@ -337,15 +332,13 @@ public class SimGame extends JPanel
         		 
         		Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 1);
 	  			 
-	  				int counter2 = 10 -  times_hit;
-	        		//Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + times_hit);
+	  				
 	        		
 	        		System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() - 2) + " - 2 index");
 	  				System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() - 1) + " - 1 index");
 	  				System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex()) + " WHERE WE ARE IN INTERACTIONS ARRAY");
 	  				System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 1) + " + 1 index");
 	  				System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 2 ) + " + 2 index");
-        		//activateAllButtons(outArray);
         	}
         		
         	}

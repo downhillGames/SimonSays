@@ -1,4 +1,3 @@
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -13,7 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class HighScoreMenu extends JPanel implements ActionListener {
+public class HighScoreMenu extends Menu implements ActionListener {
 	
 	// initialize variables
 	private static JTextField nameField;
@@ -45,8 +44,8 @@ public class HighScoreMenu extends JPanel implements ActionListener {
     	
 
         
-    	double[] highScores =  Main.getHighScores().getValue();
-    	String[] highScoreNames =  Main.getHighScores().getKey();
+    	double[] highScores =  Main.returnGameSave().getHighScores().getValue();
+    	String[] highScoreNames =  Main.returnGameSave().getHighScores().getKey();
     	
     	
     	
@@ -81,7 +80,7 @@ public class HighScoreMenu extends JPanel implements ActionListener {
        
 	
 	/*Prints High score if name is looked up*/
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "static-access" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -90,7 +89,7 @@ public class HighScoreMenu extends JPanel implements ActionListener {
 			print("You did not enter a name!");
 		}
 		
-		else if ( Main.lookUpUser(nameField.getText()) == -1)
+		else if ( Main.returnGameSave().lookUpUser(nameField.getText()) == -1)
 		{
 			print("That save file does not exist!");
 		}
@@ -98,15 +97,15 @@ public class HighScoreMenu extends JPanel implements ActionListener {
 		{   
 			Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
 			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
-			int i = Main.lookUpUser(nameField.getText());
-			String key = (String) ((HashMap) Main.jsonArray.get(i)).get("zxbvwoved7");
-			String name = Main.decryptString((String ) ((HashMap) Main.jsonArray.get(i)).get("rjc8qhtv1w"), key);
-			String highlevel = Main.decryptString((String) ((HashMap) Main.jsonArray.get(i)).get("pplk7r7pbp") , key);
+			int i = Main.returnGameSave().lookUpUser(nameField.getText());
+			String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
+			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
+			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("pplk7r7pbp") , key);
 			double highlevel_double = Double.valueOf(highlevel);
 			int highlevel_int = ((int) highlevel_double);
 			print("Username: " + name + " High score: " +  highlevel_int);
 			
-			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.jsonArray.get(i)).get("gjw2201t44") , key);
+			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
 			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
 			//createTextArea(border , "No High Scores Exist on file!");
 			//createTextArea(border , "No High Scores Exist on file!");
@@ -121,15 +120,7 @@ public class HighScoreMenu extends JPanel implements ActionListener {
 		
 	}
 
-    /*Creates a JTextField area with input size, text, border*/
-	public JTextField createInputArea (String text, int length, Border border, JTextField field ) {
-		createTextArea(border, text);
-    	field = new JTextField(length);
-    	field.setBorder(border);
-    	
-    	add(field);
-    	return field;
-	}
+  
 	
 	/*Creates JText Area with input border and text*/
 	 public JTextArea createTextArea(Border border, String text)

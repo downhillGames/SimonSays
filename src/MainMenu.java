@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
-public class MainMenu extends JPanel  implements ActionListener {
+public class MainMenu extends Menu  implements ActionListener {
 
 	private static final long serialVersionUID = -7892106385327845406L;
 	JTextArea text;
@@ -20,7 +20,7 @@ public class MainMenu extends JPanel  implements ActionListener {
     /*Initializes UI components of main menu*/
     private void initUI() {
       
-    	createTextArea("Welcome to the Corsi Test");
+    	createTextAreaLineBreak("Welcome to the Corsi Test");
         JButton playButton = new JButton("New Game");
         add(playButton);
         JButton loadButton = new JButton("Load Game");
@@ -85,19 +85,6 @@ public class MainMenu extends JPanel  implements ActionListener {
 	 	revalidate();
     }
 
-    /*Creates JText Area from input text*/
-    public JTextArea createTextArea(String text)
-	   {
-		 	Border border = BorderFactory.createMatteBorder(0, 600, 20, 600, Main.returnFrame().getBackground());
-			JTextArea textArea = new JTextArea(1, 5);
-		   	textArea.setEditable(false);
-		   	textArea.append(text);
-		   	textArea.setBackground(Main.returnFrame().getBackground()); 
-		   	textArea.setBorder(border);
-		   	add(textArea);
-		   	return textArea;
-	   }
-    
     @Override
     /*On button press, invoke change modes*/
     public void actionPerformed(ActionEvent e) {

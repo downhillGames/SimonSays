@@ -1,12 +1,11 @@
 
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class HelpMenu extends JPanel {
+public class HelpMenu extends Menu {
 
    
 	/*Creates all the text and buttons needed for the help menu*/

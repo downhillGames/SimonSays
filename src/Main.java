@@ -1,13 +1,6 @@
 import java.awt.EventQueue;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
 import javax.xml.bind.DatatypeConverter;
 import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import javax.swing.*;
 //all these are for encryption
 import java.security.InvalidKeyException;
@@ -20,8 +13,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
-import java.util.AbstractMap;
-import java.util.ArrayList;
 
 
 public class Main {

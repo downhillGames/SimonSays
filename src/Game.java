@@ -210,8 +210,7 @@ public class Game extends JPanel
   }
 
   /*Creates JButton Map from Map array and invokes the computer player's turn*/
-    @SuppressWarnings("unchecked")
-	public void displayGUI()
+    public void displayGUI()
     {
     	 JButton[] outArray = new JButton[10];
   

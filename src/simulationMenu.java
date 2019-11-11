@@ -183,6 +183,7 @@ public class simulationMenu extends Menu implements ActionListener {
 	}
 	
 	/*returns if T if a string is a numeric F if not by returning F if exception is thrown / caught*/
+	@SuppressWarnings("unused")
 	public static boolean isNumeric(String strNum) {
 	    try {
 	        double d = Double.parseDouble(strNum);

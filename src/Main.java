@@ -426,13 +426,17 @@ public class Main {
     	  if (returnGlobal().isNewGame())
           {
         	  returnGlobal().setHigh_level(returnGlobal().getLevel());
-        	  if (returnGlobal().getHigh_level() < 5)
+        	  if (returnGlobal().getHigh_level() < 5 && returnAge(returnGlobal().getBirthdate()) > 13)
         	  {
-        		  returnGlobal().setDiagnosis("Likely AD");
+        		  returnGlobal().setDiagnosis("Possibly AD");
         	  }
-        	  else
+        	  else if (returnGlobal().getHigh_level() >= 5 && returnAge(returnGlobal().getBirthdate()) > 13) 
         	  {
         		  returnGlobal().setDiagnosis("Likely not AD"); 
+        	  }
+        	  else if (returnAge(returnGlobal().getBirthdate()) <= 13)
+        	  {
+        		  returnGlobal().setDiagnosis("Too young to diagnose"); 
         	  }
         	  GameSave.appendToSaves();
         	  
@@ -443,14 +447,18 @@ public class Main {
         	{
         		returnGlobal().setHigh_level(returnGlobal().getLevel());
         	}
-        	 if (returnGlobal().getHigh_level() < 5)
-        	 {
-        		  returnGlobal().setDiagnosis("Possibly AD");
-        	}
-        	 else
-        	  {
-        		  returnGlobal().setDiagnosis("Likely not AD"); 
-        	  }
+        	if (returnGlobal().getHigh_level() < 5 && returnAge(returnGlobal().getBirthdate()) > 13)
+      	  	{
+      		  	returnGlobal().setDiagnosis("Possibly AD");
+      	  	}
+      	  	else if (returnGlobal().getHigh_level() >= 5 && returnAge(returnGlobal().getBirthdate()) > 13) 
+      	  	{
+      	  		returnGlobal().setDiagnosis("Likely not AD"); 
+      	  	}
+      	  	else if (returnAge(returnGlobal().getBirthdate()) <= 13)
+      	  	{
+      	  		returnGlobal().setDiagnosis("Too young to diagnose"); 
+      	  	}
         	 GameSave.replaceSave(returnGlobal().getLoadGamePosition());
           }
       }

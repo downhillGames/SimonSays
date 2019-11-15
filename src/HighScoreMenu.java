@@ -80,7 +80,7 @@ public class HighScoreMenu extends Menu implements ActionListener {
        
 	
 	/*Prints High score if name is looked up*/
-    @SuppressWarnings({ "rawtypes", "static-access" })
+    @SuppressWarnings({ "rawtypes", "static-access", "unchecked" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -106,13 +106,25 @@ public class HighScoreMenu extends Menu implements ActionListener {
 			print("Username: " + name + " High score: " +  highlevel_int);
 			
 			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
-			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
-			//createTextArea(border , "No High Scores Exist on file!");
-			//createTextArea(border , "No High Scores Exist on file!");
+			
+			 
+			JSONArray trueLevelArr = new JSONArray(); 
 			
 			for (int j = 0; j < levelArr.size() ; j++)
 			{
-				createTextArea(border , "Attempt " + (j+1) + " - Score: " + levelArr.get(j) );
+				if ((double)levelArr.get(j) != 0 )
+				{
+					trueLevelArr.add(levelArr.get(j));
+				}
+			}
+			 
+			createTextArea(border2 , name + " has attempted the game " + trueLevelArr.size() + " time(s)");
+			//createTextArea(border , "No High Scores Exist on file!");
+			//createTextArea(border , "No High Scores Exist on file!");
+			
+			for (int j = 0; j < trueLevelArr.size() ; j++)
+			{
+				createTextArea(border , "Attempt " + (j+1) + " - Score: " + trueLevelArr.get(j) );
 			}
 		}
 		

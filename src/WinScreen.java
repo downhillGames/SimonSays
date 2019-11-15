@@ -9,13 +9,31 @@ public class WinScreen extends Menu {
 	public WinScreen() {
     	
     	createTextAreaLineBreak("You Won!");
-    	Main.returnGlobal().setTimes_won(Main.returnGlobal().getTimes_won() + 1);
-    	Main.returnGlobal().setLevel(Main.returnGlobal().getLevel() + 1);
-    	System.out.println("CORSI SCORE: " + Main.returnGlobal().getLevel());
-    	createTextAreaLineBreak("Score: " + (Main.returnGlobal().getTimes_won())) ;
-    	createTextAreaLineBreak("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
-    	createTextAreaLineBreak("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
     	
+    	
+    	System.out.println("CORSI SCORE: " + Main.returnGlobal().getLevel());
+    	Main.returnGlobal().setTimes_won(Main.returnGlobal().getTimes_won() + 1);
+    	displayStats();
+
+    	if (Main.returnGlobal().getMode() == 3)
+    	{
+    		//if level is even
+    		if (Main.returnGlobal().getTimes_won() % 2 == 0)
+    		{
+    			if 	(Main.returnGlobal().getSpeed() > 100 )
+    			{
+    				Main.returnGlobal().setSpeed(Main.returnGlobal().getSpeed() - 100);
+    			}
+    		}
+    		else
+    		{
+    			 Main.returnGlobal().setLevel(Main.returnGlobal().getLevel() + 1);	
+    		}
+    	}
+    	else
+    	{
+    		 Main.returnGlobal().setLevel(Main.returnGlobal().getLevel() + 1);	
+    	}
     	
     	if (Main.returnGlobal().getMode() == 1 ||  Main.returnGlobal().getMode() == 2 || Main.returnGlobal().getMode() == 3)
     	{

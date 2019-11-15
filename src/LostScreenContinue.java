@@ -7,9 +7,7 @@ public class LostScreenContinue extends Menu  {
 	/*Shows losing screen (1 life left)*/
 	public LostScreenContinue() {
 		createTextAreaLineBreak("You lost that round, but you still have one more chance!");
-		createTextAreaLineBreak("Score: " + (Main.returnGlobal().getTimes_won() )) ;
-    	createTextAreaLineBreak("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
-    	createTextAreaLineBreak("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
+		displayStats();
     	
     	if (Main.returnGlobal().getMode() != 4)
     	{

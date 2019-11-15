@@ -8,9 +8,7 @@ public class LostScreen extends Menu {
 	 /*Shows losing screen (no lives left)*/
 	public LostScreen() {
 		createTextAreaLineBreak("You Lost");
-		createTextAreaLineBreak("Score: " + (Main.returnGlobal().getTimes_won() )) ;
-    	createTextAreaLineBreak("Play Time: " + convertTime(Main.returnGlobal().getGametime()) );
-    	createTextAreaLineBreak("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
+		displayStats();
     	
     	
 		

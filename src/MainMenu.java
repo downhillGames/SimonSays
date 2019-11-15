@@ -1,9 +1,6 @@
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.Border;
+ import javax.swing.JTextArea; 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
+import java.awt.event.ActionListener; 
 import javax.swing.JButton;
 
 public class MainMenu extends Menu  implements ActionListener {
@@ -33,11 +30,16 @@ public class MainMenu extends Menu  implements ActionListener {
         
         
         
-        if (Main.returnGlobal().isDev_mode())
+        if (Main.isDev_mode())
     	{
         	JButton simButton = new JButton("Simulation");
             add(simButton);
     		simButton.addActionListener(new SimulationButton());
+    		
+    		JButton statsButton = new JButton("Stats");
+            add(statsButton);
+            statsButton.addActionListener(new StatsButton());
+    		
     	}
         
         

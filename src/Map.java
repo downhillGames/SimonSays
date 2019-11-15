@@ -12,12 +12,12 @@ public class Map {
 	int max_y = 525;
 	int while_tries = 0;
 	int minDistanceAllowed = 50;
-	System.out.println("createdMap");
+	
 	int numberOfBlocks = 0;
 	
 	
-	map_array[1] = ThreadLocalRandom.current().nextInt(min_x, max_x + 1);
-	map_array[2] = ThreadLocalRandom.current().nextInt(min_y, max_y + 1);
+	map_array[1] = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
+	map_array[2] = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
 	map_array[0] = numberOfBlocks;
 	numberOfBlocks += 1;
 	
@@ -26,23 +26,25 @@ public class Map {
 		
 		
 		
-		int randomX = ThreadLocalRandom.current().nextInt(min_x, max_x + 1);
-		int randomY = ThreadLocalRandom.current().nextInt(min_y, max_y + 1);
+		int randomX = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
+		int randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
 		int i = 0;
 		while_tries = 0;
-		while (i < (numberOfBlocks * 3) && while_tries < 100000)
+		// 10000000 && while_tries < 100000
+		while (i < (numberOfBlocks * 3) && while_tries < 1000 )
 		{
 			// if coordinates are too close together, attempt to coordinates that are not too close
-			if (Math.abs(map_array[i + 1]- randomX) < minDistanceAllowed && Math.abs(map_array[i + 1] - randomY) < minDistanceAllowed )
+			if (Math.abs(map_array[i + 1]- randomX) < minDistanceAllowed || Math.abs(map_array[i + 1] - randomY) < minDistanceAllowed )
 			{
-				randomX = ThreadLocalRandom.current().nextInt(min_x, max_x + 1);
-				randomY = ThreadLocalRandom.current().nextInt(min_y, max_y + 1);
+				randomX = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
+				randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
 				i = 0;
 				while_tries += 1;
 			}
 			// if coordinates are good, move on
 			else{
 			i += 3;
+			while_tries = 0;
 			}
 		}
 		map_array [(numberOfBlocks * 3) - 1] = randomY;
@@ -50,6 +52,7 @@ public class Map {
 		map_array[(numberOfBlocks * 3) - 3] = numberOfBlocks;
 		numberOfBlocks += 1;
 		}
+	System.out.println("createdMap");
 	}
 	
 	/*returns the absolute value of the two input integers*/

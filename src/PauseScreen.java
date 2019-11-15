@@ -1,8 +1,8 @@
-import javax.swing.JPanel;
+ 
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class PauseScreen extends JPanel {
+public class PauseScreen extends Menu {
     public PauseScreen() {
       
         /*Creates simple pause menu with un-pause button*/

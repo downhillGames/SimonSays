@@ -9,7 +9,7 @@ public class Global {
 	
 	private boolean firstSim = true;
  
-	private boolean dev_mode = false;
+	
 	
 	//obfuscated - Total_gametime
 	private double tzsmrnsoy7 = 0;
@@ -326,14 +326,7 @@ public class Global {
 	}
 
 
-	public boolean isDev_mode() {
-		return dev_mode;
-	}
-
-
-	public void setDev_mode(boolean dev_mode) {
-		this.dev_mode = dev_mode;
-	}
+	
 
 
 	 

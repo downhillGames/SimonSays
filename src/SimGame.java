@@ -283,7 +283,7 @@ public class SimGame extends JPanel
     public void displayGUI()
     {
     	 JButton[] outArray = new JButton[10];
-  
+    	 Main.returnGlobal().setRoundtime(0);
     	 if ( Main.returnGlobal().getLevel() > 9)
     	 {
     		setButtns_pressd(new int [50]);

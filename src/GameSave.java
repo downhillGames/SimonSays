@@ -14,6 +14,20 @@ public class GameSave {
 
 	 static JSONArray savesArray;
 	 
+	 
+	 /**/
+		@SuppressWarnings("unchecked")
+		public static JSONArray decryptArray(JSONArray inArray , String key){
+			
+			JSONArray outArray = new JSONArray();
+			for (int i = 0; i < inArray.size() ; i ++)
+			{
+				String temp =  Main.decryptString((String )inArray.get(i), key) ;
+				outArray.add(Double.valueOf(temp)); 
+			}
+			return outArray;
+		}
+	 
 	 	/*Checks to see if saves file exists, creates one if it doesn't*/
 		public static void checkForSaveFile()
 	  {
@@ -182,6 +196,7 @@ public class GameSave {
 				  Main.decryptInteractionArray((JSONArray) ((HashMap) savesArray.get(i)).get("o6vja8lio1") , key);
 				  Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
 				 Main.returnGlobal().setTotal_gametime(Double.valueOf(gametime_string));
+ 
 				 Main.returnGlobal().setHigh_level(Double.valueOf(high_level_string));
 			  }
 		  }
@@ -226,6 +241,9 @@ public class GameSave {
 		  
 		  
 	  }
+	  
+	  
+	  
 	  
 	  	/*Appends a new JSON Object to the JSON Array and writes to the save file (for new saves)*/
 	@SuppressWarnings("unchecked")

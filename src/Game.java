@@ -20,7 +20,7 @@ public class Game extends JPanel
 	private int button_pressed_index = 0;
 	private int computer_pressed_index = 0;
 	static JButton done_button;
-	long time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+	long time_begin;
 	long clock_timer = time_begin;
 	static int map_from_obj[] = new int [27]; 
 	
@@ -213,7 +213,8 @@ public class Game extends JPanel
     public void displayGUI()
     {
     	 JButton[] outArray = new JButton[10];
-  
+    	 Main.returnGlobal().setRoundtime(0);
+    	 
     	 if ( Main.returnGlobal().getLevel() > 9)
     	 {
     		setButtns_pressd(new int [50]);
@@ -243,6 +244,7 @@ public class Game extends JPanel
         	public void run() {
         		try 
         		{	
+        		 time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());	
         		hit(outArray);
   
         	 }
@@ -250,6 +252,7 @@ public class Game extends JPanel
         	{
         		System.out.println("hit");
         		createDoneButton();
+        		
         		activateAllButtons(outArray);
         	}
         		

@@ -98,7 +98,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 		else if ( nameField.getText().equals("DEV_MODE") )
 		{
 			printError("You have enabled dev mode ");
-			Main.returnGlobal().setDev_mode(true);
+			Main.setDev_mode(true);
 		}
 		
 		

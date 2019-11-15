@@ -23,7 +23,7 @@ public class Main {
   static Menu menu = new MainMenu();
   static Map map = new Map(); 
   static Game game = new Game(map);
-  static PauseScreen pause = new PauseScreen();
+  private static boolean dev_mode = false;
   static SimGame simGame;
   static JButton outArry[] = new JButton[9];
   
@@ -237,19 +237,26 @@ public class Main {
     /*Returns to the main menu (reinvokes main), resets variables*/
     public static void returnToMenu()
     {
+    	/*
     	 returnGlobal().setNewGame(true);
     	 returnGlobal().setHealth(1);
-    	 returnGlobal().setLevel(0);
+    	 returnGlobal().setLevel(2);
     	 returnGlobal().setTimes_won(0);
     	 returnGlobal().setSpeed(1000);
+    	 returnGlobal().setTotal_gametime(0);
+    	 returnGlobal().setRoundtime(0);
+    	 returnGlobal().getScoresArray().clear();
     	 returnGlobal().getInteractionArray().clear();
-    	 game_screen.setVisible(false);
+    	 
          game_screen.remove(menu);
          
          if (Main.returnGlobal().getMode() == 4)
          {
         	 Main.returnGlobal().setMode(1);
          }
+         */
+    	 global = new Global();
+    	game_screen.setVisible(false);
          game_screen.remove(game);
         readyGameNoStart();
          menu = new MainMenu();
@@ -359,14 +366,16 @@ public class Main {
     /*Goes to the pause screen (removing game & adding pause screen to JFrame)*/
     public static void PlayPause()
     {
-      game_screen.setVisible(false); 
-      game_screen.remove(game);
+       
       if (simGame != null)
       {
     	  game_screen.remove(simGame);  
       }
-      game_screen.add(pause);
-      game_screen.setVisible(true);
+      	game_screen.setVisible(false); 
+  		game_screen.remove(game);
+	    menu = new PauseScreen();
+	    game_screen.add(menu);
+	    game_screen.setVisible(true); 
     }
 
     public static void PlayHighScoreMenu()
@@ -387,6 +396,14 @@ public class Main {
 	    game_screen.setVisible(true);
     }
     
+    public static void PlayStatsMenu() {
+		// TODO Auto-generated method stub
+    	game_screen.setVisible(false); 
+    	game_screen.remove(menu);
+	    menu = new StatsMenu();
+	    game_screen.add(menu);
+	    game_screen.setVisible(true);
+	}
     
     /*Goes to the lose continue screen (removing game & adding lose continue screen to JFrame)*/
     public static void PlayLoseContinue()
@@ -419,13 +436,13 @@ public class Main {
 	  game_screen.setVisible(true);
       returnGlobal().setTotal_gametime(returnGlobal().getTotal_gametime() + returnGlobal().getGametime());
       //(returnGlobal().getLevel())
-      returnGlobal().getScoresArray().add(returnGlobal().getLevel());
+      returnGlobal().getScoresArray().add(returnGlobal().getLevel() - 1);
       
       if (returnGlobal().getMode() != 4)
       {
     	  if (returnGlobal().isNewGame())
           {
-        	  returnGlobal().setHigh_level(returnGlobal().getLevel());
+        	  returnGlobal().setHigh_level(returnGlobal().getLevel() - 1);
         	  if (returnGlobal().getHigh_level() < 5 && returnAge(returnGlobal().getBirthdate()) > 13)
         	  {
         		  returnGlobal().setDiagnosis("Possibly AD");
@@ -443,9 +460,9 @@ public class Main {
           }
           else
           {
-        	if (returnGlobal().getLevel() >  returnGlobal().getHigh_level())
+        	if (returnGlobal().getLevel() - 1 >  returnGlobal().getHigh_level())
         	{
-        		returnGlobal().setHigh_level(returnGlobal().getLevel());
+        		returnGlobal().setHigh_level(returnGlobal().getLevel() - 1 );
         	}
         	if (returnGlobal().getHigh_level() < 5 && returnAge(returnGlobal().getBirthdate()) > 13)
       	  	{
@@ -505,6 +522,15 @@ public class Main {
 	            game_screen.setVisible(true);
 	        });
 	    }
+
+	public static boolean isDev_mode() {
+		return dev_mode;
+	}
+
+
+	public static void setDev_mode(boolean dev_mode_n) {
+		 dev_mode = dev_mode_n;
+	}
 
 	
 

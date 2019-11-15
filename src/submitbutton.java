@@ -7,11 +7,12 @@ public class submitbutton implements ActionListener {
 		/*Gets round time and adds it to the total game time*/
         public void actionPerformed(ActionEvent e) {
         	double round_length = (TimeUnit.NANOSECONDS.toMillis(System.nanoTime())  - Main.returnGame().time_begin) / 1000.0;
+       
         	Main.returnGlobal().setGametime(Main.returnGlobal().getGametime() + round_length);	
         	Main.returnGlobal().setRoundtime(round_length);	
         	System.out.println("Round Time Formatted: " + convertTime(round_length));
-        	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().getGametime()));
-        	
+        	System.out.println("this game Time Formatted: " + convertTime(Main.returnGlobal().getGametime()));
+        	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().getTotal_gametime() + Main.returnGlobal().getGametime()));
         	
         	if (Main.returnGlobal().getMode() != 4)
         	{

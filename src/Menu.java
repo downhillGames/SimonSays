@@ -20,6 +20,15 @@ public class Menu extends JPanel {
     	return field;
 	}
 	
+	public void displayStats()
+	{
+		createTextAreaLineBreak("Score : " + (Main.returnGlobal().getLevel() - 1)) ;
+    	createTextAreaLineBreak("Times Won: " + (Main.returnGlobal().getTimes_won())) ;
+    	createTextAreaLineBreak("All time Play Time: " + convertTime(Main.returnGlobal().getGametime() + Main.returnGlobal().getTotal_gametime()) );
+    	createTextAreaLineBreak("Play session time: " + convertTime(Main.returnGlobal().getGametime()) ); 
+    	createTextAreaLineBreak("Round Time: " + convertTime(Main.returnGlobal().getRoundtime()) );
+	}
+	
 	/*Creates JTextArea from input text with a line break*/
 	 public JTextArea createTextAreaLineBreak(String text)
 	   {

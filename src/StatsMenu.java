@@ -84,19 +84,27 @@ public class StatsMenu extends Menu implements ActionListener {
 		
     	if ( e.getSource() == findPlayerButton)
 		{
+    		/*
     		if (nameField.getText().equals("") )
     		{
     			//print("You did not enter a name!");
+    		}*/
+    		 if (isNumeric( nameField.getText()) )
+    		{
+    			print("Starting Level Changed to " +  nameField.getText());
+    			Main.setStartingLevel(Integer.valueOf(nameField.getText())); 
+    			Main.returnLevelSave().replaceSave(Integer.valueOf(nameField.getText()));
     		}
-    		
     		else if ( Main.returnGameSave().lookUpUser(nameField.getText()) == -1)
     		{
     			print("That save file does not exist!");
     		}
+    		
     		else
     		{   
     			Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
+    			Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 500, Main.returnFrame().getBackground());
     			int i = Main.returnGameSave().lookUpUser(nameField.getText());
     			Main.returnGameSave().loadGame(nameField.getText());
     			String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
@@ -116,11 +124,28 @@ public class StatsMenu extends Menu implements ActionListener {
     			createTextArea(border2 , "Diagnosis: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tmjztkxe5m"), key) );
     			createTextArea(border2 , "Game time: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tzsmrnsoy7"), key) ); 
     			createTextArea(border2 , "Scores Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44"), key));
-    			createTextArea(border2 , "Interactions Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key));
+    			//createTextArea(border2 , "Interactions Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key));
     			//Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
     			amountOfGames = levelArr.size();
     			//gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);
-    			
+    			JSONArray decryptedInteractionsArray = Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key);
+    	    	 createTextArea(border , "Interactions Array: "  );
+    	    	 
+    	    	 int amountToDisplay;
+    	    	 
+    	    	 if (decryptedInteractionsArray.size() < 330 )
+    	    	 {
+    	    		 amountToDisplay = decryptedInteractionsArray.size();
+    	    	 }
+    	    	 else
+    	    	 {
+    	    		 amountToDisplay = 330;
+    	    	 }
+    	    	 for (int j = 0; j < amountToDisplay; j++)
+    	    	  {
+    	    				 
+    	    		 createTextArea(border ,  "" + (double) decryptedInteractionsArray.get(j));
+    	    	  }
     			
     			
     		}

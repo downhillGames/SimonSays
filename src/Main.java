@@ -19,6 +19,7 @@ public class Main {
 	//initialize variables
   static GameScreen game_screen = new GameScreen();
   static GameSave gameSave = new GameSave();
+  static levelSave levelSave = new levelSave();
   static Global global = new Global();
   static Menu menu = new MainMenu();
   static Map map = new Map(); 
@@ -26,7 +27,7 @@ public class Main {
   private static boolean dev_mode = true;
   static SimGame simGame;
   static JButton outArry[] = new JButton[9];
-  
+  private static int startingLevel = 2;
   
   
   	/*Returns a new encoded DES key for encryption*/
@@ -241,13 +242,14 @@ public class Main {
     	 returnGlobal().setNewGame(true);
     	 returnGlobal().setHealth(1);
     	 returnGlobal().setFirstSim(true);
-    	 returnGlobal().setLevel(2);
+    	 returnGlobal().setLevel(getStartingLevel());
     	 returnGlobal().setTimes_won(0);
     	 returnGlobal().setSpeed(1000);
     	 returnGlobal().setTotal_gametime(0);
     	 returnGlobal().setRoundtime(0);
     	 returnGlobal().getScoresArray().clear();
     	 returnGlobal().getInteractionArray().clear();
+    	 
     	 
          game_screen.remove(menu);
          
@@ -330,6 +332,11 @@ public class Main {
     /*Returns the global instance*/
     public static GameSave returnGameSave(){
         return gameSave;
+    }
+    
+    /*Returns the global instance*/
+    public static levelSave returnLevelSave(){
+        return levelSave;
     }
     
     public static void newSim(){
@@ -513,16 +520,7 @@ public class Main {
 	
 
 
-	/*Main method of program*/
-	public static void main(String[] args) {
 
-	       EventQueue.invokeLater(() -> {
-	            game_screen.add(menu);
-	            GameSave.checkForSaveFile();
-
-	            game_screen.setVisible(true);
-	        });
-	    }
 
 	public static boolean isDev_mode() {
 		return dev_mode;
@@ -533,6 +531,25 @@ public class Main {
 		 dev_mode = dev_mode_n;
 	}
 
+	public static int getStartingLevel() {
+		return startingLevel;
+	}
+
+	public static void setStartingLevel(int strtingLvl) {
+		 startingLevel = strtingLvl;
+	}
+
+	
+	/*Main method of program*/
+	public static void main(String[] args) {
+
+	       EventQueue.invokeLater(() -> {
+	            game_screen.add(menu);
+	            gameSave.checkForSaveFile();
+	            levelSave.checkForSaveFile();
+	            game_screen.setVisible(true);
+	        });
+	    }
 	
 
 }

@@ -55,7 +55,7 @@ public class Global {
 	private int loadGamePosition = -1;
 	private boolean newGame = true;
 	private double roundtime = 0;
-	private int level = 2;
+	private int level = Main.getStartingLevel();
 	
 	private boolean reverse_game = false;
 	private boolean computer_playing = false;

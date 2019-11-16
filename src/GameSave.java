@@ -29,7 +29,7 @@ public class GameSave {
 		}
 	 
 	 	/*Checks to see if saves file exists, creates one if it doesn't*/
-		public static void checkForSaveFile()
+		public void checkForSaveFile()
 	  {
 		  File saves = new File("saves.json");
 		  

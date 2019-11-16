@@ -7,7 +7,8 @@ public class MainMenu extends Menu  implements ActionListener {
 
 	private static final long serialVersionUID = -7892106385327845406L;
 	JTextArea text;
-    
+	JButton resetButton;
+	
 	 /*Constructor -  invokes initUI() */
 	public MainMenu() {
       
@@ -39,6 +40,10 @@ public class MainMenu extends Menu  implements ActionListener {
     		JButton statsButton = new JButton("Stats");
             add(statsButton);
             statsButton.addActionListener(new StatsButton());
+            
+            resetButton = new JButton("Reset");
+            add(resetButton);
+            resetButton.addActionListener(this);
     		
     	}
         
@@ -87,10 +92,21 @@ public class MainMenu extends Menu  implements ActionListener {
 	 	revalidate();
     }
 
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     /*On button press, invoke change modes*/
     public void actionPerformed(ActionEvent e) {
-    	changeMode(text);
+    	
+    	if ( e.getSource() == resetButton)
+		{
+			Main.returnGameSave().resetSaves();
+			text.setText("All saves have been reset");
+		}
+    	else
+    	{
+    		changeMode(text);
+    	}
+    	
     }
 	 
 }

@@ -92,14 +92,14 @@ public class simulationMenu extends Menu implements ActionListener {
     			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
     			int i = Main.returnGameSave().lookUpUser(nameField.getText());
     			Main.returnGameSave().loadGame(nameField.getText());
-    			String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
-    			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
-    			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("pplk7r7pbp") , key);
+    			String key = (String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("zxbvwoved7");
+    			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("rjc8qhtv1w"), key);
+    			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("pplk7r7pbp") , key);
     			double highlevel_double = Double.valueOf(highlevel);
     			int highlevel_int = ((int) highlevel_double);
     			print("Username: " + name + " High score: " +  highlevel_int);
     			
-    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
+    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
     			amountOfGames = levelArr.size();
     			gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);

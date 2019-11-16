@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 
 public class GameSave {
 
-	 static JSONArray savesArray;
+	private static JSONArray savesArray;
 	 
 	 
 	 /**/
@@ -38,7 +38,7 @@ public class GameSave {
 			  System.out.println("save doesnt exist");
 			  try {
 				saves.createNewFile();
-				savesArray = new JSONArray();
+				setSavesArray(new JSONArray());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -53,21 +53,37 @@ public class GameSave {
 			  }
 			  else
 			  {
-				  savesArray = new JSONArray();
+				  setSavesArray(new JSONArray());
 			
 			  }
 		  }
 	  }
 	
 	
+		public static void resetSaves()
+		{
+			savesArray.clear();
+			FileWriter save_file;
+			try {
+				save_file = new FileWriter("saves.json");
+				save_file.write(getSavesArray().toJSONString());
+				save_file.flush();
+				save_file.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 		/*Creates JSON Array that stores all saves from file*/
 	  	public static void createSavesObj() {
 		  JSONParser jsonParser = new JSONParser();
 			
 		  try {
 			Object saves_obj = jsonParser.parse(new FileReader("saves.json"));
-			savesArray = (JSONArray)saves_obj;
-			System.out.println(savesArray);
+			setSavesArray((JSONArray)saves_obj);
+			System.out.println(getSavesArray());
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +97,7 @@ public class GameSave {
 		  String[] top_player_names;
 		  double[] top_player_scores;
 		  int[] top_player_index;
-		  if (savesArray.size() >= 5)
+		  if (getSavesArray().size() >= 5)
 		  {
 			  top_player_names = new String[5] ;
 			  top_player_scores = new double[5];
@@ -89,9 +105,9 @@ public class GameSave {
 		  }
 		  else
 		  {
-			 top_player_names = new String[savesArray.size()] ;
-			 top_player_scores = new double[savesArray.size()];
-			 top_player_index = new int[savesArray.size()];
+			 top_player_names = new String[getSavesArray().size()] ;
+			 top_player_scores = new double[getSavesArray().size()];
+			 top_player_index = new int[getSavesArray().size()];
 			   
 		  }
 		  
@@ -99,9 +115,9 @@ public class GameSave {
 		  int array_index = 0;
 		  while (score_index <  top_player_scores.length)
 		  {
-			  String key =  (String) ((HashMap) savesArray.get(array_index)).get("zxbvwoved7");
+			  String key =  (String) ((HashMap) getSavesArray().get(array_index)).get("zxbvwoved7");
 			  String high_level_string = new String();
-			  high_level_string = Main.decryptString((String ) ((HashMap) savesArray.get(array_index)).get("pplk7r7pbp"), key);
+			  high_level_string = Main.decryptString((String ) ((HashMap) getSavesArray().get(array_index)).get("pplk7r7pbp"), key);
 			  double high_level = Double.valueOf(high_level_string);
 			  
 			  
@@ -116,9 +132,9 @@ public class GameSave {
 			  {
 				  top_player_scores[score_index] = high_level;
 				  top_player_index[score_index] = array_index;
-				  top_player_names[score_index] = Main.decryptString((String ) ((HashMap) savesArray.get(array_index)).get("rjc8qhtv1w"), key);
+				  top_player_names[score_index] = Main.decryptString((String ) ((HashMap) getSavesArray().get(array_index)).get("rjc8qhtv1w"), key);
 			  }
-			  if (array_index == savesArray.size() - 1)
+			  if (array_index == getSavesArray().size() - 1)
 			  {
 			      score_index++;
 				  array_index = 0;
@@ -137,8 +153,8 @@ public class GameSave {
 		@SuppressWarnings("rawtypes")
 		public String returnPassword(int array_index)
 		{
-			String key =  (String) ((HashMap) savesArray.get(array_index)).get("zxbvwoved7");
-			String password = Main.decryptString((String ) ((HashMap) savesArray.get(array_index)).get("m2qkz77qp7"), key); 
+			String key =  (String) ((HashMap) getSavesArray().get(array_index)).get("zxbvwoved7");
+			String password = Main.decryptString((String ) ((HashMap) getSavesArray().get(array_index)).get("m2qkz77qp7"), key); 
 			return password;
 		}
 		
@@ -148,18 +164,18 @@ public class GameSave {
 		  {
 			  int foundUser = -1;
 			 
-			  for (int i = 0; i < savesArray.size(); i++)
+			  for (int i = 0; i < getSavesArray().size(); i++)
 			  {
-				 String key = (String) ((HashMap) savesArray.get(i)).get("zxbvwoved7");
+				 String key = (String) ((HashMap) getSavesArray().get(i)).get("zxbvwoved7");
 				  
-				  System.out.println(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w"), key)); 
-				  System.out.println((String) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w")); 
+				  System.out.println(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key)); 
+				  System.out.println((String) ((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w")); 
 				  System.out.println(Main.encryptString(name , key)); 
 				  //if (((HashMap) savesArray.get(i)).containsValue(encryptString(name , key)))
 				  
-				  if (Main.isSameString(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w"), key) , name))	 
+				  if (Main.isSameString(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key) , name))	 
 				  {
-					  System.out.println(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w"), key) + " NAME" ); 
+					  System.out.println(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key) + " NAME" ); 
 					  System.out.println(name + " NAME2" ); 
 					  foundUser = i;
 				  }
@@ -174,13 +190,13 @@ public class GameSave {
 	  {
 		  int foundUser = -1;
 		 
-		  for (int i = 0; i < savesArray.size(); i++)
+		  for (int i = 0; i < getSavesArray().size(); i++)
 		  {
-			  String key = (String) ((HashMap) savesArray.get(i)).get("zxbvwoved7");
+			  String key = (String) ((HashMap) getSavesArray().get(i)).get("zxbvwoved7");
 			   
 			  
 			  //if (((HashMap) savesArray.get(i)).containsValue(encryptString(name , key)))
-			  if (Main.isSameString(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w"), key) , name))	  
+			  if (Main.isSameString(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key) , name))	  
 			  {
 				  String high_level_string = new String();
 				  String gametime_string = new String();	  
@@ -190,20 +206,20 @@ public class GameSave {
 				  Main.returnGlobal().setNewGame(false);
 				  //String key = new String();
 				  //key = (String) ((HashMap) savesArray.get(i)).get("key");
-				  Main.returnGlobal().setName(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w"), key));
+				  Main.returnGlobal().setName(Main.decryptString((String ) ((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key));
 				  System.out.println(Main.returnGlobal().getName());
-				  Main.returnGlobal().setBirthdate(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("acfiqoa2lu"), key));
-				  Main.returnGlobal().setPassword(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("m2qkz77qp7"), key));
-				  Main.returnGlobal().setAddress(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("rq91hbhzaj"), key));
-				  Main.returnGlobal().setCity(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("xcnwhuqdbc"), key));
-				  Main.returnGlobal().setState(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("dbvzwgsddi"), key));
-				  Main.returnGlobal().setZip_code(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("g3eqbkq1m6"), key));
-				  Main.returnGlobal().setCountry(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("tfdsbsv9qo"), key));
-				  Main.returnGlobal().setDiagnosis(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("tmjztkxe5m"), key));
-				  high_level_string = Main.decryptString((String) ((HashMap) savesArray.get(i)).get("pplk7r7pbp") , key);
-				  gametime_string = Main.decryptString((String) ((HashMap) savesArray.get(i)).get("tzsmrnsoy7"), key);
-				  Main.decryptInteractionArray((JSONArray) ((HashMap) savesArray.get(i)).get("o6vja8lio1") , key);
-				  Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
+				  Main.returnGlobal().setBirthdate(Main.decryptString((String ) ((HashMap) getSavesArray().get(i)).get("acfiqoa2lu"), key));
+				  Main.returnGlobal().setPassword(Main.decryptString((String ) ((HashMap) getSavesArray().get(i)).get("m2qkz77qp7"), key));
+				  Main.returnGlobal().setAddress(Main.decryptString((String ) ((HashMap) getSavesArray().get(i)).get("rq91hbhzaj"), key));
+				  Main.returnGlobal().setCity(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("xcnwhuqdbc"), key));
+				  Main.returnGlobal().setState(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("dbvzwgsddi"), key));
+				  Main.returnGlobal().setZip_code(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("g3eqbkq1m6"), key));
+				  Main.returnGlobal().setCountry(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("tfdsbsv9qo"), key));
+				  Main.returnGlobal().setDiagnosis(Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("tmjztkxe5m"), key));
+				  high_level_string = Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("pplk7r7pbp") , key);
+				  gametime_string = Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("tzsmrnsoy7"), key);
+				  Main.decryptInteractionArray((JSONArray) ((HashMap) getSavesArray().get(i)).get("o6vja8lio1") , key);
+				  Main.decryptScoresArray((JSONArray) ((HashMap) getSavesArray().get(i)).get("gjw2201t44") , key);
 				 Main.returnGlobal().setTotal_gametime(Double.valueOf(gametime_string));
  
 				 Main.returnGlobal().setHigh_level(Double.valueOf(high_level_string));
@@ -217,29 +233,29 @@ public class GameSave {
 	  @SuppressWarnings({ "unchecked", "rawtypes" })
 	  
 	  	public static void  replaceSave(int index) {
-		  String key = (String) ((HashMap) savesArray.get(index)).get("zxbvwoved7");
-		  ((HashMap) savesArray.get(index)).replace("zxbvwoved7",  ((HashMap) savesArray.get(index)).get("zxbvwoved7") , key);
-		  ((HashMap) savesArray.get(index)).replace("rq91hbhzaj",  ((HashMap) savesArray.get(index)).get("rq91hbhzaj") , Main.encryptString(Main.returnGlobal().getAddress(), key));
-		  ((HashMap) savesArray.get(index)).replace("xcnwhuqdbc", ((HashMap) savesArray.get(index)).get("xcnwhuqdbc") , Main.encryptString(Main.returnGlobal().getCity(), key));
-		  ((HashMap) savesArray.get(index)).replace("dbvzwgsddi", ((HashMap) savesArray.get(index)).get("dbvzwgsddi")  , Main.encryptString(Main.returnGlobal().getState(), key));
-		  ((HashMap) savesArray.get(index)).replace("g3eqbkq1m6", ((HashMap) savesArray.get(index)).get("g3eqbkq1m6"), Main.encryptString(Main.returnGlobal().getZip_code(), key));
-		  ((HashMap) savesArray.get(index)).replace("tfdsbsv9qo", ((HashMap) savesArray.get(index)).get("tfdsbsv9qo"), Main.encryptString(Main.returnGlobal().getCountry(), key));
-		  ((HashMap) savesArray.get(index)).replace("pplk7r7pbp", ((HashMap) savesArray.get(index)).get("pplk7r7pbp") , Main.encryptString(String.valueOf(Main.returnGlobal().getHigh_level()), key));
-		  ((HashMap) savesArray.get(index)).replace("tmjztkxe5m", ((HashMap) savesArray.get(index)).get("tmjztkxe5m"), Main.encryptString(Main.returnGlobal().getDiagnosis(), key));
-		  ((HashMap) savesArray.get(index)).replace("tzsmrnsoy7", ((HashMap) savesArray.get(index)).get("tzsmrnsoy7") , Main.encryptString(String.valueOf(Main.returnGlobal().getTotal_gametime()) , key));
+		  String key = (String) ((HashMap) getSavesArray().get(index)).get("zxbvwoved7");
+		  ((HashMap) getSavesArray().get(index)).replace("zxbvwoved7",  ((HashMap) getSavesArray().get(index)).get("zxbvwoved7") , key);
+		  ((HashMap) getSavesArray().get(index)).replace("rq91hbhzaj",  ((HashMap) getSavesArray().get(index)).get("rq91hbhzaj") , Main.encryptString(Main.returnGlobal().getAddress(), key));
+		  ((HashMap) getSavesArray().get(index)).replace("xcnwhuqdbc", ((HashMap) getSavesArray().get(index)).get("xcnwhuqdbc") , Main.encryptString(Main.returnGlobal().getCity(), key));
+		  ((HashMap) getSavesArray().get(index)).replace("dbvzwgsddi", ((HashMap) getSavesArray().get(index)).get("dbvzwgsddi")  , Main.encryptString(Main.returnGlobal().getState(), key));
+		  ((HashMap) getSavesArray().get(index)).replace("g3eqbkq1m6", ((HashMap) getSavesArray().get(index)).get("g3eqbkq1m6"), Main.encryptString(Main.returnGlobal().getZip_code(), key));
+		  ((HashMap) getSavesArray().get(index)).replace("tfdsbsv9qo", ((HashMap) getSavesArray().get(index)).get("tfdsbsv9qo"), Main.encryptString(Main.returnGlobal().getCountry(), key));
+		  ((HashMap) getSavesArray().get(index)).replace("pplk7r7pbp", ((HashMap) getSavesArray().get(index)).get("pplk7r7pbp") , Main.encryptString(String.valueOf(Main.returnGlobal().getHigh_level()), key));
+		  ((HashMap) getSavesArray().get(index)).replace("tmjztkxe5m", ((HashMap) getSavesArray().get(index)).get("tmjztkxe5m"), Main.encryptString(Main.returnGlobal().getDiagnosis(), key));
+		  ((HashMap) getSavesArray().get(index)).replace("tzsmrnsoy7", ((HashMap) getSavesArray().get(index)).get("tzsmrnsoy7") , Main.encryptString(String.valueOf(Main.returnGlobal().getTotal_gametime()) , key));
 		  
 		  
 		  //gjw2201t44
 		  JSONArray encryptedInteractions = Main.encryptArray( Main.returnGlobal().getInteractionArray() ,key);
-		  ((HashMap) savesArray.get(index)).replace("o6vja8lio1", ((HashMap) savesArray.get(index)).get("o6vja8lio1") , encryptedInteractions);
+		  ((HashMap) getSavesArray().get(index)).replace("o6vja8lio1", ((HashMap) getSavesArray().get(index)).get("o6vja8lio1") , encryptedInteractions);
 		
 		  JSONArray encryptedScores = Main.encryptArray( Main.returnGlobal().getScoresArray()  ,key);
-		  ((HashMap) savesArray.get(index)).replace("gjw2201t44", ((HashMap) savesArray.get(index)).get("gjw2201t44") , encryptedScores);
+		  ((HashMap) getSavesArray().get(index)).replace("gjw2201t44", ((HashMap) getSavesArray().get(index)).get("gjw2201t44") , encryptedScores);
 		  
 		  FileWriter save_file;
 		try {
 			save_file = new FileWriter("saves.json");
-			save_file.write(savesArray.toJSONString());
+			save_file.write(getSavesArray().toJSONString());
 			save_file.flush();
 			save_file.close();
 		} catch (IOException e) {
@@ -283,12 +299,12 @@ public class GameSave {
 		  JSONArray encryptedScores = Main.encryptArray( Main.returnGlobal().getScoresArray() ,zxbvwoved7);
 		  newplayer.put( "gjw2201t44", encryptedScores);
 		  
-		  savesArray.add(newplayer);
+		  getSavesArray().add(newplayer);
 
 		FileWriter save_file;
 		try {
 			save_file = new FileWriter("saves.json");
-			save_file.write(savesArray.toJSONString());
+			save_file.write(getSavesArray().toJSONString());
 			save_file.flush();
 			save_file.close();
 		} catch (IOException e) {
@@ -299,4 +315,12 @@ public class GameSave {
 		  
 		  
 	  }
+
+	public static JSONArray getSavesArray() {
+		return savesArray;
+	}
+
+	public static void setSavesArray(JSONArray savesArray) {
+		GameSave.savesArray = savesArray;
+	}
 }

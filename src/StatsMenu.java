@@ -18,9 +18,6 @@ public class StatsMenu extends Menu implements ActionListener {
 	private static JTextField nameField; 
 	private static JTextArea errorText;
 	private static  JButton findPlayerButton;
-	 
-	private Integer amountOfGames;
- 
 	
     public StatsMenu() {
       
@@ -107,29 +104,28 @@ public class StatsMenu extends Menu implements ActionListener {
     			Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 500, Main.returnFrame().getBackground());
     			int i = Main.returnGameSave().lookUpUser(nameField.getText());
     			Main.returnGameSave().loadGame(nameField.getText());
-    			String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
-    			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
-    			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("pplk7r7pbp") , key);
+    			String key = (String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("zxbvwoved7");
+    			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("rjc8qhtv1w"), key);
+    			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("pplk7r7pbp") , key);
     			double highlevel_double = Double.valueOf(highlevel);
     			int highlevel_int = ((int) highlevel_double);
     			print("Username: " + name + " High score: " +  highlevel_int); 
-    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
+    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
-    			createTextArea(border2 , "Password: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("m2qkz77qp7"), key) ); 
-    			createTextArea(border2 , "Birthdate: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("acfiqoa2lu"), key) );
-    			createTextArea(border2 , "Address: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rq91hbhzaj"), key) );
-    			createTextArea(border2 , "City: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("xcnwhuqdbc"), key) );
-    			createTextArea(border2 , "State: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("dbvzwgsddi"), key) );
-    			createTextArea(border2 , "Zip: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("g3eqbkq1m6"), key) );
-    			createTextArea(border2 , "Country: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tfdsbsv9qo"), key) );
-    			createTextArea(border2 , "Diagnosis: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tmjztkxe5m"), key) );
-    			createTextArea(border2 , "Game time: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tzsmrnsoy7"), key) ); 
-    			createTextArea(border2 , "Scores Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44"), key));
+    			createTextArea(border2 , "Password: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("m2qkz77qp7"), key) ); 
+    			createTextArea(border2 , "Birthdate: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("acfiqoa2lu"), key) );
+    			createTextArea(border2 , "Address: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("rq91hbhzaj"), key) );
+    			createTextArea(border2 , "City: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("xcnwhuqdbc"), key) );
+    			createTextArea(border2 , "State: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("dbvzwgsddi"), key) );
+    			createTextArea(border2 , "Zip: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("g3eqbkq1m6"), key) );
+    			createTextArea(border2 , "Country: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("tfdsbsv9qo"), key) );
+    			createTextArea(border2 , "Diagnosis: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("tmjztkxe5m"), key) );
+    			createTextArea(border2 , "Game time: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("tzsmrnsoy7"), key) ); 
+    			createTextArea(border2 , "Scores Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44"), key));
     			//createTextArea(border2 , "Interactions Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key));
     			//Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
-    			amountOfGames = levelArr.size();
     			//gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);
-    			JSONArray decryptedInteractionsArray = Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key);
+    			JSONArray decryptedInteractionsArray = Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("o6vja8lio1"), key);
     	    	 createTextArea(border , "Interactions Array: "  );
     	    	 
     	    	 int amountToDisplay;
@@ -155,10 +151,10 @@ public class StatsMenu extends Menu implements ActionListener {
     	
     	else
     	{
-    		for (int i = 0; i < Main.returnGameSave().savesArray.size(); i++)
+    		for (int i = 0; i < Main.returnGameSave().getSavesArray().size(); i++)
   		  	{
-  			 String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
-  			 String name =  Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
+  			 String key = (String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("zxbvwoved7");
+  			 String name =  Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("rjc8qhtv1w"), key);
   			 createTextArea("Username: " +  name);
   			 //print("Username: " + name + " High score: " +  highlevel_int); 
   		  	} 

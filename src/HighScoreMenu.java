@@ -98,14 +98,14 @@ public class HighScoreMenu extends Menu implements ActionListener {
 			Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
 			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
 			int i = Main.returnGameSave().lookUpUser(nameField.getText());
-			String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
-			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
-			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("pplk7r7pbp") , key);
+			String key = (String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("zxbvwoved7");
+			String name = Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("rjc8qhtv1w"), key);
+			String highlevel = Main.decryptString((String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("pplk7r7pbp") , key);
 			double highlevel_double = Double.valueOf(highlevel);
 			int highlevel_int = ((int) highlevel_double);
 			print("Username: " + name + " High score: " +  highlevel_int);
 			
-			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
+			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
 			
 			 
 			JSONArray trueLevelArr = new JSONArray(); 

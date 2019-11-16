@@ -11,7 +11,7 @@ import org.json.simple.parser.ParseException;
 
 public class levelSave {
 	
-	static JSONArray levelSaveArr;
+	private static JSONArray levelSaveArr;
 	
 	/*Checks to see if saves file exists, creates one if it doesn't*/
 	public void checkForSaveFile()

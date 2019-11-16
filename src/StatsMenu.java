@@ -35,17 +35,7 @@ public class StatsMenu extends Menu implements ActionListener {
     }
 
     
-    @SuppressWarnings({ "static-access", "rawtypes" })
-    private void createNamesArray () {
-    	//JSONArray outArray = new JSONArray();
-    	
-    	for (int i = 0; i < Main.returnGameSave().savesArray.size(); i++)
-		  {
-			 String key = (String) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("zxbvwoved7");
-			 String name =  Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rjc8qhtv1w"), key);
-			 createTextArea("Username: " +  name);
-		  } 
-    }
+    
     
     @SuppressWarnings("unused")
 
@@ -66,11 +56,11 @@ public class StatsMenu extends Menu implements ActionListener {
     	
     	
     	JButton menuButton = new JButton("Back to Main Menu");
-    	findPlayerButton = new JButton("Press to look up stats");
+    	findPlayerButton = new JButton("Display");
     	menuButton.addActionListener(new menuButton());
     	findPlayerButton.addActionListener(this);
     	
-    	JButton allSavesButton = new JButton("Press to start sim");
+    	JButton allSavesButton = new JButton("Look up all users (press this then the display button)");
 		
 		allSavesButton.addActionListener(this);
     	
@@ -126,6 +116,7 @@ public class StatsMenu extends Menu implements ActionListener {
     			createTextArea(border2 , "Diagnosis: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tmjztkxe5m"), key) );
     			createTextArea(border2 , "Game time: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tzsmrnsoy7"), key) ); 
     			createTextArea(border2 , "Scores Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44"), key));
+    			createTextArea(border2 , "Interactions Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key));
     			//Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
     			amountOfGames = levelArr.size();
     			//gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);

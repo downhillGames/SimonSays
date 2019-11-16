@@ -47,31 +47,58 @@ public class SimGame extends JPanel
 		for (int i = 0; i < map.length - 1; i++)
 		{
 			int gameIndex;
-			/*if (Main.returnGlobal().isFirstSim())
+			if (Main.returnGlobal().getSimIndex() == -1)
+			// if (Main.returnGlobal().isFirstSim())
 			{
-				 gameIndex = Main.returnGlobal().getSimIndex() + 5 + i;
-				 Main.returnGlobal().setFirstSim(false);
+				 gameIndex = Main.returnGlobal().getSimIndex() + 1 + i;
+				// Main.returnGlobal().setFirstSim(false);
 			}
 			else
 			{
-				gameIndex = Main.returnGlobal().getSimIndex() + 1 + i;
-			}*/
-			gameIndex = Main.returnGlobal().getSimIndex() + 5 + i;
+				gameIndex = Main.returnGlobal().getSimIndex() + 5 + i;
+			} 
+			//gameIndex = Main.returnGlobal().getSimIndex() + 1 + i;
 			map[i] =  (int) Math.round( (double) Main.returnGlobal().getInteractionArray().get(gameIndex));
 		}
 		
 		 
-		if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42))  == 2)
-		{
-			Main.returnGlobal().setReverse_game(true);
-		}
-		else if((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42 ))  == 1)
-		{
-			Main.returnGlobal().setReverse_game(false);
-		}
 		
-		System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42) + " REVERSE");
-		 Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 46);
+		if (Main.returnGlobal().getSimIndex() == -1)
+		// if (Main.returnGlobal().isFirstSim())
+			{
+			 System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 38) + " REVERSE");
+			 
+			 
+			 if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 38))  == 2)
+				{
+					Main.returnGlobal().setReverse_game(true);
+				}
+				else if((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 38 ))  == 1)
+				{
+					Main.returnGlobal().setReverse_game(false);
+				}
+			 Main.returnGlobal().setFirstSim(false);
+			 Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 42);
+			}
+		
+		 else
+			{
+			 System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42) + " REVERSE");
+			 
+			 
+			 if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42))  == 2)
+				{
+					Main.returnGlobal().setReverse_game(true);
+				}
+				else if((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42 ))  == 1)
+				{
+					Main.returnGlobal().setReverse_game(false);
+				}
+			 Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 46);
+			}
+		
+		 
+		
 		 System.out.println(Main.returnGlobal().getSimIndex());
 		return map;
 	}

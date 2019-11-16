@@ -23,7 +23,7 @@ public class Main {
   static Menu menu = new MainMenu();
   static Map map = new Map(); 
   static Game game = new Game(map);
-  private static boolean dev_mode = false;
+  private static boolean dev_mode = true;
   static SimGame simGame;
   static JButton outArry[] = new JButton[9];
   
@@ -240,6 +240,7 @@ public class Main {
     	 
     	 returnGlobal().setNewGame(true);
     	 returnGlobal().setHealth(1);
+    	 returnGlobal().setFirstSim(true);
     	 returnGlobal().setLevel(2);
     	 returnGlobal().setTimes_won(0);
     	 returnGlobal().setSpeed(1000);

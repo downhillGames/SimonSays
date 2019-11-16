@@ -237,7 +237,7 @@ public class Main {
     /*Returns to the main menu (reinvokes main), resets variables*/
     public static void returnToMenu()
     {
-    	/*
+    	 
     	 returnGlobal().setNewGame(true);
     	 returnGlobal().setHealth(1);
     	 returnGlobal().setLevel(2);
@@ -254,8 +254,8 @@ public class Main {
          {
         	 Main.returnGlobal().setMode(1);
          }
-         */
-    	 global = new Global();
+          
+    	// global = new Global();
     	game_screen.setVisible(false);
          game_screen.remove(game);
         readyGameNoStart();

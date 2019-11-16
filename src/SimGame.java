@@ -19,7 +19,7 @@ public class SimGame extends JPanel
 	private int computer_pressed_index = 0;
 	static JButton done_button;
 	private int times_hit = 0;
-	long time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+	long time_begin ;
 	long clock_timer = time_begin;
 	static int map_from_obj[] = new int [27]; 
 	
@@ -311,7 +311,8 @@ public class SimGame extends JPanel
         Thread t= new Thread (new Runnable() {
         	public void run() {
         		try 
-        		{	
+        		{ 
+        	    time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());	
         		hit(outArray);
         		Main.returnGlobal().setFirst_hit(true);
         	 }

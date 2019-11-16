@@ -124,7 +124,9 @@ public class StatsMenu extends Menu implements ActionListener {
     			createTextArea(border2 , "Zip: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("g3eqbkq1m6"), key) );
     			createTextArea(border2 , "Country: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tfdsbsv9qo"), key) );
     			createTextArea(border2 , "Diagnosis: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tmjztkxe5m"), key) );
-    			createTextArea(border2 , "Game time: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tzsmrnsoy7"), key) );
+    			createTextArea(border2 , "Game time: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("tzsmrnsoy7"), key) ); 
+    			createTextArea(border2 , "Scores Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44"), key));
+    			//Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
     			amountOfGames = levelArr.size();
     			//gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);
     			

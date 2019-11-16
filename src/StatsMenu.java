@@ -86,7 +86,7 @@ public class StatsMenu extends Menu implements ActionListener {
 		{
     		if (nameField.getText().equals("") )
     		{
-    			print("You did not enter a name!");
+    			//print("You did not enter a name!");
     		}
     		
     		else if ( Main.returnGameSave().lookUpUser(nameField.getText()) == -1)

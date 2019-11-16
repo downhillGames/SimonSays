@@ -134,6 +134,14 @@ public class GameSave {
 	}
 	 
 
+		@SuppressWarnings("rawtypes")
+		public String returnPassword(int array_index)
+		{
+			String key =  (String) ((HashMap) savesArray.get(array_index)).get("zxbvwoved7");
+			String password = Main.decryptString((String ) ((HashMap) savesArray.get(array_index)).get("m2qkz77qp7"), key); 
+			return password;
+		}
+		
 		/*Returns the index in the JSON Array if input user name exists, returns -1 if user is not found*/
 		 @SuppressWarnings({ "rawtypes" })
 		public int lookUpUser(String name)
@@ -185,6 +193,7 @@ public class GameSave {
 				  Main.returnGlobal().setName(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("rjc8qhtv1w"), key));
 				  System.out.println(Main.returnGlobal().getName());
 				  Main.returnGlobal().setBirthdate(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("acfiqoa2lu"), key));
+				  Main.returnGlobal().setPassword(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("m2qkz77qp7"), key));
 				  Main.returnGlobal().setAddress(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("rq91hbhzaj"), key));
 				  Main.returnGlobal().setCity(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("xcnwhuqdbc"), key));
 				  Main.returnGlobal().setState(Main.decryptString((String) ((HashMap) savesArray.get(i)).get("dbvzwgsddi"), key));
@@ -257,6 +266,7 @@ public class GameSave {
 		  
 		  newplayer.put( "zxbvwoved7", zxbvwoved7 );
 		  newplayer.put( "rjc8qhtv1w", Main.encryptString(Main.returnGlobal().getName(), zxbvwoved7));
+		  newplayer.put( "m2qkz77qp7", Main.encryptString(Main.returnGlobal().getPassword(), zxbvwoved7));
 		  newplayer.put( "acfiqoa2lu", Main.encryptString(Main.returnGlobal().getBirthdate(), zxbvwoved7 ));
 		  newplayer.put( "rq91hbhzaj", Main.encryptString(Main.returnGlobal().getAddress(), zxbvwoved7));
 		  newplayer.put( "xcnwhuqdbc", Main.encryptString(Main.returnGlobal().getCity(), zxbvwoved7 ));

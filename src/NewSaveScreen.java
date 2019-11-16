@@ -12,6 +12,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
 	//Initialize variables
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
 	private static JTextField nameField;
+	private static JTextField passwordField;
 	private static JTextField birthdateField;
 	private static JTextField adressField;
 	private static JTextField cityField;
@@ -60,6 +61,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
     	//Border border = BorderFactory.createMatteBorder(0, 0, 10, 0, Main.returnFrame().getBackground());
     	
     	nameField = createInputArea("Name: ", 110, border, nameField);
+    	passwordField = createInputArea("Password: ", 110, border, passwordField);
     	birthdateField = createInputArea("Birth Date: ", 110, border, birthdateField);
     	adressField = createInputArea("Street Address: ", 105, border, adressField);
     	cityField =createInputArea("City: ", 110, border, cityField);
@@ -109,6 +111,10 @@ public class NewSaveScreen extends Menu implements ActionListener {
 		else if (Main.returnGameSave().loadGame(nameField.getText()) != -1)
 		{
 			printError("Please enter a different name, this save file exists already, or load save");
+		}
+		else if (passwordField.getText().equals(""))
+		{
+			printError("You did not enter  password!");
 		}
 		else if (birthdateField.getText().equals("") )
 		{
@@ -163,6 +169,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
 			errorText.setText("");
 			Main.returnGlobal().setName(nameField.getText());
 			Main.returnGlobal().setBirthdate(birthdateField.getText());
+			Main.returnGlobal().setPassword(passwordField.getText());
 			Main.returnGlobal().setAddress(adressField.getText());
 			Main.returnGlobal().setCity(cityField.getText());
 			Main.returnGlobal().setState(stateField.getText());

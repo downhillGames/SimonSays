@@ -16,6 +16,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 	//initialize needed variables 
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
 	private static JTextField nameField;
+	private static JTextField passwordField;
 	private static JTextField adressField;
 	private static JTextField cityField;
 	private static JTextField stateField;
@@ -46,6 +47,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
     	Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 900, Main.returnFrame().getBackground());
     	
     	nameField = createInputArea("Name: ", 110, border, nameField);
+    	passwordField = createInputArea("Password: ", 110, border, passwordField);
     	JTextArea text = createTextArea("Need to update anything? Leave field blank if not");
     	text.setBorder(border3);
     	adressField = createInputArea("Street Address: ", 105, border, adressField);
@@ -95,22 +97,29 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 			printError("You did not enter a name!");
 		}
 		
-		else if ( nameField.getText().equals("DEV_MODE") )
+		else if ( nameField.getText().equals("DEV_MODE") &&  passwordField.getText().equals("dev_password") )
 		{
 			printError("You have enabled dev mode ");
 			Main.setDev_mode(true);
-		}
-		
-		
+		} 
 		else if ( Main.returnGameSave().loadGame(nameField.getText()) == -1)
 		{
 			printError("That save file does not exist!");
 		}
 		
-		   else if (!zipField.getText().equals("") && !zipField.getText().matches("\\d{5}"))
-			{
-			  printError("Please enter zip in XXXXX Format"); 
-			}	
+		else if ( nameField.getText().equals("") )
+		{
+			printError("You did not enter a password!");
+		} 
+		else if (!Main.isSameString(Main.returnGameSave().returnPassword( Main.returnGameSave().lookUpUser(nameField.getText())), passwordField.getText() ))
+		{
+			printError("Incorrect password!");
+		}
+		
+		else if (!zipField.getText().equals("") && !zipField.getText().matches("\\d{5}"))
+		{
+			printError("Please enter zip in XXXXX Format"); 
+		}	
 			
 		else
 		{
@@ -150,6 +159,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 			{
 				Main.returnGlobal().setReverse_game(false);
 			}
+			Main.returnGameSave().loadGame(nameField.getText());
 			Main.StartGame();
 		}
 		

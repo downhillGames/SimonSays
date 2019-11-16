@@ -17,17 +17,18 @@ import java.util.Base64;
 
 public class Main {
 	//initialize variables
+  private static int startingLevel = 2;
+  static levelSave levelSave = new levelSave();
   static GameScreen game_screen = new GameScreen();
   static GameSave gameSave = new GameSave();
-  static levelSave levelSave = new levelSave();
-  static Global global = new Global();
+  static Global global;
   static Menu menu = new MainMenu();
   static Map map = new Map(); 
   static Game game = new Game(map);
   private static boolean dev_mode = true;
   static SimGame simGame;
   static JButton outArry[] = new JButton[9];
-  private static int startingLevel = 2;
+  
   
   
   	/*Returns a new encoded DES key for encryption*/
@@ -544,9 +545,10 @@ public class Main {
 	public static void main(String[] args) {
 
 	       EventQueue.invokeLater(() -> {
+	    	    levelSave.checkForSaveFile();
+	    	   	global = new Global();
 	            game_screen.add(menu);
 	            gameSave.checkForSaveFile();
-	            levelSave.checkForSaveFile();
 	            game_screen.setVisible(true);
 	        });
 	    }

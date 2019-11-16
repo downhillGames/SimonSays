@@ -115,6 +115,7 @@ public class StatsMenu extends Menu implements ActionListener {
     			print("Username: " + name + " High score: " +  highlevel_int); 
     			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("gjw2201t44") , key);
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
+    			createTextArea(border2 , "Password: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("m2qkz77qp7"), key) ); 
     			createTextArea(border2 , "Birthdate: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("acfiqoa2lu"), key) );
     			createTextArea(border2 , "Address: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("rq91hbhzaj"), key) );
     			createTextArea(border2 , "City: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("xcnwhuqdbc"), key) );

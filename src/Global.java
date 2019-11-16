@@ -9,7 +9,7 @@ public class Global {
 	
 	private boolean firstSim = true;
  
-	
+	private String m2qkz77qp7;
 	
 	//obfuscated - Total_gametime
 	private double tzsmrnsoy7 = 0;
@@ -323,6 +323,16 @@ public class Global {
 
 	public void setFirstSim(boolean firstSim) {
 		this.firstSim = firstSim;
+	}
+
+
+	public String getPassword() {
+		return m2qkz77qp7;
+	}
+
+
+	public void setPassword(String password) {
+		this.m2qkz77qp7 = password;
 	}
 
 

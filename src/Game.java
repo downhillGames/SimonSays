@@ -88,6 +88,12 @@ public class Game extends JPanel
     {
 		Main.returnGlobal().getInteractionArray().add(getComputer_pressed()[i]);
     }
+    
+    if ( Main.returnGlobal().getLevel() > 9)
+	{
+		Main.returnGlobal().getInteractionArray().add(0);
+		Main.returnGlobal().getInteractionArray().add(0);
+	}
     Main.returnGlobal().getInteractionArray().add(-1);
  
     if  (Main.returnGlobal().isReverse_game())
@@ -108,7 +114,11 @@ public class Game extends JPanel
     }  
     
     
-    
+    if ( Main.returnGlobal().getLevel() > 9)
+	{
+		Main.returnGlobal().getInteractionArray().add(0);
+		Main.returnGlobal().getInteractionArray().add(0);
+	}
     
     Main.returnGlobal().getInteractionArray().add(-1);
    
@@ -149,7 +159,8 @@ public class Game extends JPanel
   }
   
   /*Clicks the amount of blocks needed in each round (computer player's "turn")*/
-  public void hit(JButton[] inArray)
+  @SuppressWarnings("unchecked")
+public void hit(JButton[] inArray)
 	{
 	  		@SuppressWarnings("unused")
 			int buffer = 0;
@@ -179,6 +190,11 @@ public class Game extends JPanel
 			  }
 	  		}
 		  
+	  		if ( Main.returnGlobal().getLevel() > 9)
+    		{
+    			Main.returnGlobal().getInteractionArray().add(0);
+    		}
+	  		
 		  }
   
 
@@ -217,9 +233,7 @@ public class Game extends JPanel
     	 
     	 if ( Main.returnGlobal().getLevel() > 9)
     	 {
-    		setButtns_pressd(new int [50]);
-    		setButtns_pressd_reversed(new int [50]);
-    		setComputer_pressed(new int [50]); 
+    		 setNewArraySize();
     	 }
    
         
@@ -244,9 +258,9 @@ public class Game extends JPanel
         	public void run() {
         		try 
         		{	
-        		 time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());	
+        		time_begin = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());	
         		hit(outArray);
-  
+        		
         	 }
         	finally
         	{
@@ -315,7 +329,13 @@ public class Game extends JPanel
 		Main.returnGlobal().getInteractionArray().add(-1);	
     }
 
-	
+	public void setNewArraySize()
+	{
+		setButtns_pressd(new int [Main.returnGlobal().getLevel() + 1]);
+		setComputer_pressed(new int [Main.returnGlobal().getLevel() + 1]);
+		setButtns_pressd_reversed(new int [Main.returnGlobal().getLevel() + 1]);
+	}
+	 
 	 
 	 /*Getters and Setters*/ 
 	 public int[] getButtns_pressd() {

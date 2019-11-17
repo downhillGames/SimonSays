@@ -22,6 +22,7 @@ public class SimGame extends JPanel
 	long time_begin ;
 	long clock_timer = time_begin;
 	static int map_from_obj[] = new int [27]; 
+	int timesPCHit = 0;
 	
 	/*Game class constructor*/
 	public SimGame() {
@@ -121,8 +122,7 @@ public class SimGame extends JPanel
 		
 	
 	/*checks computer array (forward) versus player array (forward or reversed) , plays win or lose screen*/
-@SuppressWarnings("unchecked")
-	public void checkArray()
+public void checkArray()
   {
     
     boolean flag = false;
@@ -212,7 +212,7 @@ public class SimGame extends JPanel
  				  clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
  				  Main.returnGlobal().setFirst_hit(false);
  				  buffer = 0;
- 				  times_hit++;
+ 				  setTimes_hit(getTimes_hit() + 1);
  				 // hits++;
  			  }
  	  		}
@@ -250,7 +250,7 @@ public class SimGame extends JPanel
 		  	{
 		  		buffer = 0;
 		  	}
-	  		int hits = 0;
+	  		//int hits = 0;
 	  		while ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) != 0 &&
  	  				(int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) != -1) {
 	  		//while (hits <  Main.returnGlobal().getTimes_won() + 2 ) {
@@ -270,7 +270,8 @@ public class SimGame extends JPanel
 				  clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
 				  Main.returnGlobal().setComputer_playing(false);
 				  Main.returnGlobal().setFirst_hit(false);
-				  hits++;
+				  //hits++;
+				  timesPCHit++;
 			  }
 	  		}
 		  
@@ -423,6 +424,14 @@ public class SimGame extends JPanel
 
 	public void setButtns_pressd_reversed(int buttns_pressd_reversed[]) {
 		this.buttns_pressd_reversed = buttns_pressd_reversed;
+	}
+
+	public int getTimes_hit() {
+		return times_hit;
+	}
+
+	public void setTimes_hit(int times_hit) {
+		this.times_hit = times_hit;
 	}
     
 	

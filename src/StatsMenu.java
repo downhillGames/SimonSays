@@ -101,7 +101,7 @@ public class StatsMenu extends Menu implements ActionListener {
     		{   
     			Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     			Border border2 = BorderFactory.createMatteBorder(0, 500, 0, 500, Main.returnFrame().getBackground());
-    			Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 500, Main.returnFrame().getBackground());
+    			//Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 500, Main.returnFrame().getBackground());
     			int i = Main.returnGameSave().lookUpUser(nameField.getText());
     			Main.returnGameSave().loadGame(nameField.getText());
     			String key = (String) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("zxbvwoved7");

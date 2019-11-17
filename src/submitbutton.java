@@ -5,7 +5,9 @@ import java.util.concurrent.TimeUnit;
 public class submitbutton implements ActionListener {
         
 		/*Gets round time and adds it to the total game time*/
-        public void actionPerformed(ActionEvent e) {
+       // @SuppressWarnings("unchecked")
+		public void actionPerformed(ActionEvent e) {
+        	
         	
         	
         	double round_length = (TimeUnit.NANOSECONDS.toMillis(System.nanoTime())  - Main.returnGame().time_begin) / 1000.0;

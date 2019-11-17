@@ -247,6 +247,7 @@ public class Main {
     	 returnGlobal().setTimes_won(0);
     	 returnGlobal().setSpeed(1000);
     	 returnGlobal().setTotal_gametime(0);
+    	 returnGlobal().setGametime(0);
     	 returnGlobal().setRoundtime(0);
     	 returnGlobal().getScoresArray().clear();
     	 returnGlobal().getInteractionArray().clear();

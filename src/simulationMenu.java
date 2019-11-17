@@ -22,7 +22,6 @@ public class simulationMenu extends Menu implements ActionListener {
 	
 	private JSONArray gameStartIndexes;
 	private Integer amountOfGames;
-	private Integer index;
 	
     public simulationMenu() {
       
@@ -100,7 +99,40 @@ public class simulationMenu extends Menu implements ActionListener {
     			print("Username: " + name + " High score: " +  highlevel_int);
     			
     			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
+    			
+
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
+    			int backward1 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(31));
+    			
+    			if (backward1 == 1 )
+    			{
+    				createTextArea(border2 , "Game # 1 was played Forward");
+    				//createTextAreaLineBreak("Game # 1 was played Forward");
+    			}
+    			else if (backward1 == 2 )
+    			{
+    				createTextArea(border2 ,"Game # 1 was played in reverse");
+    				//createTextAreaLineBreak("Game # 1 was played in reverse");
+    			}
+    			
+    			gameStartIndexes = getStartingIndexes(Main.returnGlobal().getInteractionArray());
+    			for (int j  = 0; j < gameStartIndexes.size() - 1 ; j++ )
+    			{
+    				int backward2 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get((int) gameStartIndexes.get(j) + 42));
+    				
+    				System.out.println("Interactions Array: " + Main.returnGlobal().getInteractionArray());
+    				if (backward2 == 1 )
+        			{
+    					createTextArea(border2 ,"Game # "  + (j+2) +" was played Forward");
+        				//createTextAreaLineBreak("Game # "  + (j+2) +" was played Forward");
+        			}
+        			else if (backward2 == 2 )
+        			{
+        				createTextArea(border2 ,"Game # " + (j+2) +" played in reverse");
+        				//createTextAreaLineBreak("Game # " + (j+2) +" played in reverse");
+        			}
+    			}
+    			
     			amountOfGames = levelArr.size();
     			gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);
     			

@@ -10,7 +10,14 @@ public class LostScreen extends Menu {
 		createTextAreaLineBreak("You Lost");
 		displayStats();
     	
-    	
+		if (Main.returnGlobal().isReverse_game() == false )
+		{	
+			Main.returnGlobal().getForwardArray().add(1);	
+		}
+		else
+		{
+			Main.returnGlobal().getForwardArray().add(2);
+		}
 		
 		if (Main.returnGlobal().getMode() == 1 ||  Main.returnGlobal().getMode() == 2 || Main.returnGlobal().getMode() == 3)
 		{

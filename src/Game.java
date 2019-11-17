@@ -311,11 +311,11 @@ public void hit(JButton[] inArray)
 		
 		if (Main.returnGlobal().isReverse_game() == false )
 		{
-			Main.returnGlobal().getInteractionArray().add(1);	
+			Main.returnGlobal().getInteractionArray().add(1);
 		}
 		else
 		{
-			Main.returnGlobal().getInteractionArray().add(2);	
+			Main.returnGlobal().getInteractionArray().add(2);
 		}
 		Main.returnGlobal().getInteractionArray().add(-1);
 		if (Main.returnGlobal().isNewGame() == true )

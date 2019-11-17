@@ -220,6 +220,7 @@ public class GameSave {
 				  gametime_string = Main.decryptString((String) ((HashMap) getSavesArray().get(i)).get("tzsmrnsoy7"), key);
 				  Main.decryptInteractionArray((JSONArray) ((HashMap) getSavesArray().get(i)).get("o6vja8lio1") , key);
 				  Main.decryptScoresArray((JSONArray) ((HashMap) getSavesArray().get(i)).get("gjw2201t44") , key);
+				 decryptArray((JSONArray) ((HashMap) getSavesArray().get(i)).get("kUnu83XHme") , key);
 				 Main.returnGlobal().setTotal_gametime(Double.valueOf(gametime_string));
  
 				 Main.returnGlobal().setHigh_level(Double.valueOf(high_level_string));
@@ -251,6 +252,9 @@ public class GameSave {
 		
 		  JSONArray encryptedScores = Main.encryptArray( Main.returnGlobal().getScoresArray()  ,key);
 		  ((HashMap) getSavesArray().get(index)).replace("gjw2201t44", ((HashMap) getSavesArray().get(index)).get("gjw2201t44") , encryptedScores);
+		  
+		  JSONArray encryptedForward = Main.encryptArray( Main.returnGlobal().getScoresArray()  ,key);
+		  ((HashMap) getSavesArray().get(index)).replace("kUnu83XHme", ((HashMap) getSavesArray().get(index)).get("kUnu83XHme") , encryptedForward);
 		  
 		  FileWriter save_file;
 		try {
@@ -298,6 +302,9 @@ public class GameSave {
 		  
 		  JSONArray encryptedScores = Main.encryptArray( Main.returnGlobal().getScoresArray() ,zxbvwoved7);
 		  newplayer.put( "gjw2201t44", encryptedScores);
+		  
+		  JSONArray encryptedForward = Main.encryptArray( Main.returnGlobal().getScoresArray() ,zxbvwoved7);
+		  newplayer.put( "kUnu83XHme", encryptedForward);
 		  
 		  getSavesArray().add(newplayer);
 

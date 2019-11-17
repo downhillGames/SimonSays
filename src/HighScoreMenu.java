@@ -124,7 +124,15 @@ public class HighScoreMenu extends Menu implements ActionListener {
 			
 			for (int j = 0; j < trueLevelArr.size() ; j++)
 			{
-				createTextArea(border , "Attempt " + (j+1) + " - Score: " + trueLevelArr.get(j) );
+				String forwardString;
+				if ((int) Main.returnGlobal().getForwardArray().get(j) == 1) {
+					forwardString = "Forward";
+				}
+				else
+				{
+					forwardString = "Reversed";
+				}
+				createTextArea(border , "Attempt " + (j+1) + " - Score: " + trueLevelArr.get(j) + " It was: " + forwardString );
 			}
 		}
 		

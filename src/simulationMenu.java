@@ -100,7 +100,7 @@ public class simulationMenu extends Menu implements ActionListener {
     			
     			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
     			
-
+    			
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
     			int backward1 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(31));
     			
@@ -114,13 +114,10 @@ public class simulationMenu extends Menu implements ActionListener {
     				createTextArea(border2 ,"Game # 1 was played in reverse");
     				//createTextAreaLineBreak("Game # 1 was played in reverse");
     			}
-    			
     			gameStartIndexes = getStartingIndexes(Main.returnGlobal().getInteractionArray());
     			for (int j  = 0; j < gameStartIndexes.size() - 1 ; j++ )
     			{
     				int backward2 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get((int) gameStartIndexes.get(j) + 42));
-    				
-    				System.out.println("Interactions Array: " + Main.returnGlobal().getInteractionArray());
     				if (backward2 == 1 )
         			{
     					createTextArea(border2 ,"Game # "  + (j+2) +" was played Forward");

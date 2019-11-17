@@ -9,6 +9,7 @@ public class Global {
 	
 	private boolean firstSim = true;
  
+	//obfuscated - password
 	private String m2qkz77qp7;
 	
 	//obfuscated - Total_gametime
@@ -43,6 +44,9 @@ public class Global {
 	
 	//obfuscated - interactionArray 
 	private JSONArray o6vja8lio1 = new JSONArray(); 
+	
+	//obfuscated - forwardArray 
+	private JSONArray kUnu83XHme = new JSONArray(); 
 	
 	//obfuscated - scores array
 	private JSONArray gjw2201t44 = new JSONArray(); 
@@ -333,6 +337,16 @@ public class Global {
 
 	public void setPassword(String password) {
 		this.m2qkz77qp7 = password;
+	}
+
+
+	public JSONArray getForwardArray() {
+		return kUnu83XHme;
+	}
+
+
+	public void setForwardArray(JSONArray kUnu83XHme) {
+		this.kUnu83XHme = kUnu83XHme;
 	}
 
 

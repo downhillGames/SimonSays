@@ -296,7 +296,11 @@ public void hit(JButton[] inArray)
 			 Main.returnGlobal().getInteractionArray().add(map_from_obj[i]);
 		 }
 		 
-		 
+		 if (Main.returnGlobal().getForwardArray().isEmpty())
+		 {
+			 Main.returnGlobal().getForwardArray().add(0);
+		 }
+				 
 		Main.returnGlobal().getInteractionArray().add(-1);
 		Main.returnGlobal().getInteractionArray().add(Main.returnGlobal().getLevel());
 		Main.returnGlobal().getInteractionArray().add(-1);

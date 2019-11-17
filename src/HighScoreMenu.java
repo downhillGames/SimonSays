@@ -47,13 +47,23 @@ public class HighScoreMenu extends Menu implements ActionListener {
     	double[] highScores =  Main.returnGameSave().getHighScores().getValue();
     	String[] highScoreNames =  Main.returnGameSave().getHighScores().getKey();
     	
-    	
+    	System.out.println(Main.returnGlobal().getInteractionArray());
     	
     	if (highScoreNames.length != 0)
     	{
     		for (int i = 0; i < highScoreNames.length ; i++)
         	{
-        		createTextArea(border4 , "Username: " + highScoreNames[i] + "..................Score: " + ((int) highScores[i]));
+    			String forwardString = new String();
+    			if ( (double) Main.returnGlobal().getInteractionArray().get(i) == 1.0 )
+    			{
+    				forwardString = "Forward";
+    			}
+    			else if ((double) Main.returnGlobal().getInteractionArray().get(i) == 2.0)
+    			{
+    			   forwardString = "Reversed";
+    			}
+    				
+        		createTextArea(border4 , "Username: " + highScoreNames[i] + "..................Score: " + ((int) highScores[i]) + "   ---   "+ forwardString );
         	}
     		nameField = createInputArea("Look up high score, enter name: ", 90, border, nameField);
     	}
@@ -80,7 +90,7 @@ public class HighScoreMenu extends Menu implements ActionListener {
        
 	
 	/*Prints High score if name is looked up*/
-    @SuppressWarnings({ "rawtypes", "static-access", "unchecked" })
+    @SuppressWarnings({ "rawtypes", "static-access" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -106,33 +116,23 @@ public class HighScoreMenu extends Menu implements ActionListener {
 			print("Username: " + name + " High score: " +  highlevel_int);
 			
 			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
-			
+			JSONArray forwardArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("kUnu83XHme") , key);
 			 
-			JSONArray trueLevelArr = new JSONArray(); 
-			
+		
+			 
+			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
+
 			for (int j = 0; j < levelArr.size() ; j++)
 			{
-				if ((double)levelArr.get(j) != 0 )
-				{
-					trueLevelArr.add(levelArr.get(j));
-				}
-			}
-			 
-			createTextArea(border2 , name + " has attempted the game " + trueLevelArr.size() + " time(s)");
-			//createTextArea(border , "No High Scores Exist on file!");
-			//createTextArea(border , "No High Scores Exist on file!");
-			
-			for (int j = 0; j < trueLevelArr.size() ; j++)
-			{
 				String forwardString;
-				if ((int) Main.returnGlobal().getForwardArray().get(j) == 1) {
+				if ((double) forwardArr.get(j +i) == 1.0) {
 					forwardString = "Forward";
 				}
 				else
 				{
 					forwardString = "Reversed";
 				}
-				createTextArea(border , "Attempt " + (j+1) + " - Score: " + trueLevelArr.get(j) + " It was: " + forwardString );
+				createTextArea(border , "Attempt " + (j+1) + " - Score: " + levelArr.get(j) + " It was: " + forwardString );
 			}
 		}
 		

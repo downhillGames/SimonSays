@@ -251,7 +251,7 @@ public class Main {
     	 returnGlobal().setRoundtime(0);
     	 returnGlobal().getScoresArray().clear();
     	 returnGlobal().getInteractionArray().clear();
-    	 
+    	 returnGlobal().getForwardArray().clear();
     	 
          game_screen.remove(menu);
          
@@ -453,6 +453,14 @@ public class Main {
     	  if (returnGlobal().isNewGame())
           {
         	  returnGlobal().setHigh_level(returnGlobal().getLevel() - 1);
+        	  if (Main.returnGlobal().isReverse_game() == false )
+      			{	
+      			Main.returnGlobal().getForwardArray().set(0, 1)	;
+      			}
+      			else
+      			{
+      				Main.returnGlobal().getForwardArray().set(0, 2)	;
+      			}
         	  if (returnGlobal().getHigh_level() < 5 && returnAge(returnGlobal().getBirthdate()) > 13)
         	  {
         		  returnGlobal().setDiagnosis("Possibly AD");
@@ -473,6 +481,14 @@ public class Main {
         	if (returnGlobal().getLevel() - 1 >  returnGlobal().getHigh_level())
         	{
         		returnGlobal().setHigh_level(returnGlobal().getLevel() - 1 );
+        		if (Main.returnGlobal().isReverse_game() == false )
+       			{	
+        			Main.returnGlobal().getForwardArray().set(0, 1)	;
+       			}
+       			else
+       			{
+       				Main.returnGlobal().getForwardArray().set(0, 2)	;
+       			}
         	}
         	if (returnGlobal().getHigh_level() < 5 && returnAge(returnGlobal().getBirthdate()) > 13)
       	  	{

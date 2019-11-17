@@ -125,18 +125,19 @@ public class StatsMenu extends Menu implements ActionListener {
     			//createTextArea(border2 , "Interactions Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().savesArray.get(i)).get("o6vja8lio1"), key));
     			//Main.decryptScoresArray((JSONArray) ((HashMap) savesArray.get(i)).get("gjw2201t44") , key);
     			//gameField = createInputArea("Which game would you like to sim?: ", 90, border, gameField);
+    			createTextArea(border2 , "Forward Array: " + Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("kUnu83XHme"), key));
     			JSONArray decryptedInteractionsArray = Main.returnGameSave().decryptArray((JSONArray) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("o6vja8lio1"), key);
     	    	 createTextArea(border , "Interactions Array: "  );
     	    	 
     	    	 int amountToDisplay;
     	    	 
-    	    	 if (decryptedInteractionsArray.size() < 330 )
+    	    	 if (decryptedInteractionsArray.size() < 500)
     	    	 {
     	    		 amountToDisplay = decryptedInteractionsArray.size();
     	    	 }
     	    	 else
     	    	 {
-    	    		 amountToDisplay = 330;
+    	    		 amountToDisplay = 500;
     	    	 }
     	    	 for (int j = 0; j < amountToDisplay; j++)
     	    	  {

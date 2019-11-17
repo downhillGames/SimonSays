@@ -95,6 +95,7 @@ public class GameSave {
 		public AbstractMap.SimpleEntry<String[], double[]> getHighScores() 
 	  	{ 
 		  String[] top_player_names;
+		  double[] top_player_forward;
 		  double[] top_player_scores;
 		  int[] top_player_index;
 		  if (getSavesArray().size() >= 5)
@@ -102,12 +103,14 @@ public class GameSave {
 			  top_player_names = new String[5] ;
 			  top_player_scores = new double[5];
 			  top_player_index = new int[5];
+			  top_player_forward = new double[5];
 		  }
 		  else
 		  {
 			 top_player_names = new String[getSavesArray().size()] ;
 			 top_player_scores = new double[getSavesArray().size()];
 			 top_player_index = new int[getSavesArray().size()];
+			 top_player_forward = new double[getSavesArray().size()];
 			   
 		  }
 		  
@@ -130,12 +133,17 @@ public class GameSave {
 			 }  
 			  if (high_level >  top_player_scores[score_index])
 			  {
-				  
-				  JSONArray forwardArr = decryptArray((JSONArray ) ((HashMap) getSavesArray().get(score_index)).get("kUnu83XHme") , key);
-				  Main.returnGlobal().getInteractionArray().add(forwardArr.get(0));
+				 
 				  top_player_scores[score_index] = high_level;
 				  top_player_index[score_index] = array_index;
 				  top_player_names[score_index] = Main.decryptString((String ) ((HashMap) getSavesArray().get(array_index)).get("rjc8qhtv1w"), key);
+				  
+				  int i = Main.returnGameSave().lookUpUser(Main.decryptString((String ) ((HashMap) getSavesArray().get(array_index)).get("rjc8qhtv1w"), key));
+				  JSONArray forwardArr = decryptArray((JSONArray ) ((HashMap) getSavesArray().get(i)).get("kUnu83XHme") , key);
+				  top_player_forward[score_index] = (double) forwardArr.get(0);
+				 // Main.returnGlobal().getInteractionArray().add(forwardArr.get(0));
+				  
+				  
 			  }
 			  if (array_index == getSavesArray().size() - 1)
 			  {
@@ -148,6 +156,10 @@ public class GameSave {
 			  }
 		  }
 		  
+		  for (int j = 0; j < top_player_forward.length ; j++)
+		  {
+			  Main.returnGlobal().getInteractionArray().add(top_player_forward[j]);
+		  }
 		  return new AbstractMap.SimpleEntry<String[], double[]>(top_player_names, top_player_scores); 
 
 	}

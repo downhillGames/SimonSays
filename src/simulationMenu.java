@@ -102,30 +102,19 @@ public class simulationMenu extends Menu implements ActionListener {
     			
     			
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
-    			int backward1 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(31));
     			
-    			if (backward1 == 1 )
+    			for (int j  = 1; j < Main.returnGlobal().getForwardArray().size() ; j++ )
     			{
-    				createTextArea(border2 , "Game # 1 was played Forward");
-    				//createTextAreaLineBreak("Game # 1 was played Forward");
-    			}
-    			else if (backward1 == 2 )
-    			{
-    				createTextArea(border2 ,"Game # 1 was played in reverse");
-    				//createTextAreaLineBreak("Game # 1 was played in reverse");
-    			}
-    			gameStartIndexes = getStartingIndexes(Main.returnGlobal().getInteractionArray());
-    			for (int j  = 0; j < gameStartIndexes.size() - 1 ; j++ )
-    			{
-    				int backward2 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get((int) gameStartIndexes.get(j) + 42));
-    				if (backward2 == 1 )
-        			{
-    					createTextArea(border2 ,"Game # "  + (j+2) +" was played Forward");
+    				//int backward2 = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get((int) gameStartIndexes.get(j) + 42));
+    				
+    				if ((double) Main.returnGlobal().getForwardArray().get(j) == 1.0 )
+        			{ 
+    					createTextArea(border2 ,"Game # "  + (j) +" was played Forward");
         				//createTextAreaLineBreak("Game # "  + (j+2) +" was played Forward");
         			}
-        			else if (backward2 == 2 )
+        			else if ((double) Main.returnGlobal().getForwardArray().get(j) == 2.0)
         			{
-        				createTextArea(border2 ,"Game # " + (j+2) +" played in reverse");
+        				createTextArea(border2 ,"Game # " + (j) +" played in reverse");
         				//createTextAreaLineBreak("Game # " + (j+2) +" played in reverse");
         			}
     			}

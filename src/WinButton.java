@@ -8,7 +8,7 @@ public class WinButton implements ActionListener {
         		
         	
         	
-        	if (Main.returnGlobal().getMode() == 4)
+        	if (Main.returnGlobal().getMode() == 4 || Main.returnGlobal().getMode() == 5)
     		{
         		Main.newSim();
         		Main.readySim();

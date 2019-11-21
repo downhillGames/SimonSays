@@ -18,6 +18,7 @@ import java.util.Base64;
 public class Main {
 	//initialize variables
   private static int startingLevel = 2;
+  private static boolean dev_mode = true;
   static levelSave levelSave = new levelSave();
   static GameScreen game_screen = new GameScreen();
   static GameSave gameSave = new GameSave();
@@ -25,7 +26,7 @@ public class Main {
   static Menu menu = new MainMenu();
   static Map map = new Map(); 
   static Game game = new Game(map);
-  private static boolean dev_mode = true;
+  
   static SimGame simGame;
   static JButton outArry[] = new JButton[9];
   
@@ -255,10 +256,8 @@ public class Main {
     	 
          game_screen.remove(menu);
          
-         if (Main.returnGlobal().getMode() == 4)
-         {
-        	 Main.returnGlobal().setMode(1);
-         }
+  
+        Main.returnGlobal().setMode(1);
           
     	// global = new Global();
     	game_screen.setVisible(false);
@@ -448,7 +447,7 @@ public class Main {
       //(returnGlobal().getLevel())
       returnGlobal().getScoresArray().add(returnGlobal().getLevel() - 1);
       
-      if (returnGlobal().getMode() != 4)
+      if (Main.returnGlobal().getMode() == 1 ||  Main.returnGlobal().getMode() == 2 || Main.returnGlobal().getMode() == 3)
       {
     	  if (returnGlobal().isNewGame())
           {

@@ -68,6 +68,11 @@ public class SimGame extends JPanel
 		// if (Main.returnGlobal().isFirstSim())
 			{
 			 System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 38) + " REVERSE");
+			 System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 36) + " MODE");
+			 if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 36))  == 3)
+				{
+					Main.returnGlobal().setMode(5);
+				}
 			 
 			 
 			 if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 38))  == 2)
@@ -85,8 +90,12 @@ public class SimGame extends JPanel
 		 else
 			{
 			 System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42) + " REVERSE");
+			 System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 40) + " MODE");
 			 
-			 
+			 if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 40))  == 3)
+				{
+					Main.returnGlobal().setMode(5);
+				}
 			 if ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex() + 42))  == 2)
 				{
 					Main.returnGlobal().setReverse_game(true);

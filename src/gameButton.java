@@ -14,7 +14,7 @@ public class gameButton implements ActionListener {
 	 public void actionPerformed(ActionEvent e) {
 		Main.returnGame();
 	// TODO Auto-generated method stub
-	if (Main.returnGlobal().getMode() == 4)
+	if (Main.returnGlobal().getMode() == 4 || Main.returnGlobal().getMode() == 5)
 	{
 		if (Main.returnGlobal().isComputer_playing() == true)
 		{

@@ -8,6 +8,7 @@ public class LostScreen extends Menu {
 	 /*Shows losing screen (no lives left)*/
 	public LostScreen() {
 		createTextAreaLineBreak("You Lost");
+		createTextAreaLineBreak("Corsi score: " + (Main.returnGlobal().getLevel() - 1)) ;
 		displayStats();
     	
 		if (Main.returnGlobal().isReverse_game() == false )

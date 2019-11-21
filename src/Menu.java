@@ -22,7 +22,7 @@ public class Menu extends JPanel {
 	
 	public void displayStats()
 	{
-		createTextAreaLineBreak("Score : " + (Main.returnGlobal().getLevel() - 1)) ;
+		
     	createTextAreaLineBreak("Times Won: " + (Main.returnGlobal().getTimes_won())) ;
     	createTextAreaLineBreak("All time Play Time: " + convertTime(Main.returnGlobal().getGametime() + Main.returnGlobal().getTotal_gametime()) );
     	createTextAreaLineBreak("Play session time: " + convertTime(Main.returnGlobal().getGametime()) ); 
@@ -81,7 +81,7 @@ public class Menu extends JPanel {
 	        		try {
 						Thread.sleep(3000);
 			        		
-			        	if (Main.returnGlobal().getMode() == 4)
+			        	if (Main.returnGlobal().getMode() == 4 || Main.returnGlobal().getMode() == 5)
 						{
 							Main.newSim();
 							Main.readySim();

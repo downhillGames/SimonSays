@@ -125,7 +125,7 @@ public class HighScoreMenu extends Menu implements ActionListener {
 			for (int j = 0; j < levelArr.size() ; j++)
 			{
 				String forwardString;
-				if ((double) forwardArr.get(j +i) == 1.0) {
+				if ((double) forwardArr.get(j+1) == 1.0) {
 					forwardString = "Forward";
 				}
 				else

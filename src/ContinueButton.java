@@ -9,7 +9,7 @@ public class ContinueButton implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	
         	
-        	if (Main.returnGlobal().getMode() == 4)
+        	if (Main.returnGlobal().getMode() == 4 || Main.returnGlobal().getMode() == 5)
     		{
         		Main.newSim();
         		Main.readySim();

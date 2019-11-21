@@ -10,12 +10,12 @@ public class WinScreen extends Menu {
     	
     	createTextAreaLineBreak("You Won!");
     	
-    	
+    	createTextAreaLineBreak("Corsi score: " + (Main.returnGlobal().getLevel() )) ;
     	System.out.println("CORSI SCORE: " + Main.returnGlobal().getLevel());
     	Main.returnGlobal().setTimes_won(Main.returnGlobal().getTimes_won() + 1);
     	displayStats();
 
-    	if (Main.returnGlobal().getMode() == 3)
+    	if (Main.returnGlobal().getMode() == 3 || Main.returnGlobal().getMode() == 5)
     	{
     		//if level is even
     		if (Main.returnGlobal().getTimes_won() % 2 == 0)
@@ -44,7 +44,7 @@ public class WinScreen extends Menu {
     	}
     	
     	
-    	if (Main.returnGlobal().getMode() == 1 || Main.returnGlobal().getMode() == 4)
+    	if (Main.returnGlobal().getMode() == 1 || Main.returnGlobal().getMode() == 4 || Main.returnGlobal().getMode() == 5)
     	{
     		timerPlay();
     	}

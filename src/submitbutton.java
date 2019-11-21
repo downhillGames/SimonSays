@@ -12,7 +12,7 @@ public class submitbutton implements ActionListener {
         	
         	double round_length = (TimeUnit.NANOSECONDS.toMillis(System.nanoTime())  - Main.returnGame().time_begin) / 1000.0;
        
-        	if (Main.returnGlobal().getMode() == 4)
+        	if (Main.returnGlobal().getMode() == 4 ||  Main.returnGlobal().getMode() == 5)
         	{
         		round_length = (TimeUnit.NANOSECONDS.toMillis(System.nanoTime())  - Main.returnSim().time_begin) / 1000.0;
         	}
@@ -23,7 +23,7 @@ public class submitbutton implements ActionListener {
         	System.out.println("this game Time Formatted: " + convertTime(Main.returnGlobal().getGametime()));
         	System.out.println("Total Time Formatted: " + convertTime(Main.returnGlobal().getTotal_gametime() + Main.returnGlobal().getGametime()));
         	
-        	if (Main.returnGlobal().getMode() != 4)
+        	if (Main.returnGlobal().getMode() != 4 && Main.returnGlobal().getMode() != 5)
         	{
         		if (Main.global.isReverse_game())
             	{

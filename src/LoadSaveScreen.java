@@ -98,7 +98,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 			printError("You did not enter a name!");
 		}
 		
-		else if ( nameField.getText().equals("DEV_MODE") &&  passwordField.getText().equals("dev_password") )
+		else if ( nameField.getText().equals("DEV_MODE") &&  passwordField.getText().equals("dev_mode") )
 		{
 			printError("You have enabled dev mode ");
 			Main.setDev_mode(true);

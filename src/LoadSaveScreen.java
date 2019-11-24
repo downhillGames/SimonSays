@@ -124,7 +124,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 			
 		else
 		{
-			
+			Main.returnGameSave().loadGame(nameField.getText());
 			if (!adressField.getText().equals("") )
 			{
 				Main.returnGlobal().setAddress(adressField.getText());
@@ -160,7 +160,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 			{
 				Main.returnGlobal().setReverse_game(false);
 			}
-			Main.returnGameSave().loadGame(nameField.getText());
+			
 			Main.StartGame();
 		}
 		

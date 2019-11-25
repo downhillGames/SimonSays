@@ -191,7 +191,7 @@ public class Main {
     public static void StartSim(){
     	
     	EventQueue.invokeLater(() -> {
-    		  game_screen.setVisible(false);
+    		 // game_screen.setVisible(false);
               game_screen.remove(menu);
               game_screen.add(simGame);
               game_screen.setVisible(true);
@@ -209,7 +209,7 @@ public class Main {
     public static void StartGame(){
     	
     	EventQueue.invokeLater(() -> {
-    		  game_screen.setVisible(false);
+    		//  game_screen.setVisible(false);
               game_screen.remove(menu);
               game_screen.add(game);
               game_screen.setVisible(true);
@@ -254,15 +254,13 @@ public class Main {
     	 returnGlobal().getInteractionArray().clear();
     	 returnGlobal().getForwardArray().clear();
     	 
-         game_screen.remove(menu);
-         
-  
         Main.returnGlobal().setMode(1);
-          
-    	// global = new Global();
-    	game_screen.setVisible(false);
-         game_screen.remove(game);
         readyGameNoStart();
+    	// global = new Global();
+    	//game_screen.setVisible(false);
+         game_screen.remove(game);
+         game_screen.remove(menu);
+        
          menu = new MainMenu();
          game_screen.add(menu);
          game_screen.setVisible(true);
@@ -352,7 +350,7 @@ public class Main {
     public static void PlayNewSaveMenu()
     {
     EventQueue.invokeLater(() -> {
-	      game_screen.setVisible(false); 
+	     // game_screen.setVisible(false); 
 	      game_screen.remove(menu);
 	      menu = new NewSaveScreen();
 	      game_screen.add(menu);
@@ -364,7 +362,7 @@ public class Main {
     public static void PlayLoadSaveMenu()
     {
     EventQueue.invokeLater(() -> {
-	      game_screen.setVisible(false); 
+	      //game_screen.setVisible(false); 
 	      game_screen.remove(menu);
 	      menu = new LoadSaveScreen();
 	      game_screen.add(menu);
@@ -380,7 +378,7 @@ public class Main {
       {
     	  game_screen.remove(simGame);  
       }
-      	game_screen.setVisible(false); 
+      	//game_screen.setVisible(false); 
   		game_screen.remove(game);
 	    menu = new PauseScreen();
 	    game_screen.add(menu);
@@ -389,7 +387,7 @@ public class Main {
 
     public static void PlayHighScoreMenu()
     {
-    	game_screen.setVisible(false); 
+    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
 	    menu = new HighScoreMenu();
 	    game_screen.add(menu);
@@ -398,7 +396,7 @@ public class Main {
     
     public static void PlaySimulationMenu()
     {
-    	game_screen.setVisible(false); 
+    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
 	    menu = new simulationMenu();
 	    game_screen.add(menu);
@@ -407,7 +405,7 @@ public class Main {
     
     public static void PlayStatsMenu() {
 		// TODO Auto-generated method stub
-    	game_screen.setVisible(false); 
+    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
 	    menu = new StatsMenu();
 	    game_screen.add(menu);
@@ -417,7 +415,7 @@ public class Main {
     /*Goes to the lose continue screen (removing game & adding lose continue screen to JFrame)*/
     public static void PlayLoseContinue()
     {
-    	game_screen.setVisible(false); 
+    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
     	game_screen.remove(game);
     	if (simGame != null)
@@ -433,7 +431,7 @@ public class Main {
     @SuppressWarnings("unchecked")
 	public static void PlayLose()
     {
-     game_screen.setVisible(false); 
+    // game_screen.setVisible(false); 
       game_screen.remove(menu);
       game_screen.remove(game);
       if (simGame != null)
@@ -509,7 +507,7 @@ public class Main {
 
     /*Goes to the win screen (removing game & adding win screen to JFrame)*/
     public static void PlayWin(){
-    	game_screen.setVisible(false); 
+    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
     	game_screen.remove(game);
     	
@@ -526,7 +524,7 @@ public class Main {
 
     /*Goes to the help menu (removing main menu & adding help menu to JFrame)*/
 	public static void PlayHelpMenu() {
-		game_screen.setVisible(false); 
+		//game_screen.setVisible(false); 
     	game_screen.remove(menu);
 	    menu = new HelpMenu();
 	    game_screen.add(menu);

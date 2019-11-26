@@ -16,19 +16,20 @@ import java.util.Base64;
 
 
 public class Main {
+	
 	//initialize variables
-  private static int startingLevel = 2;
-  private static boolean dev_mode = true;
-  static levelSave levelSave = new levelSave();
-  static GameScreen game_screen = new GameScreen();
-  static GameSave gameSave = new GameSave();
-  static Global global;
-  static Menu menu = new MainMenu();
-  static Map map = new Map(); 
-  static Game game = new Game(map);
+	private static int startingLevel = 2;
+  	private static boolean dev_mode = true;
+  	static levelSave levelSave = new levelSave();
+  	static GameScreen game_screen = new GameScreen();
+  	static GameSave gameSave = new GameSave();
+  	static Global global;
+  	static Menu menu = new MainMenu();
+  	static Map map = new Map(); 
+  	static Game game = new Game(map);
   
-  static SimGame simGame;
-  static JButton outArry[] = new JButton[9];
+  	static SimGame simGame;
+  	static JButton outArry[] = new JButton[9];
   
   
   
@@ -109,11 +110,7 @@ public class Main {
     return decrypted;
   }
 
-  
-
-	
-  	
-  	
+  	/*Compares two strings char by char and returns if they are the same or not*/
   	public static boolean isSameString(String str1,String str2)
   	{
   		boolean isSameString = true;
@@ -142,9 +139,6 @@ public class Main {
   		return isSameString;
   	}
   	
-  	
- 
-	
 	/*Creates a new JSON Array of the interactions array encrypted for saving purposes*/
 	@SuppressWarnings("unchecked")
 	public static JSONArray encryptArray(JSONArray inArray, String key){
@@ -170,8 +164,8 @@ public class Main {
 	 System.out.println(returnGlobal().getInteractionArray());
 	}
 	
-	@SuppressWarnings("unchecked")
 	/*Stores a decrypted version of input array in scores array*/
+	@SuppressWarnings("unchecked")
 	public static void decryptScoresArray(JSONArray inArray , String key){
 		returnGlobal().getScoresArray().clear();
 		
@@ -182,11 +176,7 @@ public class Main {
 		}
 	 System.out.println(returnGlobal().getScoresArray());
 	}
-	
-	
-	
-	
-	
+
 	/*Starts the simulation game from sim menu*/
     public static void StartSim(){
     	
@@ -225,7 +215,7 @@ public class Main {
 
  
     
-    
+    /*Returns the age of the player according to their birth date */
     public static int returnAge(String bdate)
     {
     	int age = 0;
@@ -256,15 +246,12 @@ public class Main {
     	 
         Main.returnGlobal().setMode(1);
         readyGameNoStart();
-    	// global = new Global();
-    	//game_screen.setVisible(false);
          game_screen.remove(game);
          game_screen.remove(menu);
         
          menu = new MainMenu();
          game_screen.add(menu);
          game_screen.setVisible(true);
-         //main(null);
          nullSim();
     }
     
@@ -338,10 +325,12 @@ public class Main {
         return levelSave;
     }
     
+    /*Creates a new instance of the simulation game and replaces simGame*/
     public static void newSim(){
         simGame = new SimGame();
     }
     
+    /*nulls out the simulation game*/
     public static void nullSim(){
         simGame = null;
     }
@@ -377,35 +366,34 @@ public class Main {
       if (simGame != null)
       {
     	  game_screen.remove(simGame);  
-      }
-      	//game_screen.setVisible(false); 
+      } 
   		game_screen.remove(game);
 	    menu = new PauseScreen();
 	    game_screen.add(menu);
 	    game_screen.setVisible(true); 
     }
 
+    /*Goes to the high score menu*/
     public static void PlayHighScoreMenu()
     {
-    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
 	    menu = new HighScoreMenu();
 	    game_screen.add(menu);
 	    game_screen.setVisible(true);
     }
     
+    /*Goes to the simulation menu*/
     public static void PlaySimulationMenu()
     {
-    	//game_screen.setVisible(false); 
     	game_screen.remove(menu);
 	    menu = new simulationMenu();
 	    game_screen.add(menu);
 	    game_screen.setVisible(true);
     }
     
+    /*Goes to the statistics menu*/
     public static void PlayStatsMenu() {
-		// TODO Auto-generated method stub
-    	//game_screen.setVisible(false); 
+	
     	game_screen.remove(menu);
 	    menu = new StatsMenu();
 	    game_screen.add(menu);
@@ -507,7 +495,7 @@ public class Main {
 
     /*Goes to the win screen (removing game & adding win screen to JFrame)*/
     public static void PlayWin(){
-    	//game_screen.setVisible(false); 
+  
     	game_screen.remove(menu);
     	game_screen.remove(game);
     	
@@ -531,25 +519,23 @@ public class Main {
 	    game_screen.setVisible(true);
 		
 	}
-	
-	
 
-
-
-
+	/*Getter*/
 	public static boolean isDev_mode() {
 		return dev_mode;
 	}
 
-
+	/*Setter*/
 	public static void setDev_mode(boolean dev_mode_n) {
 		 dev_mode = dev_mode_n;
 	}
 
+	/*Getter*/
 	public static int getStartingLevel() {
 		return startingLevel;
 	}
 
+	/*Setter*/
 	public static void setStartingLevel(int strtingLvl) {
 		 startingLevel = strtingLvl;
 	}

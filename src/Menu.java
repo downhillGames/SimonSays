@@ -20,6 +20,7 @@ public class Menu extends JPanel {
     	return field;
 	}
 	
+	/*Displays statistics to players for various screens*/
 	public void displayStats()
 	{
 		
@@ -30,7 +31,7 @@ public class Menu extends JPanel {
 	}
 	
 	/*Creates JTextArea from input text with a line break*/
-	 public JTextArea createTextAreaLineBreak(String text)
+	public JTextArea createTextAreaLineBreak(String text)
 	   {
 		 	Border border = BorderFactory.createMatteBorder(0, 600, 20, 600, Main.returnFrame().getBackground());
 		 	
@@ -44,8 +45,8 @@ public class Menu extends JPanel {
 	   }
 	 
 	 
-	 /*Creates JTextArea from input text*/
-	 public JTextArea createTextArea(String text)
+	/*Creates JTextArea from input text*/
+	public JTextArea createTextArea(String text)
 	   {
 		 	
 			JTextArea textArea = new JTextArea(1, 5);
@@ -56,8 +57,8 @@ public class Menu extends JPanel {
 		   	return textArea;
 	   }
 	 
-	 /*Converts a double time in seconds to a cleaner MM:SS format*/
-	 public static String convertTime(double time_in)
+	/*Converts a double time in seconds to a cleaner MM:SS format*/
+	public static String convertTime(double time_in)
      {
   	 	int minutes = 0;
       	while (time_in > 60)
@@ -72,8 +73,8 @@ public class Menu extends JPanel {
 	
 	 
 	 
-	  /* Goes to game in three seconds (classic mode)*/
-	    public void  timerPlay()
+	/* Goes to game in three seconds (classic mode)*/
+	public void  timerPlay()
 	    {
 	    	Thread t= new Thread (new Runnable() {
 	        	public void run() {

@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 public class NewSaveScreen extends Menu implements ActionListener {
+	
 	//Initialize variables
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
 	private static JTextField nameField;
@@ -37,7 +38,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
     }
 
     
-    
+    /*Returns the numerical month the player inputs*/
     public static int returnMonth(String bdate)
     {
     	String monthString = bdate.substring(0, 2);
@@ -47,6 +48,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
     	return month;
     }
     
+    /*Returns the day of the month that the player inputs*/
     public static int returnDay(String bdate)
     {
     	String dayString = bdate.substring(3, 5);
@@ -108,7 +110,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
 		{
 			printError("You did not enter a name!");
 		}
-		else if (Main.returnGameSave().loadGame(nameField.getText()) != -1)
+		else if (Main.returnGameSave().loadGame(nameField.getText()) != -1 || nameField.getText().equals("DEV_MODE"))
 		{
 			printError("Please enter a different name, this save file exists already, or load save");
 		}

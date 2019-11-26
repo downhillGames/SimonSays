@@ -19,21 +19,20 @@ public class StatsMenu extends Menu implements ActionListener {
 	private static JTextArea errorText;
 	private static  JButton findPlayerButton;
 	
+	/*Constructor - initializes UI*/
     public StatsMenu() {
       
         initUI();
     }
     
-    public void print(String text)
-    {
+    /*Prints out error text*/
+    public void print(String text){
     	
     	errorText.setText(text);
 	 	revalidate();
     }
 
-    
-    
-    
+    /*Sets initial needed things onto statistics screen*/
     @SuppressWarnings("unused")
 
 	private void initUI() {
@@ -72,9 +71,8 @@ public class StatsMenu extends Menu implements ActionListener {
         
         Main.returnFrame().repaint();
     }
-       
-	
-	/*looks up user for simulation game*/
+    
+	/*Looks up user for simulation game*/
     @SuppressWarnings({ "rawtypes", "static-access" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -110,7 +108,7 @@ public class StatsMenu extends Menu implements ActionListener {
     			double highlevel_double = Double.valueOf(highlevel);
     			int highlevel_int = ((int) highlevel_double);
     			print("Username: " + name + " High score: " +  highlevel_int); 
-    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
+    			JSONArray levelArr = Main.returnGameSave().decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
     			createTextArea(border2 , "Password: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("m2qkz77qp7"), key) ); 
     			createTextArea(border2 , "Birthdate: " + Main.decryptString((String ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("acfiqoa2lu"), key) );
@@ -166,11 +164,9 @@ public class StatsMenu extends Menu implements ActionListener {
 		
 	}
 
-    
+    /*Returns a JSON Array with all of the indexes of '-3' in interactions array, signifying a new game*/
     @SuppressWarnings("unchecked")
-    /*returns a JSON Array with all of the indexes of '-3' in interactions array, signifying a new game*/
-	public JSONArray getStartingIndexes(JSONArray InArray)
-    {
+	public JSONArray getStartingIndexes(JSONArray InArray) {
 		JSONArray startIndexes = new JSONArray();
     	
 		for (int i = 0; i < InArray.size() -1 ; i++)
@@ -196,7 +192,7 @@ public class StatsMenu extends Menu implements ActionListener {
     	return field;
 	}
 	
-	/*returns if T if a string is a numeric F if not by returning F if exception is thrown / caught*/
+	/*Returns if T if a string is a numeric F if not by returning F if exception is thrown / caught*/
 	@SuppressWarnings("unused")
 	public static boolean isNumeric(String strNum) {
 	    try {
@@ -208,10 +204,7 @@ public class StatsMenu extends Menu implements ActionListener {
 	}
 	
 	/*Creates JText Area with input border and text*/
-	 public JTextArea createTextArea(Border border, String text)
-	   {
-		   	//JTextArea textArea = new JTextArea(1, text.length());
-		 	
+	 public JTextArea createTextArea(Border border, String text) {
 		 	
 			JTextArea textArea = new JTextArea(1, 5);
 		   	textArea.setEditable(false);
@@ -223,17 +216,5 @@ public class StatsMenu extends Menu implements ActionListener {
 	   }
 	 
 	 
-	 /*returns a decrypted JSON array from given encrypted JSON array*/
-		@SuppressWarnings("unchecked")
-		public static JSONArray decryptArray(JSONArray inArray , String key){
-			
-			JSONArray outArray = new JSONArray();
-			for (int i = 0; i < inArray.size() ; i ++)
-			{
-				String temp =  Main.decryptString((String )inArray.get(i), key) ;
-				outArray.add(Double.valueOf(temp)); 
-			}
-			return outArray;
-		}
 	
 }

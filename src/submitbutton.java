@@ -4,9 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 public class submitbutton implements ActionListener {
         
-		/*Gets round time and adds it to the total game time*/
-       // @SuppressWarnings("unchecked")
-		public void actionPerformed(ActionEvent e) {
+	/*Gets round time and adds it to the total game time*/
+	public void actionPerformed(ActionEvent e) {
         	
         	
         	
@@ -53,8 +52,8 @@ public class submitbutton implements ActionListener {
         	
         }
         
-        /*Converts a double time in seconds to a cleaner MM:SS format*/
-        public static String convertTime(double time_in)
+    /*Converts a double time in seconds to a cleaner MM:SS format*/
+    public static String convertTime(double time_in)
         {
      	 	int minutes = 0;
          	while (time_in > 60)

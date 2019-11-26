@@ -13,9 +13,8 @@ public class levelSave {
 	
 	private static JSONArray levelSaveArr;
 	
-	/*Checks to see if saves file exists, creates one if it doesn't*/
-	public void checkForSaveFile()
-  {
+	/*Checks to see if level save file exists, creates one if it doesn't*/
+	public void checkForSaveFile(){
 	  File levelSave = new File("level.json");
 	  
 	  if ( !levelSave.exists())
@@ -46,9 +45,7 @@ public class levelSave {
 	  }
   }
 	
-	//Main.returnGlobal().setBirthdate(Main.decryptString((String ) ((HashMap) savesArray.get(i)).get("acfiqoa2lu"), key));
-	
-	/*Creates JSON Array that stores all saves from file*/
+	/*Loads default starting level from file*/
   	@SuppressWarnings("rawtypes")
 	public static int loadLevelObj() {
 	  JSONParser jsonParser = new JSONParser();
@@ -65,12 +62,10 @@ public class levelSave {
 	}
 	  return defaultLevel;
   }
-	
-  	
-  	
-  	/*Appends a new JSON Object to the JSON Array and writes to the save file (for new saves)*/
+
+  	/*Appends a new JSON Object to the JSON Array and writes to the level file*/
 	@SuppressWarnings("unchecked")
-		public static void  newLevelSave() {
+	public static void  newLevelSave() {
 		  
 		  JSONObject newDefaultLevel = new JSONObject();
 		  
@@ -94,10 +89,10 @@ public class levelSave {
 		  
 	  }
   	
-  	/*Replaces updated variables from a loaded game in JSON Array and the writes to the save file*/
-	  @SuppressWarnings({ "unchecked", "rawtypes" })
+  	/*Replaces updated default level with a new one and writes to the file*/
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	  
-	  	public static void  replaceSave(int newLevel) {
+	public static void  replaceSave(int newLevel) {
 		  String key = (String) ((HashMap) levelSaveArr.get(0)).get("khsv1c7ijy"); 
 		  String encryptedLevel = Main.encryptString(Integer.toString(newLevel) , key);
 		  ((HashMap) levelSaveArr.get(0)).replace("kuinx1ro90",  ((HashMap) levelSaveArr.get(0)).get("kuinx1ro90") , encryptedLevel);

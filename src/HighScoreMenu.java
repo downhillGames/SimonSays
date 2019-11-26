@@ -25,15 +25,15 @@ public class HighScoreMenu extends Menu implements ActionListener {
     }
     
     /*Prints High score if name is looked up*/
-    public void print(String text)
-    {
+    public void print(String text) {
     	
     	errorText.setText(text);
 	 	revalidate();
     }
 
-    @SuppressWarnings("unused")
     /*Prints top 5 (or less if less than 5 saves) high scores in the save file*/
+    @SuppressWarnings("unused")
+    
 	private void initUI() {
     	
     	//various border to use
@@ -87,8 +87,7 @@ public class HighScoreMenu extends Menu implements ActionListener {
         
         Main.returnFrame().repaint();
     }
-       
-	
+     
 	/*Prints High score if name is looked up*/
     @SuppressWarnings({ "rawtypes", "static-access" })
 	@Override
@@ -115,8 +114,8 @@ public class HighScoreMenu extends Menu implements ActionListener {
 			int highlevel_int = ((int) highlevel_double);
 			print("Username: " + name + " High score: " +  highlevel_int);
 			
-			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
-			JSONArray forwardArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("kUnu83XHme") , key);
+			JSONArray levelArr = Main.returnGameSave().decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
+			JSONArray forwardArr = Main.returnGameSave().decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("kUnu83XHme") , key);
 			 
 		
 			 
@@ -141,10 +140,8 @@ public class HighScoreMenu extends Menu implements ActionListener {
 	}
 
   
-	
 	/*Creates JText Area with input border and text*/
-	 public JTextArea createTextArea(Border border, String text)
-	   {
+	public JTextArea createTextArea(Border border, String text){
 		   	//JTextArea textArea = new JTextArea(1, text.length());
 		 	
 		 	
@@ -157,18 +154,5 @@ public class HighScoreMenu extends Menu implements ActionListener {
 		   	return textArea;
 	   }
 	 
-	 
-	 /**/
-		@SuppressWarnings("unchecked")
-		public static JSONArray decryptArray(JSONArray inArray , String key){
-			
-			JSONArray outArray = new JSONArray();
-			for (int i = 0; i < inArray.size() ; i ++)
-			{
-				String temp =  Main.decryptString((String )inArray.get(i), key) ;
-				outArray.add(Double.valueOf(temp)); 
-			}
-			return outArray;
-		}
-	
+
 }

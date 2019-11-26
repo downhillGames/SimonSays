@@ -1,6 +1,5 @@
 import java.util.concurrent.ThreadLocalRandom;
 
-
 public class Map {
 	private static int map_array[] = new int [27];
 	
@@ -55,7 +54,7 @@ public class Map {
 	System.out.println("createdMap");
 	}
 	
-	/*returns the absolute value of the two input integers*/
+	/*Returns the absolute value of the two input integers*/
 	public static int abs(int value1, int value2) {
 		int result = value1 - value2;
 		
@@ -69,12 +68,12 @@ public class Map {
 		
 	}
 	
-	/*Getters and Setters*/
+	/*Getter*/
 	public int[] getMap_array() {
 		return map_array;
-		
-		
 	}
+	
+	/*Setter*/
 	public static void setMap_array(int map_array[]) {
 		Map.map_array = map_array;
 	}

@@ -4,8 +4,8 @@ public class LostScreen extends Menu {
 
 	private static final long serialVersionUID = 9222746381719025010L;
 
+	/*Shows losing screen (no lives left)*/
 	@SuppressWarnings("unchecked")
-	 /*Shows losing screen (no lives left)*/
 	public LostScreen() {
 		createTextAreaLineBreak("You Lost");
 		createTextAreaLineBreak("Corsi score: " + (Main.returnGlobal().getLevel() - 1)) ;

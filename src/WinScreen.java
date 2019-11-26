@@ -1,10 +1,9 @@
-
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class WinScreen extends Menu {
 
-	 /*Constructor - Initializes & adds UI elements*/
+	/*Constructor - Initializes & adds UI elements*/
     @SuppressWarnings("unchecked")
 	public WinScreen() {
     	

@@ -92,6 +92,7 @@ public class MainMenu extends Menu  implements ActionListener {
 	 	revalidate();
     }
 
+    /*Performs action if mode button or reset button is pressed*/
     @SuppressWarnings("static-access")
 	@Override
     /*On button press, invoke change modes*/

@@ -131,7 +131,7 @@ public class SimGame extends JPanel
 		
 	
 	/*checks computer array (forward) versus player array (forward or reversed) , plays win or lose screen*/
-public void checkArray()
+	public void checkArray()
   {
     
     boolean flag = false;
@@ -183,17 +183,15 @@ public void checkArray()
 
 
 	/*computer clicks random block*/
-  public static void clickRandomBlock(JButton[] inArray)
+	public static void clickRandomBlock(JButton[] inArray)
   {
 	  int randomBlock = ThreadLocalRandom.current().nextInt(1, 8 + 1);
 	  inArray[randomBlock].setEnabled(true);
 	  inArray[randomBlock].doClick();
   }
   
-
-  
-  /*Simulates players button presses of that round (computer player's "turn") */
-  public void simHit(JButton[] inArray)
+  	/*Simulates players button presses of that round (computer player's "turn") */
+  	public void simHit(JButton[] inArray)
  	{
  	  		@SuppressWarnings("unused")
  			int buffer = 0;
@@ -246,8 +244,8 @@ public void checkArray()
  		  
  		  }
   
- /*Clicks the amount of blocks needed in each round (computer player's "turn")*/
-  public void hit(JButton[] inArray)
+  	/*Clicks the amount of blocks needed in each round (computer player's "turn")*/
+  	public void hit(JButton[] inArray)
 	{
 	  		@SuppressWarnings("unused")
 			int buffer = 0;
@@ -259,10 +257,10 @@ public void checkArray()
 		  	{
 		  		buffer = 0;
 		  	}
-	  		//int hits = 0;
+	  		
 	  		while ((int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) != 0 &&
  	  				(int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex())) != -1) {
-	  		//while (hits <  Main.returnGlobal().getTimes_won() + 2 ) {
+	 
 	  			
 			  if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer  >= (Main.returnGlobal().getSpeed() + buffer  ))
 			  {
@@ -270,7 +268,6 @@ public void checkArray()
 				  System.out.println(Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex()) + " WHERE WE ARE IN INTERACTIONS ARRAY - IY");
 				  int randomBlock = (int) Math.round( (double)  Main.returnGlobal().getInteractionArray().get(Main.returnGlobal().getSimIndex()));
 				  
-				  //inArray[randomBlock].setBackground(Color.WHITE);
 				  Main.returnGlobal().setSimIndex(Main.returnGlobal().getSimIndex() + 1);
 				  inArray[randomBlock].setEnabled(true);
 				  java.awt.Toolkit.getDefaultToolkit().beep();
@@ -287,7 +284,7 @@ public void checkArray()
 		  }
   
 
-  /*Activates all game buttons*/
+  	/*Activates all game buttons*/
 	public void activateAllButtons(JButton[] inArray)
 	{
 		for (int i = 1; i < inArray.length ; i++)
@@ -296,7 +293,7 @@ public void checkArray()
 		}
 	}
 
- /*Creates the "Done" button after computer player's turn*/
+	/*Creates the "Done" button after computer player's turn*/
 	public void createDoneButton() { 
 	  int hit = 0;
 		while (hit <  1) {
@@ -316,7 +313,7 @@ public void checkArray()
 		}
   }
 
-  /*Creates JButton Map from Map array and invokes the computer player's turn*/
+	/*Creates JButton Map from Map array and invokes the computer player's turn*/
     public void displayGUI()
     {
     	 JButton[] outArray = new JButton[10];
@@ -386,59 +383,63 @@ public void checkArray()
       
      
     }
-
-   
-   
-   
-   
-	
-	 
-	 /*Getters and Setters*/ 
-	 public int[] getButtns_pressd() {
+  
+	/*Getter*/ 
+	public int[] getButtns_pressd() {
 		return buttns_pressd;
 	}
 	
-
+	/*Setter*/ 
 	public void setButtns_pressd(int buttns_pressd[]) {
 		this.buttns_pressd = buttns_pressd;
 	}
 
+	/*Getter*/ 
 	public int getComputer_pressed_index() {
 		return computer_pressed_index;
 	}
 
+	/*Setter*/ 
 	public void setComputer_pressed_index(int computer_pressed_index) {
 		this.computer_pressed_index = computer_pressed_index;
 	}
 
+	/*Getter*/ 
 	public int[] getComputer_pressed() {
 		return computer_pressed;
 	}
 
+	/*Setter*/ 
 	public void setComputer_pressed(int computer_pressed[]) {
 		this.computer_pressed = computer_pressed;
 	}
 
+	/*Getter*/ 
 	public int getButton_pressed_index() {
 		return button_pressed_index;
 	}
 
+	/*Setter*/ 
 	public void setButton_pressed_index(int button_pressed_index) {
 		this.button_pressed_index = button_pressed_index;
 	}
 
+	/*Getter*/ 
 	public int[] getButtns_pressd_reversed() {
 		return buttns_pressd_reversed;
 	}
 
+	/*Setter*/ 
 	public void setButtns_pressd_reversed(int buttns_pressd_reversed[]) {
 		this.buttns_pressd_reversed = buttns_pressd_reversed;
 	}
 
+	/*Getter*/ 
 	public int getTimes_hit() {
 		return times_hit;
 	}
 
+	/*Setter*/ 
 	public void setTimes_hit(int times_hit) {
 		this.times_hit = times_hit;
 	}

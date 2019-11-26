@@ -12,7 +12,6 @@ import javax.swing.JButton;
 
 public class LoadSaveScreen extends Menu implements ActionListener {
 	
-	
 	//initialize needed variables 
 	JButton reversePlayButton = new JButton("Play Game - Reverse");
 	private static JTextField nameField;
@@ -27,14 +26,11 @@ public class LoadSaveScreen extends Menu implements ActionListener {
     
 	 /*Constructor -  invokes initUI() */
 	public LoadSaveScreen() {
-      
         initUI();
     }
     
     /*Prints error if load game is unsuccessful */
-    public void printError(String text)
-    {
-    	
+    public void printError(String text){
     	errorText.setText(text);
 	 	revalidate();
     }
@@ -88,8 +84,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
         
         Main.returnFrame().repaint();
     }
-       
-	
+       	
 	/*Upon click, starts game if load is successful - or shows error also updates any needed fields*/
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -166,8 +161,4 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 		
 	}
 
-
-	
-
-	
 }

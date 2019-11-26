@@ -7,7 +7,6 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class HelpMenu extends Menu {
 
-   
 	/*Creates all the text and buttons needed for the help menu*/
 	public HelpMenu() {
     	
@@ -26,11 +25,8 @@ public class HelpMenu extends Menu {
     }
     
 	/*Creates a JText Area with input text*/
-	 public JTextArea createTextArea(String text)
-	   {
-		   	//JTextArea textArea = new JTextArea(1, text.length());
+	public JTextArea createTextArea(String text){
 		 	Border border = BorderFactory.createMatteBorder(0, 600, 5 , 600, Main.returnFrame().getBackground());
-		 	
 			JTextArea textArea = new JTextArea(1, 5);
 		   	textArea.setEditable(false);
 		   	textArea.append(text);
@@ -40,6 +36,4 @@ public class HelpMenu extends Menu {
 		   	return textArea;
 	   }
 	 
-	
-   
 }

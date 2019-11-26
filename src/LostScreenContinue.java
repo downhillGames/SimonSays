@@ -2,9 +2,9 @@ import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class LostScreenContinue extends Menu  {
-
-	@SuppressWarnings("unchecked")
+	
 	/*Shows losing screen (1 life left)*/
+	@SuppressWarnings("unchecked")
 	public LostScreenContinue() {
 		createTextAreaLineBreak("You lost that round, but you still have one more chance!");
 		createTextAreaLineBreak("Corsi score: "+ (Main.returnGlobal().getLevel() - 1));

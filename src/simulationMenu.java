@@ -23,11 +23,13 @@ public class simulationMenu extends Menu implements ActionListener {
 	private JSONArray gameStartIndexes;
 	private Integer amountOfGames;
 	
+	/*Constructor - initializes UI*/
     public simulationMenu() {
       
         initUI();
     }
     
+    /*Prints out error text*/
     public void print(String text)
     {
     	
@@ -35,6 +37,7 @@ public class simulationMenu extends Menu implements ActionListener {
 	 	revalidate();
     }
 
+    /*Sets initial needed things onto simulation screen*/
     @SuppressWarnings("unused")
 
 	private void initUI() {
@@ -98,7 +101,7 @@ public class simulationMenu extends Menu implements ActionListener {
     			int highlevel_int = ((int) highlevel_double);
     			print("Username: " + name + " High score: " +  highlevel_int);
     			
-    			JSONArray levelArr = decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
+    			JSONArray levelArr = Main.returnGameSave().decryptArray((JSONArray ) ((HashMap) Main.returnGameSave().getSavesArray().get(i)).get("gjw2201t44") , key);
     			
     			createTextArea(border2 , name + " has attempted the game " + levelArr.size() + " time(s)");
     			
@@ -169,11 +172,9 @@ public class simulationMenu extends Menu implements ActionListener {
 		
 	}
 
-    
-    @SuppressWarnings("unchecked")
     /*returns a JSON Array with all of the indexes of '-3' in interactions array, signifying a new game*/
-	public JSONArray getStartingIndexes(JSONArray InArray)
-    {
+    @SuppressWarnings("unchecked")
+	public JSONArray getStartingIndexes(JSONArray InArray){
 		JSONArray startIndexes = new JSONArray();
     	
 		for (int i = 0; i < InArray.size() -1 ; i++)
@@ -211,8 +212,7 @@ public class simulationMenu extends Menu implements ActionListener {
 	}
 	
 	/*Creates JText Area with input border and text*/
-	 public JTextArea createTextArea(Border border, String text)
-	   {
+	 public JTextArea createTextArea(Border border, String text){
 		   	//JTextArea textArea = new JTextArea(1, text.length());
 		 	
 		 	
@@ -224,19 +224,5 @@ public class simulationMenu extends Menu implements ActionListener {
 		   	add(textArea);
 		   	return textArea;
 	   }
-	 
-	 
-	 /*returns a decrypted JSON array from given encrypted JSON array*/
-		@SuppressWarnings("unchecked")
-		public static JSONArray decryptArray(JSONArray inArray , String key){
-			
-			JSONArray outArray = new JSONArray();
-			for (int i = 0; i < inArray.size() ; i ++)
-			{
-				String temp =  Main.decryptString((String )inArray.get(i), key) ;
-				outArray.add(Double.valueOf(temp)); 
-			}
-			return outArray;
-		}
 	
 }

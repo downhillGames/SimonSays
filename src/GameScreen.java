@@ -31,7 +31,7 @@ public class GameScreen extends JFrame{
 			public void windowStateChanged(WindowEvent e) {
 				if(e.getNewState() ==1){//this means minimized
 	                System.out.println("min");
-	                if (Main.returnGame().getParent() != null)
+	                if (Main.returnGame().getParent() != null || Main.returnSim().getParent() != null)
 	                {
 	                	System.out.println(Main.returnGame().getParent());
 		                Main.PlayPause();

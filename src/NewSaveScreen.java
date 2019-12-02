@@ -70,7 +70,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
     
     /*Sets asterisks in password field*/
     void setPasswordField() {
-    	 while (password_check_times < 1000) {
+    	 while (password_check_times < 10000) {
     		 
     		 if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= 500) {
                  

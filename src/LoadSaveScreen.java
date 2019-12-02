@@ -6,6 +6,7 @@ import javax.swing.border.Border;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -23,16 +24,78 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 	private static JTextField countryField;
 	private static JTextArea errorText;
 	private static final long serialVersionUID = -7892106385327845406L;
-    
+	private String password = "";
+	int password_check_times = 0;
+	long clock_timer;
 	 /*Constructor -  invokes initUI() */
 	public LoadSaveScreen() {
         initUI();
+        
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+            	 setPasswordField();
+            }
+        });
+        t.start();
     }
     
     /*Prints error if load game is unsuccessful */
     public void printError(String text){
     	errorText.setText(text);
 	 	revalidate();
+    }
+    
+    /*Sets asterisks in password field*/
+    void setPasswordField() {
+    	 while (password_check_times < 1000) {
+    		 
+    		 if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= 500) {
+                 
+    			 String passwordAppend =  passwordField.getText();
+    			 
+    			 if (passwordAppend.length() < password.length())
+     			{
+    				 if (passwordAppend.length() == 0)
+    				 {
+    					 password = "";
+    				 }
+    				 else
+    				 {
+    					 int truncate = password.length() - passwordAppend.length(); 
+    	     			 password = password.substring(0,password.length() - (truncate));
+    				 }
+     				
+     			}
+     	    	if (passwordAppend.contains("*"))
+     	    	{
+     	    		passwordAppend = passwordAppend.substring(password.length());
+     	    	}
+     	    	System.out.println("Append" + passwordAppend);
+    			 
+    			 int asterisks = passwordField.getText().length();
+    			 
+    			 passwordField.setText(returnAsterisks(asterisks));
+    			 password_check_times ++;
+                 clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+                 passwordField.setCaretPosition(asterisks);
+                 password = password + passwordAppend;
+             }
+    		 
+         }
+    	 
+    	 
+    }
+    
+/*Returns string with amount of input asterisks*/
+	String returnAsterisks(int amount) {
+		String Astericks = "";
+		for (int i = 0; i < amount ; i++)
+		{
+			Astericks = "*" + Astericks;
+		}
+		
+    	return Astericks;
+    	
     }
 
     /*Initializes all the needed load Game fields for the UI*/
@@ -81,7 +144,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
         errorText.setText("");
         errorText.setBackground(Main.returnFrame().getBackground()); 
 	 	add(errorText);
-        
+	 	clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
         Main.returnFrame().repaint();
     }
        	
@@ -93,7 +156,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 			printError("You did not enter a name!");
 		}
 		
-		else if ( nameField.getText().equals("DEV_MODE") &&  passwordField.getText().equals("dev_mode") )
+		else if ( nameField.getText().equals("DEV_MODE") && password == "DEV_MODE" )
 		{
 			printError("You have enabled dev mode ");
 			Main.setDev_mode(true);
@@ -107,7 +170,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 		{
 			printError("You did not enter a password!");
 		} 
-		else if (!Main.isSameString(Main.returnGameSave().returnPassword( Main.returnGameSave().lookUpUser(nameField.getText())), passwordField.getText() ))
+		else if (!Main.isSameString(Main.returnGameSave().returnPassword( Main.returnGameSave().lookUpUser(nameField.getText())), password))
 		{
 			printError("Incorrect password!");
 		}

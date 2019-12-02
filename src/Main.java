@@ -181,7 +181,7 @@ public class Main {
     public static void StartSim(){
     	
     	EventQueue.invokeLater(() -> {
-    		  game_screen.setVisible(false);
+    		  //game_screen.setVisible(false);
               game_screen.remove(menu);
               game_screen.add(simGame);
               game_screen.setVisible(true);
@@ -200,7 +200,7 @@ public class Main {
     public static void StartGame(){
     	
     	EventQueue.invokeLater(() -> {
-    		  game_screen.setVisible(false);
+    		 // game_screen.setVisible(false);
               game_screen.remove(menu);
               game_screen.add(game);
               game_screen.setVisible(true);

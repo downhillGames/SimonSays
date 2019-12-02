@@ -4,6 +4,7 @@ import javax.swing.border.Border;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,12 +22,22 @@ public class NewSaveScreen extends Menu implements ActionListener {
 	private static JTextField zipField;
 	private static JTextField countryField;
 	private static JTextArea errorText;
+	private String password = "";
 	private static final long serialVersionUID = -7892106385327845406L;
-    
+	int password_check_times = 0;
+	
+	long clock_timer;
 	/*Constructor, invokes initUI*/
 	public NewSaveScreen() {
       
         initUI();
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+            	 setPasswordField();
+            }
+        });
+        t.start();
+        
     }
     
 	/*Prints error if any fields are not set when button pressed*/
@@ -55,6 +66,58 @@ public class NewSaveScreen extends Menu implements ActionListener {
     	int day = Integer.valueOf(dayString);
     	System.out.println(day + " DAY");
     	return day;
+    }
+    
+    /*Sets asterisks in password field*/
+    void setPasswordField() {
+    	 while (password_check_times < 1000) {
+    		 
+    		 if (TimeUnit.NANOSECONDS.toMillis(System.nanoTime()) - clock_timer >= 500) {
+                 
+    			String passwordAppend =  passwordField.getText();
+    			 if (passwordAppend.length() < password.length())
+      			{
+     				 if (passwordAppend.length() == 0)
+     				 {
+     					 password = "";
+     				 }
+     				 else
+     				 {
+     					 int truncate = password.length() - passwordAppend.length(); 
+     	     			 password = password.substring(0,password.length() - (truncate));
+     				 }
+      				
+      			}
+    			
+     	    	if (passwordAppend.contains("*"))
+     	    	{
+     	    		passwordAppend = passwordAppend.substring(password.length());
+     	    	}
+     	    	System.out.println("Append" + passwordAppend);
+    			 
+    			 int asterisks = passwordField.getText().length();
+    			 
+    			 passwordField.setText(returnAsterisks(asterisks));
+    			 password_check_times ++;
+                 clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+                 passwordField.setCaretPosition(asterisks);
+                 password = password + passwordAppend;
+             }
+    		 
+         }
+    	 
+    	 
+    }
+    
+	String returnAsterisks(int amount) {
+		String Astericks = "";
+		for (int i = 0; i < amount ; i++)
+		{
+			Astericks = "*" + Astericks;
+		}
+		
+    	return Astericks;
+    	
     }
     
     /*Initializes and adds UI needed for all fields that are asked in new save*/
@@ -99,6 +162,7 @@ public class NewSaveScreen extends Menu implements ActionListener {
 	 	add(errorText);
         
         Main.returnFrame().repaint();
+        clock_timer = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
     }
        
     /*Starts game if all fields are set, prints error if not*/
@@ -171,13 +235,13 @@ public class NewSaveScreen extends Menu implements ActionListener {
 			errorText.setText("");
 			Main.returnGlobal().setName(nameField.getText());
 			Main.returnGlobal().setBirthdate(birthdateField.getText());
-			Main.returnGlobal().setPassword(passwordField.getText());
+			Main.returnGlobal().setPassword(password);
 			Main.returnGlobal().setAddress(adressField.getText());
 			Main.returnGlobal().setCity(cityField.getText());
 			Main.returnGlobal().setState(stateField.getText());
 			Main.returnGlobal().setZip_code(zipField.getText());
 			Main.returnGlobal().setCountry(countryField.getText());
-			
+			System.out.println("Password" + password);
 			if ( e.getSource() == reversePlayButton)
 			{
 				Main.returnGlobal().setReverse_game(true);

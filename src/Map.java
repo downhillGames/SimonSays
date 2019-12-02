@@ -29,8 +29,8 @@ public class Map {
 		int randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
 		int i = 0;
 		while_tries = 0;
-		// 10000000 && while_tries < 100000
-		while (i < (numberOfBlocks * 3) && while_tries < 1000 )
+		
+		while (i < (numberOfBlocks * 3) && while_tries < 500 )
 		{
 			// if coordinates are too close together, attempt to coordinates that are not too close
 			if (Math.abs(map_array[i + 1]- randomX) < minDistanceAllowed || Math.abs(map_array[i + 1] - randomY) < minDistanceAllowed )

@@ -21,7 +21,8 @@ public class HelpMenu extends Menu {
     	createTextArea("Modern Mode: Pause menus between rounds to allow time for break, rounds alternate in increasing amount of blocks & speed");
     	 JButton menuButton = new JButton("Back To Main Menu");
          add(menuButton);
-         menuButton.addActionListener(new menuButton());
+         menuButton menuButtonListener = new menuButton();
+         menuButton.addActionListener(menuButtonListener);
     }
     
 	/*Creates a JText Area with input text*/

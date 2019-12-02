@@ -181,16 +181,17 @@ public class Main {
     public static void StartSim(){
     	
     	EventQueue.invokeLater(() -> {
-    		 // game_screen.setVisible(false);
+    		  game_screen.setVisible(false);
               game_screen.remove(menu);
               game_screen.add(simGame);
               game_screen.setVisible(true);
+              
     	});
     	
     	// invoke game's main loop after map is created
     	EventQueue.invokeLater(() -> {
     		simGame.displayGUI();
-  	});
+    	});
     	
     
     }
@@ -199,7 +200,7 @@ public class Main {
     public static void StartGame(){
     	
     	EventQueue.invokeLater(() -> {
-    		//  game_screen.setVisible(false);
+    		  game_screen.setVisible(false);
               game_screen.remove(menu);
               game_screen.add(game);
               game_screen.setVisible(true);
@@ -208,7 +209,7 @@ public class Main {
     	// invoke game's main loop after map is created
     	EventQueue.invokeLater(() -> {
     		 game.displayGUI();
-  	});
+    	});
     	
     
     }
@@ -258,26 +259,23 @@ public class Main {
     /*Readies the sim for a new round, but does not start it*/
     public static void readySimNoStart()
     {
-        simGame.setButton_pressed_index(0);
-        simGame.setComputer_pressed_index(0);
-        
-        game_screen.setVisible(false);
-        game_screen.remove(menu);
-        
-        Main.returnGlobal().setFirst_hit(true);
+    	EventQueue.invokeLater(() -> {
+	        simGame.setButton_pressed_index(0);
+	        simGame.setComputer_pressed_index(0);
+	        Main.returnGlobal().setFirst_hit(true);
+    	});
     }
     
     /*Readies the game for a new round, but does not start it*/
     public static void readyGameNoStart()
     {
-        map = new Map();
-        game = new Game(map);
-        game.setButton_pressed_index(0);
-        game.setComputer_pressed_index(0);
-        
-        game_screen.setVisible(false);
-        game_screen.remove(menu);
-        Main.returnGlobal().setFirst_hit(true);
+    	EventQueue.invokeLater(() -> {
+	        map = new Map();
+	        game = new Game(map);
+	        game.setButton_pressed_index(0);
+	        game.setComputer_pressed_index(0);
+	        Main.returnGlobal().setFirst_hit(true);
+    	});
     }
     
     /*Readies the game for a new round, and invokes startGame() */

@@ -1,393 +1,428 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="HelpMenu" project="FinalLanguages" file="/FinalLanguages/src/HelpMenu.java" 
+  <class id="1" language="java" name="StatsMenu" project="FinalLanguages" file="/FinalLanguages/src/StatsMenu.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="189" x="2761" y="2288"/>    
+    <position height="261" width="289" x="872" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="LostScreenContinue" project="FinalLanguages" 
+  <class id="2" language="java" name="HelpMenu" project="FinalLanguages" file="/FinalLanguages/src/HelpMenu.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="189" x="1201" y="2399"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="LostScreenContinue" project="FinalLanguages" 
     file="/FinalLanguages/src/LostScreenContinue.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="140" x="2990" y="2288"/>    
+    <position height="81" width="140" x="1430" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="SimGame" project="FinalLanguages" file="/FinalLanguages/src/SimGame.java" 
+  <class id="4" language="java" name="SimGame" project="FinalLanguages" file="/FinalLanguages/src/SimGame.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="621" width="372" x="2139" y="709"/>    
+    <position height="675" width="235" x="1818" y="766"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="SimulationButton" project="FinalLanguages" 
+  <class id="5" language="java" name="SimulationButton" project="FinalLanguages" 
     file="/FinalLanguages/src/SimulationButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="226" y="-6"/>    
+    <position height="99" width="194" x="225" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="menuButton" project="FinalLanguages" file="/FinalLanguages/src/menuButton.java" 
+  <class id="6" language="java" name="menuButton" project="FinalLanguages" file="/FinalLanguages/src/menuButton.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="460" y="-6"/>    
+    <position height="99" width="194" x="459" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="gameButton" project="FinalLanguages" file="/FinalLanguages/src/gameButton.java" 
+  <class id="7" language="java" name="gameButton" project="FinalLanguages" file="/FinalLanguages/src/gameButton.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="194" x="694" y="-6"/>    
+    <position height="117" width="194" x="693" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="Main" project="FinalLanguages" file="/FinalLanguages/src/Main.java" binary="false" 
+  <class id="8" language="java" name="Main" project="FinalLanguages" file="/FinalLanguages/src/Main.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="675" width="257" x="3268" y="-6"/>    
+    <position height="819" width="257" x="3033" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="PauseButton" project="FinalLanguages" file="/FinalLanguages/src/PauseButton.java" 
+  <class id="9" language="java" name="PauseButton" project="FinalLanguages" file="/FinalLanguages/src/PauseButton.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="928" y="-6"/>    
+    <position height="99" width="194" x="927" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="Global" project="FinalLanguages" file="/FinalLanguages/src/Global.java" 
+  <class id="10" language="java" name="Global" project="FinalLanguages" file="/FinalLanguages/src/Global.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="1539" width="244" x="2984" y="709"/>    
+    <position height="1593" width="251" x="2093" y="766"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="LostScreen" project="FinalLanguages" file="/FinalLanguages/src/LostScreen.java" 
+  <class id="11" language="java" name="LostScreen" project="FinalLanguages" file="/FinalLanguages/src/LostScreen.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="263" x="3170" y="2288"/>    
+    <position height="99" width="263" x="1610" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="loadGameBtn" project="FinalLanguages" file="/FinalLanguages/src/loadGameBtn.java" 
+  <class id="12" language="java" name="loadGameBtn" project="FinalLanguages" file="/FinalLanguages/src/loadGameBtn.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="1162" y="-6"/>    
+    <position height="99" width="194" x="1161" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="simulationMenu" project="FinalLanguages" 
+  <class id="13" language="java" name="simulationMenu" project="FinalLanguages" 
     file="/FinalLanguages/src/simulationMenu.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="351" width="289" x="3473" y="2288"/>    
+    <position height="315" width="289" x="1913" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="Map" project="FinalLanguages" file="/FinalLanguages/src/Map.java" binary="false" 
+  <class id="14" language="java" name="Map" project="FinalLanguages" file="/FinalLanguages/src/Map.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="171" width="170" x="2551" y="2288"/>    
+    <position height="171" width="170" x="3857" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="MainMenu" project="FinalLanguages" file="/FinalLanguages/src/MainMenu.java" 
+  <class id="15" language="java" name="MainMenu" project="FinalLanguages" file="/FinalLanguages/src/MainMenu.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="267" x="3802" y="2288"/>    
+    <position height="189" width="267" x="2242" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="WinButton" project="FinalLanguages" file="/FinalLanguages/src/WinButton.java" 
+  <class id="16" language="java" name="WinButton" project="FinalLanguages" file="/FinalLanguages/src/WinButton.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="1396" y="-6"/>    
+    <position height="99" width="194" x="1395" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="StartSimButton" project="FinalLanguages" 
+  <class id="17" language="java" name="StartSimButton" project="FinalLanguages" 
     file="/FinalLanguages/src/StartSimButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="1630" y="-6"/>    
+    <position height="99" width="194" x="1629" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="GameSave" project="FinalLanguages" file="/FinalLanguages/src/GameSave.java" 
+  <class id="18" language="java" name="GameSave" project="FinalLanguages" file="/FinalLanguages/src/GameSave.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="225" width="251" x="3268" y="709"/>    
+    <position height="315" width="251" x="2384" y="766"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="HighScoreBtn" project="FinalLanguages" 
+  <class id="19" language="java" name="HighScoreBtn" project="FinalLanguages" 
     file="/FinalLanguages/src/HighScoreBtn.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="1864" y="-6"/>    
+    <position height="99" width="194" x="1863" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="HighScoreMenu" project="FinalLanguages" 
+  <class id="20" language="java" name="HighScoreMenu" project="FinalLanguages" 
     file="/FinalLanguages/src/HighScoreMenu.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="242" x="4109" y="2288"/>    
+    <position height="189" width="224" x="2549" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="PauseScreen" project="FinalLanguages" file="/FinalLanguages/src/PauseScreen.java" 
+  <class id="21" language="java" name="PauseScreen" project="FinalLanguages" file="/FinalLanguages/src/PauseScreen.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="101" x="3559" y="709"/>    
+    <position height="81" width="101" x="2813" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="ContinueButton" project="FinalLanguages" 
+  <class id="22" language="java" name="ContinueButton" project="FinalLanguages" 
     file="/FinalLanguages/src/ContinueButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="2098" y="-6"/>    
+    <position height="99" width="194" x="2097" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="NewSaveScreen" project="FinalLanguages" 
+  <class id="23" language="java" name="NewSaveScreen" project="FinalLanguages" 
     file="/FinalLanguages/src/NewSaveScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="351" width="348" x="4391" y="2288"/>    
+    <position height="369" width="348" x="2954" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="QuitBtn" project="FinalLanguages" file="/FinalLanguages/src/QuitBtn.java" 
+  <class id="24" language="java" name="QuitBtn" project="FinalLanguages" file="/FinalLanguages/src/QuitBtn.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="2332" y="-6"/>    
+    <position height="99" width="194" x="2331" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="GameScreen" project="FinalLanguages" file="/FinalLanguages/src/GameScreen.java" 
+  <class id="25" language="java" name="GameScreen" project="FinalLanguages" file="/FinalLanguages/src/GameScreen.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="98" x="4029" y="709"/>    
+    <position height="99" width="98" x="2675" y="766"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="Game" project="FinalLanguages" file="/FinalLanguages/src/Game.java" 
+  <class id="26" language="java" name="Game" project="FinalLanguages" file="/FinalLanguages/src/Game.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="585" width="372" x="2551" y="709"/>    
+    <position height="603" width="210" x="3332" y="766"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="WinScreen" project="FinalLanguages" file="/FinalLanguages/src/WinScreen.java" 
+  <class id="27" language="java" name="WinScreen" project="FinalLanguages" file="/FinalLanguages/src/WinScreen.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="87" x="4779" y="2288"/>    
+    <position height="81" width="87" x="3342" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="submitbutton" project="FinalLanguages" 
+  <class id="28" language="java" name="submitbutton" project="FinalLanguages" 
     file="/FinalLanguages/src/submitbutton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="194" x="2566" y="-6"/>    
+    <position height="117" width="194" x="2565" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="LoadSaveScreen" project="FinalLanguages" 
+  <class id="29" language="java" name="LoadSaveScreen" project="FinalLanguages" 
     file="/FinalLanguages/src/LoadSaveScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="297" width="348" x="4906" y="2288"/>    
+    <position height="315" width="348" x="3469" y="2399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="Menu" project="FinalLanguages" file="/FinalLanguages/src/Menu.java" 
+  <class id="30" language="java" name="Menu" project="FinalLanguages" file="/FinalLanguages/src/Menu.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="289" x="3700" y="709"/>    
+    <position height="189" width="289" x="2813" y="766"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="NewSaveBtn" project="FinalLanguages" file="/FinalLanguages/src/NewSaveBtn.java" 
+  <class id="31" language="java" name="NewSaveBtn" project="FinalLanguages" file="/FinalLanguages/src/NewSaveBtn.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="2800" y="-6"/>    
+    <position height="99" width="194" x="2799" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="helpButton" project="FinalLanguages" file="/FinalLanguages/src/helpButton.java" 
+  <class id="32" language="java" name="helpButton" project="FinalLanguages" file="/FinalLanguages/src/helpButton.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="194" x="3034" y="-6"/>    
+    <position height="99" width="194" x="3419" y="-93"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="32">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="33" name="map"/>      
-      <multiplicity id="34" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <class id="33" language="java" name="levelSave" project="FinalLanguages" file="/FinalLanguages/src/levelSave.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="150" x="3142" y="766"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="StatsButton" project="FinalLanguages" file="/FinalLanguages/src/StatsButton.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="194" x="3743" y="-93"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <generalization id="35">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="29"/>  
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="30"/>  
   </generalization>  
-  <generalization id="36">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <association id="37">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="38" name="menu"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
+  <association id="36">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="37" name="gameSave"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="39">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
   <association id="40">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="41" name="game_screen"/>      
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="41" name="menu"/>      
       <multiplicity id="42" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="43">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="44" name="global"/>      
+    <bendpoint x="3572" y="766"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="44" name="map"/>      
       <multiplicity id="45" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="46">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="47" name="game"/>      
-      <multiplicity id="48" minimum="0" maximum="1"/>    
+  <generalization id="46">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <association id="47">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="48" name="game_screen"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="25" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="49">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
   <generalization id="50">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="29"/>  
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="30"/>  
   </generalization>  
   <association id="51">    
-    <bendpoint x="2953" y="709"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="52" name="map"/>      
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="52" name="simGame"/>      
       <multiplicity id="53" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="54">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <association id="55">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="56" name="gameSave"/>      
-      <multiplicity id="57" minimum="0" maximum="1"/>    
+  <association id="54">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="55" name="game"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
+    <end type="TARGET" refId="26" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="58">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <generalization id="59">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <association id="60">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="61" name="pause"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
+  <association id="57">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="58" name="map"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="29"/>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="30"/>  
   </generalization>  
-  <association id="64">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="65" name="simGame"/>      
-      <multiplicity id="66" minimum="0" maximum="1"/>    
+  <generalization id="61">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <association id="62">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="63" name="levelSave"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="33" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="65">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <generalization id="66">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
   <generalization id="67">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="29"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <generalization id="68">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <association id="69">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="70" name="global"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="30"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

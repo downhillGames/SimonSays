@@ -80,7 +80,7 @@ public class GameSave {
         }
     }
 
-    /*Returns the top 5 (if 5 exist or else just top scores in order) scores and their user names in two separate arrays (double array scores, string array user names)*/
+    /*Returns the top 10 (if 10 exist or else just top scores in order) scores and their user names in two separate arrays (double array scores, string array user names)*/
     @SuppressWarnings({
         "rawtypes",
         "unchecked"
@@ -90,11 +90,11 @@ public class GameSave {
         double[] top_player_forward;
         double[] top_player_scores;
         int[] top_player_index;
-        if (getSavesArray().size() >= 5) {
-            top_player_names = new String[5];
-            top_player_scores = new double[5];
-            top_player_index = new int[5];
-            top_player_forward = new double[5];
+        if (getSavesArray().size() >= 15) {
+            top_player_names = new String[15];
+            top_player_scores = new double[15];
+            top_player_index = new int[15];
+            top_player_forward = new double[15];
         } else {
             top_player_names = new String[getSavesArray().size()];
             top_player_scores = new double[getSavesArray().size()];

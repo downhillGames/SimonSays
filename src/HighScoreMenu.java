@@ -63,7 +63,7 @@ public class HighScoreMenu extends Menu implements ActionListener {
     			   forwardString = "Reversed";
     			}
     				
-        		createTextArea(border4 , "Username: " + highScoreNames[i] + "..................Score: " + ((int) highScores[i]) + "   ---   "+ forwardString );
+        		createTextArea(border4 ,  " #" + (i+1) +" Username: " + highScoreNames[i] + "..................Score: " + ((int) highScores[i]) + "   ---   "+ forwardString );
         	}
     		nameField = createInputArea("Look up high score, enter name: ", 90, border, nameField);
     	}

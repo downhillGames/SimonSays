@@ -19,7 +19,7 @@ public class Main {
 	
 	//initialize variables
 	private static int startingLevel = 2;
-  	private static boolean dev_mode = true;
+  	private static boolean dev_mode = false;
   	static levelSave levelSave = new levelSave();
   	static GameScreen game_screen = new GameScreen();
   	static GameSave gameSave = new GameSave();
@@ -161,7 +161,7 @@ public class Main {
 			String temp =  decryptString((String )inArray.get(i), key) ;
 			returnGlobal().getInteractionArray().add(Double.valueOf(temp)); 
 		}
-	 System.out.println(returnGlobal().getInteractionArray());
+	 //System.out.println(returnGlobal().getInteractionArray());
 	}
 	
 	/*Stores a decrypted version of input array in scores array*/
@@ -174,7 +174,7 @@ public class Main {
 			String temp =  decryptString((String )inArray.get(i), key) ;
 			returnGlobal().getScoresArray().add(Integer.valueOf(temp)); 
 		}
-	 System.out.println(returnGlobal().getScoresArray());
+	// System.out.println(returnGlobal().getScoresArray());
 	}
 
 	/*Starts the simulation game from sim menu*/
@@ -222,7 +222,9 @@ public class Main {
     	int age = 0;
     	
     	String yearString = bdate.substring(6);
+    	
     	int yearInt = Integer.valueOf(yearString);
+    	System.out.println(yearInt);
     	age = 2019 - yearInt; 
     	
     	return age;

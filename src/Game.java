@@ -43,7 +43,7 @@ public class Game extends JPanel {
         }
 
         for (int i = 0; i < 10; i++) {
-            System.out.println(getButtns_pressd_reversed()[i]);
+            //System.out.println(getButtns_pressd_reversed()[i]);
         }
 
     }
@@ -218,7 +218,7 @@ public class Game extends JPanel {
                     hit(outArray);
 
                 } finally {
-                    System.out.println("hit");
+                    //System.out.println("hit");
                     createDoneButton();
 
                     activateAllButtons(outArray);

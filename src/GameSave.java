@@ -32,7 +32,7 @@ public class GameSave {
         File saves = new File("saves.json");
 
         if (!saves.exists()) {
-            System.out.println("save doesnt exist");
+           //System.out.println("save doesnt exist");
             try {
                 saves.createNewFile();
                 setSavesArray(new JSONArray());
@@ -41,7 +41,7 @@ public class GameSave {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("save exists!!");
+           // System.out.println("save exists!!");
             if (saves.length() != 0) {
                 createSavesObj();
             } else {
@@ -73,7 +73,7 @@ public class GameSave {
         try {
             Object saves_obj = jsonParser.parse(new FileReader("saves.json"));
             setSavesArray((JSONArray) saves_obj);
-            System.out.println(getSavesArray());
+            //System.out.println(getSavesArray());
         } catch (IOException | ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -161,14 +161,14 @@ public class GameSave {
         for (int i = 0; i < getSavesArray().size(); i++) {
             String key = (String)((HashMap) getSavesArray().get(i)).get("zxbvwoved7");
 
-            System.out.println(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key));
-            System.out.println((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"));
-            System.out.println(Main.encryptString(name, key));
+            //System.out.println(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key));
+            //System.out.println((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"));
+            //System.out.println(Main.encryptString(name, key));
             //if (((HashMap) savesArray.get(i)).containsValue(encryptString(name , key)))
 
             if (Main.isSameString(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key), name)) {
-                System.out.println(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key) + " NAME");
-                System.out.println(name + " NAME2");
+                //System.out.println(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key) + " NAME");
+                //System.out.println(name + " NAME2");
                 foundUser = i;
             }
         }
@@ -194,7 +194,7 @@ public class GameSave {
                 Main.returnGlobal().setLoadGamePosition(i);
                 Main.returnGlobal().setNewGame(false);
                 Main.returnGlobal().setName(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key));
-                System.out.println(Main.returnGlobal().getName());
+                //System.out.println(Main.returnGlobal().getName());
                 Main.returnGlobal().setBirthdate(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("acfiqoa2lu"), key));
                 Main.returnGlobal().setPassword(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("m2qkz77qp7"), key));
                 Main.returnGlobal().setAddress(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rq91hbhzaj"), key));

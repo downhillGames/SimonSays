@@ -23,7 +23,7 @@ public class levelSave {
 			 levelSave.createNewFile();
 			 levelSaveArr = new JSONArray();
 			 newLevelSave();
-			 System.out.println( "Default level: " + Main.getStartingLevel());
+			 //System.out.println( "Default level: " + Main.getStartingLevel());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,13 +34,13 @@ public class levelSave {
 		  if (levelSave.length() != 0)
 		  {
 			 Main.setStartingLevel(loadLevelObj() );
-			 System.out.println( "Default level: " + Main.getStartingLevel());
+			 //System.out.println( "Default level: " + Main.getStartingLevel());
 		  }
 		  else
 		  {
 			  levelSaveArr = new JSONArray();
 			  newLevelSave();
-			  System.out.println( "Default level: " + Main.getStartingLevel());
+			  //System.out.println( "Default level: " + Main.getStartingLevel());
 		  }
 	  }
   }

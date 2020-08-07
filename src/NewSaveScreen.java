@@ -125,14 +125,14 @@ public class NewSaveScreen extends Menu implements ActionListener {
     	Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Main.returnFrame().getBackground());
     	//Border border = BorderFactory.createMatteBorder(0, 0, 10, 0, Main.returnFrame().getBackground());
     	
-    	nameField = createInputArea("Name: ", 110, border, nameField);
-    	passwordField = createInputArea("Password: ", 110, border, passwordField);
-    	birthdateField = createInputArea("Birth Date: ", 110, border, birthdateField);
+    	nameField = createInputArea("Name: ", 105, border, nameField);
+    	passwordField = createInputArea("Password: ", 105, border, passwordField);
+    	birthdateField = createInputArea("Birth Date: ", 105, border, birthdateField);
     	adressField = createInputArea("Street Address: ", 105, border, adressField);
-    	cityField =createInputArea("City: ", 110, border, cityField);
-    	stateField = createInputArea("State: ", 110, border, stateField);
-    	zipField = createInputArea("Zip Code: ", 110 , border, zipField);
-    	countryField = createInputArea("Country: ", 110 , border, countryField);
+    	cityField =createInputArea("City: ", 105, border, cityField);
+    	stateField = createInputArea("State: ", 105, border, stateField);
+    	zipField = createInputArea("Zip Code: ", 105 , border, zipField);
+    	countryField = createInputArea("Country: ", 105 , border, countryField);
         
     	
 

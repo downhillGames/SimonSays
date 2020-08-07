@@ -70,7 +70,7 @@ public class LoadSaveScreen extends Menu implements ActionListener {
      	    	{
      	    		passwordAppend = passwordAppend.substring(password.length());
      	    	}
-     	    	System.out.println("Append" + passwordAppend);
+     	    	//System.out.println("Append" + passwordAppend);
     			 
     			 int asterisks = passwordField.getText().length();
     			 
@@ -105,15 +105,15 @@ public class LoadSaveScreen extends Menu implements ActionListener {
     	Border border2 = BorderFactory.createMatteBorder(0, 100, 0, 0, Main.returnFrame().getBackground());
     	Border border3 = BorderFactory.createMatteBorder(0, 0, 0, 900, Main.returnFrame().getBackground());
     	
-    	nameField = createInputArea("Name: ", 110, border, nameField);
-    	passwordField = createInputArea("Password: ", 110, border, passwordField);
+    	nameField = createInputArea("Name: ", 105, border, nameField);
+    	passwordField = createInputArea("Password: ", 105, border, passwordField);
     	JTextArea text = createTextArea("Need to update anything? Leave field blank if not");
     	text.setBorder(border3);
     	adressField = createInputArea("Street Address: ", 105, border, adressField);
-    	cityField =createInputArea("City: ", 110, border, cityField);
-    	stateField = createInputArea("State: ", 110, border, stateField);
-    	zipField = createInputArea("Zip Code: ", 110 , border, zipField);
-    	countryField = createInputArea("Country: ", 110 , border, countryField);
+    	cityField =createInputArea("City: ", 105, border, cityField);
+    	stateField = createInputArea("State: ", 105, border, stateField);
+    	zipField = createInputArea("Zip Code: ", 105 , border, zipField);
+    	countryField = createInputArea("Country: ", 105 , border, countryField);
         
     	
     	
@@ -155,15 +155,14 @@ public class LoadSaveScreen extends Menu implements ActionListener {
 		{
 			printError("You did not enter a name!");
 		}
-		
-		else if ( nameField.getText().equals("DEV_MODE") && password == "DEV_MODE" )
-		{
+		else if ( nameField.getText().equals("DEVMODE") && password.equals("DEVMODE" )) {
 			printError("You have enabled dev mode ");
 			Main.setDev_mode(true);
-		} 
+		}
 		else if ( Main.returnGameSave().loadGame(nameField.getText()) == -1)
 		{
-			printError("That save file does not exist!");
+			printError( nameField.getText());
+			
 		}
 		
 		else if ( nameField.getText().equals("") )

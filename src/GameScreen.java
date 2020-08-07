@@ -30,14 +30,14 @@ public class GameScreen extends JFrame{
 			 /*Adds a listener for if the game is minimized*/
 			public void windowStateChanged(WindowEvent e) {
 				if(e.getNewState() ==1){//this means minimized
-	                System.out.println("min");
+	                //System.out.println("min");
 	                if (Main.returnGame().getParent() != null || Main.returnSim().getParent() != null)
 	                {
 	                	System.out.println(Main.returnGame().getParent());
 		                Main.PlayPause();
 	                }
 	             }else if(e.getNewState()==0){//this means maximized/normal state
-	            	 System.out.println("norm");
+	            	// System.out.println("norm");
 	            	
 	             }
 			} });

@@ -7,11 +7,14 @@ public class Global {
 	private int simIndex;
 	private boolean firstSim = true;
  
+	private String encryptionKey;
 	//obfuscated - password
 	private String m2qkz77qp7;
 	
 	//obfuscated - Total_gametime
 	private double tzsmrnsoy7 = 0;
+	
+	private int id = 1;
 	
 	//obfuscated -  birthdate
 	private String acfiqoa2lu;
@@ -344,8 +347,28 @@ public class Global {
 	}
 
 	/*Setter*/
-	public void setForwardArray(JSONArray kUnu83XHme) {
+	protected void setForwardArray(JSONArray kUnu83XHme) {
 		this.kUnu83XHme = kUnu83XHme;
+	}
+
+	/*Getter*/
+	public String getEncryptionKey() {
+		return encryptionKey;
+	}
+
+	/*Setter*/
+	public void setEncryptionKey(String encryptionKey) {
+		this.encryptionKey = encryptionKey;
+	}
+
+	/*Getter*/
+	public int getId() {
+		return id;
+	}
+	
+	/*Setter*/
+	public void setId(int id) {
+		this.id = id;
 	}
 
 

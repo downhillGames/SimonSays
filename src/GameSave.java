@@ -73,7 +73,8 @@ public class GameSave {
         try {
             Object saves_obj = jsonParser.parse(new FileReader("saves.json"));
             setSavesArray((JSONArray) saves_obj);
-            //System.out.println(getSavesArray());
+            Main.returnGlobal().setId(getSavesArray().size() + 1);
+            System.out.println(Main.returnGlobal().getId());
         } catch (IOException | ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -161,7 +162,7 @@ public class GameSave {
         for (int i = 0; i < getSavesArray().size(); i++) {
             String key = (String)((HashMap) getSavesArray().get(i)).get("zxbvwoved7");
 
-            //System.out.println(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key));
+            //(Main.decryptString((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"), key));
             //System.out.println((String)((HashMap) getSavesArray().get(i)).get("rjc8qhtv1w"));
             //System.out.println(Main.encryptString(name, key));
             //if (((HashMap) savesArray.get(i)).containsValue(encryptString(name , key)))
@@ -209,7 +210,7 @@ public class GameSave {
                 Main.decryptScoresArray((JSONArray)((HashMap) getSavesArray().get(i)).get("gjw2201t44"), key);
                 Main.returnGlobal().setForwardArray(decryptArray((JSONArray)((HashMap) getSavesArray().get(i)).get("kUnu83XHme"), key));
                 Main.returnGlobal().setTotal_gametime(Double.valueOf(gametime_string));
-
+                Main.returnGlobal().setEncryptionKey(key);
                 Main.returnGlobal().setHigh_level(Double.valueOf(high_level_string));
             }
         }
@@ -268,6 +269,7 @@ public class GameSave {
         JSONObject newplayer = new JSONObject();
 
         String zxbvwoved7 = Main.getEncodedKey(); //obfuscated -  key 
+        Main.returnGlobal().setEncryptionKey(zxbvwoved7);
         String high_score_string = String.valueOf(Main.returnGlobal().getHigh_level());
         String gametime_string = String.valueOf(Main.returnGlobal().getTotal_gametime());
 

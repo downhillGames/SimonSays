@@ -1,3 +1,5 @@
+
+
 import java.awt.EventQueue;
 import javax.xml.bind.DatatypeConverter;
 import org.json.simple.*;
@@ -19,11 +21,12 @@ public class Main {
 	
 	//initialize variables
 	private static int startingLevel = 2;
-  	private static boolean dev_mode = false;
+  	private static boolean dev_mode = true;
   	static levelSave levelSave = new levelSave();
   	static GameScreen game_screen = new GameScreen();
   	static GameSave gameSave = new GameSave();
   	static Global global;
+  	static SQLFunctions sqlFunctions;
   	static Menu menu = new MainMenu();
   	static Map map = new Map(); 
   	static Game game = new Game(map);
@@ -234,28 +237,31 @@ public class Main {
     public static void returnToMenu()
     {
     	 
-    	 returnGlobal().setNewGame(true);
-    	 returnGlobal().setHealth(1);
-    	 returnGlobal().setFirstSim(true);
-    	 returnGlobal().setLevel(getStartingLevel());
-    	 returnGlobal().setTimes_won(0);
-    	 returnGlobal().setSpeed(1000);
-    	 returnGlobal().setTotal_gametime(0);
-    	 returnGlobal().setGametime(0);
-    	 returnGlobal().setRoundtime(0);
-    	 returnGlobal().getScoresArray().clear();
-    	 returnGlobal().getInteractionArray().clear();
-    	 returnGlobal().getForwardArray().clear();
-    	 
-        Main.returnGlobal().setMode(1);
-        readyGameNoStart();
-         game_screen.remove(game);
-         game_screen.remove(menu);
+    	global.setNewGame(true);
+    	global.setHealth(1);
+    	global.setFirstSim(true);
+    	global.setLevel(getStartingLevel());
+    	global.setTimes_won(0);
+    	global.setSpeed(1000);
+    	global.setTotal_gametime(0);
+    	global.setGametime(0);
+    	global.setRoundtime(0);
+    	global.getScoresArray().clear();
+    	global.setEncryptionKey(null);
+    	global.getInteractionArray().clear();
+    	global.getForwardArray().clear();
+    	
+    	global.setId(global.getId() + 1);
+    	global.setMode(1);
         
-         menu = new MainMenu();
-         game_screen.add(menu);
-         game_screen.setVisible(true);
-         nullSim();
+    	readyGameNoStart();
+        game_screen.remove(game);
+        game_screen.remove(menu);
+        
+        menu = new MainMenu();
+        game_screen.add(menu);
+        game_screen.setVisible(true);
+        nullSim();
     }
     
     /*Readies the sim for a new round, but does not start it*/
@@ -459,6 +465,9 @@ public class Main {
         		  returnGlobal().setDiagnosis("Too young to diagnose"); 
         	  }
         	  GameSave.appendToSaves();
+        	  String high_score_string = String.valueOf(global.getHigh_level());
+        	  String encrypted_score = encryptString(high_score_string, global.getEncryptionKey());
+        	  sqlFunctions.insertIntoDatabase(global.getId(), global.getName(), encrypted_score , (int) global.getHigh_level(), global.getEncryptionKey());
         	  
           }
           else
@@ -488,6 +497,10 @@ public class Main {
       	  		returnGlobal().setDiagnosis("Too young to diagnose"); 
       	  	}
         	 GameSave.replaceSave(returnGlobal().getLoadGamePosition());
+       	  	String high_score_string = String.valueOf(global.getHigh_level());
+       	  	String encrypted_score = encryptString(high_score_string, global.getEncryptionKey());
+        	 //sqlFunctions.insertIntoDatabase(1, global.getName(), encrypted_score , (int) global.getHigh_level(), global.getEncryptionKey());
+        	 sqlFunctions.updateHighScoreint(global.getId(), global.getName(), encrypted_score , (int) global.getHigh_level(), global.getEncryptionKey());
           }
       }
      
@@ -547,6 +560,8 @@ public class Main {
 	       EventQueue.invokeLater(() -> {
 	    	    levelSave.checkForSaveFile();
 	    	   	global = new Global();
+	    	   	sqlFunctions = new SQLFunctions();
+	    	   	sqlFunctions.connectToDatabase();
 	            game_screen.add(menu);
 	            gameSave.checkForSaveFile();
 	            game_screen.setVisible(true);

@@ -5,53 +5,54 @@ public class Map {
 	
 	/*Creates map for main game - Array goes: index, X-coordinate, Y-coordinate - attempts 100,000 times for coordinates to not be too close*/
 	void createMap() {
-	int min_x = 75;
-	int max_x = 1125;
-	int min_y = 75;
-	int max_y = 525;
-	int while_tries = 0;
-	int minDistanceAllowed = 50;
-	
-	int numberOfBlocks = 0;
-	
-	
-	map_array[1] = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
-	map_array[2] = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
-	map_array[0] = numberOfBlocks;
-	numberOfBlocks += 1;
-	
-	//we need 9 block =]
-	while (numberOfBlocks < 10) {
 		
+		int min_x = 75;
+		int max_x = 1125;
+		int min_y = 75;
+		int max_y = 525;
+		int while_tries = 0;
+		int minDistanceAllowed = 50;
 		
+		int numberOfBlocks = 0;
 		
-		int randomX = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
-		int randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
-		int i = 0;
-		while_tries = 0;
-		
-		while (i < (numberOfBlocks * 3) && while_tries < 500 )
-		{
-			// if coordinates are too close together, attempt to coordinates that are not too close
-			if (Math.abs(map_array[i + 1]- randomX) < minDistanceAllowed || Math.abs(map_array[i + 1] - randomY) < minDistanceAllowed )
-			{
-				randomX = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
-				randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
-				i = 0;
-				while_tries += 1;
-			}
-			// if coordinates are good, move on
-			else{
-			i += 3;
-			while_tries = 0;
-			}
-		}
-		map_array [(numberOfBlocks * 3) - 1] = randomY;
-		map_array [(numberOfBlocks * 3) - 2] = randomX;
-		map_array[(numberOfBlocks * 3) - 3] = numberOfBlocks;
+		//index, x-coordinate, y-coordinate 
+		map_array[1] = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
+		map_array[2] = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
+		map_array[0] = numberOfBlocks;
 		numberOfBlocks += 1;
-		}
-	System.out.println("createdMap");
+		
+		//we need 9 block =]
+		while (numberOfBlocks < 10) {
+			
+			
+			
+			int randomX = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
+			int randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
+			int i = 0;
+			while_tries = 0;
+			
+			while (i < (numberOfBlocks * 3) && while_tries < 500 )
+			{
+				// if coordinates are too close together, attempt to coordinates that are not too close
+				if (Math.abs(map_array[i + 1]- randomX) < minDistanceAllowed || Math.abs(map_array[i + 1] - randomY) < minDistanceAllowed )
+				{
+					randomX = (int) ThreadLocalRandom.current().nextDouble(min_x, max_x + 1);
+					randomY = (int) ThreadLocalRandom.current().nextDouble(min_y, max_y + 1);
+					i = 0;
+					while_tries += 1;
+				}
+				// if coordinates are good, move on
+				else{
+				i += 3;
+				while_tries = 0;
+				}
+			}
+			map_array [(numberOfBlocks * 3) - 1] = randomY;
+			map_array [(numberOfBlocks * 3) - 2] = randomX;
+			map_array[(numberOfBlocks * 3) - 3] = numberOfBlocks;
+			numberOfBlocks += 1;
+			}
+		System.out.println("createdMap");
 	}
 	
 	/*Returns the absolute value of the two input integers*/
